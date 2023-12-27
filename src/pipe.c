@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:49:18 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/26 21:05:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:49:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@
 // 		ft_pipe(av[i++], env);
 // 	dup2(output_fd, STDOUT_FILENO);
 // 	close(output_fd);
-// 	ft_exec(av[ac - 2], env);
+// 	if (!ft_exec(av[ac - 2], env))
+//		exit(EXIT_FAILURE);
+//	exit(EXIT_SUCCESS);
 // }
 
 /****************************** Main function *******************************/

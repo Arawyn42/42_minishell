@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex.c                                         :+:      :+:    :+:   */
+/*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/26 20:56:41 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:35:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ char	*ft_get_path(char *cmd, char **env)
 		i++;
 	}
 	ft_free(path_array);
-	return (cmd);
+	cmd_path = ft_strdup(cmd);
+	return (cmd_path);
 }
 
 /********** Executes the command cmds in the environnement env **********/
@@ -106,21 +107,25 @@ void	ft_exec(char *cmds, char **env)
 {
 	char	**cmd;
 	char	*cmd_path;
+	pid_t	pid;
 
-	cmd = ft_split(cmds, ' ');
-	cmd_path = ft_get_path(cmd[0], env);
-	if (execve(cmd_path, cmd, env) == -1)
+	pid = fork();
+	if (pid == -1)
+			exit_error("fork");
+	if (pid == 0)
 	{
-		ft_putstr("pipex: command not found: ", STDERR_FILENO);
-		ft_putstr(cmd[0], STDERR_FILENO);
-		ft_putstr("\n", STDERR_FILENO);
-		ft_free(cmd);
-		if (cmd_path)
-			free(cmd_path);
-		exit(EXIT_FAILURE);
+		cmd = ft_split(cmds, ' ');
+		cmd_path = ft_get_path(cmd[0], env);
+		if (execve(cmd_path, cmd, env) == -1)
+		{
+			ft_putstr(cmd[0], STDERR_FILENO);
+			ft_putstr(": command not found\n", STDERR_FILENO);
+			ft_free(cmd);
+			if (cmd_path)
+				free(cmd_path);
+			exit(EXIT_FAILURE);
+		}
 	}
-	ft_free(cmd);
-	if (cmd_path)
-		free(cmd_path);
-	exit(EXIT_SUCCESS);
+	else
+		waitpid(pid, NULL, 0);
 }

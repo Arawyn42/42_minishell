@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2023/12/26 21:11:10 by drenassi         ###   ########.fr        #
+#    Updated: 2023/12/27 23:30:23 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,9 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./includes
 
-SRCS			= ft_pipex.c ft_split.c get_next_line.c pipe_here_doc.c \
-				  pipe_utils.c pipe.c utils_strings.c utils_strings2.c
+SRCS			= utils_strings.c utils_strings2.c mem_utils.c errors.c\
+				  exec_path.c ft_split.c get_next_line.c pipe_here_doc.c \
+				  pipe_utils.c pipe.c
 
 MAIN			= main.c
 
