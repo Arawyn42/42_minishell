@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:48:40 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/26 20:56:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:21:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@ void	ft_error_exit(int *pipe_fd, const char *msg)
 	ft_close(pipe_fd);
 	perror(msg);
 	exit(EXIT_FAILURE);
-}
-
-/* Frees a double array of characters */
-void	ft_free(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
 }
 
 void	ft_close(int *pipe_fd)

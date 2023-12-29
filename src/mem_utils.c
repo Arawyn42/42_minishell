@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/27 22:40:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:21:28 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ void	*ft_calloc(size_t n, size_t size)
 		return (NULL);
 	ft_bzero(pointer, n * size);
 	return (pointer);
+}
+
+/* Frees a double array of characters */
+void	free_double_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

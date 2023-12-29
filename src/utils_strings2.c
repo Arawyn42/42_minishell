@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/26 20:17:47 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:14:12 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,16 @@ char	*ft_strdup(char const *src)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i] && i < n)
+		i++;
+	if (i == n)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

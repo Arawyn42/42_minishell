@@ -6,24 +6,21 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/27 23:18:09 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:22:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	input_handler(char **env, char *line)
+void	input_handler(t_data *data)
 {
-	(void) env;
-	if (ft_strcmp(line, "exit") == 0)
-	{
-		ft_putstr("exit\n", 1);
-		clear_history();
-		free(line);
-		exit(EXIT_SUCCESS);
-	}
+	if (!ft_strncmp(data->line, "echo ", 5))
+		echo(data->line);
+	else if (!ft_strcmp(data->line, "exit")
+		|| !ft_strncmp(data->line, "exit ", 5))
+		ft_exit(data);
 	else
-		ft_exec(line, env);
+		ft_exec(data->line, data->env);
 }
 
 char	**cpy_env(char **base_env)
@@ -44,34 +41,34 @@ char	**cpy_env(char **base_env)
 	return (env_cpy);
 }
 
-int	minishell(char **base_env)
+void	minishell(t_data *data, char **base_env)
 {
-	char	*line;
-	char	**env;
-
-	env = cpy_env(base_env);
+	data->env = cpy_env(base_env);
 	while (1)
 	{
-		line = readline("minishell>");
-		if (!line)
-			return (clear_history(), 0);
-		add_history(line);
-		input_handler(env, line);
-		free(line);
+		data->line = readline("minishell>");
+		if (!data->line)
+		{
+			free_double_array(data->env);
+			clear_history();
+			break ;
+		}
+		add_history(data->line);
+		input_handler(data);
+		free(data->line);
 	}
-	return (1);
 }
 
 int	main(int ac, char **av, char **base_env)
 {
+	t_data data;
+
 	(void) av;
 	if (ac != 1)
 	{
 		ft_putstr("Error: Too much arguments. No argument needed.\n", 2);
 		return (1);
 	}
-	if (!minishell(base_env))
-		return (clear_history(), 1);
-	clear_history();
+	minishell(&data, base_env);
 	return (0);
 }

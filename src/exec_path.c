@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/27 23:35:19 by drenassi         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:34:12 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*ft_get_path(char *cmd, char **env)
 		free(cmd_path);
 		i++;
 	}
-	ft_free(path_array);
+	free_double_array(path_array);
 	cmd_path = ft_strdup(cmd);
 	return (cmd_path);
 }
@@ -120,9 +120,10 @@ void	ft_exec(char *cmds, char **env)
 		{
 			ft_putstr(cmd[0], STDERR_FILENO);
 			ft_putstr(": command not found\n", STDERR_FILENO);
-			ft_free(cmd);
+			free_double_array(cmd);
 			if (cmd_path)
 				free(cmd_path);
+			clear_history();
 			exit(EXIT_FAILURE);
 		}
 	}
