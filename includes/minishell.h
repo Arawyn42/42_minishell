@@ -6,7 +6,7 @@
 /*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 17:16:14 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:41:52 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*ft_strdup(char const *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(const char *s, char c);
+int		count_double_quotes(char *str);
+int		count_single_quotes(char *str);
 int		ft_is_operator(char c);
 void	input_handler(t_data *data);
 /* MEMORY UTILS */
@@ -56,7 +58,7 @@ char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
 /* ECHO */
-void	echo(char *line);
+void	echo(t_data *data);
 /* EXIT */
 void	ft_exit(t_data *data);
 
