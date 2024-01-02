@@ -6,7 +6,7 @@
 /*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 15:17:49 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/02 17:16:14 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	free_double_array(char **array);
 void	exit_error(const char *msg);
 
 /****************************** EXECUTE COMMANDS ******************************/
+void	command_launcher(t_data *data);
 char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);

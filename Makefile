@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2023/12/29 16:36:40 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/02 14:52:54 by nikotine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ INCLUDE_PATH	= ./includes
 
 SRCS			= utils_strings.c utils_strings2.c mem_utils.c errors.c\
 				  exec_path.c ft_split.c get_next_line.c pipe_here_doc.c \
-				  pipe_utils.c pipe.c \
+				  pipe_utils.c pipe.c parsing.c \
 				  echo.c exit.c
 
 MAIN			= main.c
