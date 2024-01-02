@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/29 23:21:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:17:49 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*ft_strdup(char const *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(const char *s, char c);
+int		ft_is_operator(char c);
+void	input_handler(t_data *data);
 /* MEMORY UTILS */
 void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
@@ -60,7 +62,6 @@ void	ft_exit(t_data *data);
 /*********************************** PIPES ************************************/
 int		ft_open(char *file, int in_out);
 void	ft_close(int *pipe_fd);
-int		ft_quotes(const char c, int *quotes);
 void	ft_error_exit(int *pipe_fd, const char *msg);
 void	ft_here_doc(int ac, char **av);
 void	ft_pipe(char *cmd, char **env);
