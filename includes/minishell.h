@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 20:39:43 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/03 00:36:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
 /* ECHO */
 void	echo(t_data *data);
+/* CD */
+void	cd(t_data *data);
 /* EXIT */
 void	ft_exit(t_data *data);
 

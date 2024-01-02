@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 20:42:32 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/03 00:12:31 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	input_handler(t_data *data)
 {
 	if (!ft_strncmp(data->line, "echo ", 5))
 		echo(data);
+	else if (!ft_strncmp(data->line, "cd ", 3))
+		cd(data);
 	else if (!ft_strcmp(data->line, "exit")
 		|| !ft_strncmp(data->line, "exit ", 5))
 		ft_exit(data);

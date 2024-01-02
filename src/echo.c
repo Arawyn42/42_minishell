@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 22:22:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/03 00:38:03 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	echo(t_data *data)
 	if (count_double_quotes(data->line) % 2
 		|| count_single_quotes(data->line) % 2)
 	{
-		ft_putstr("echo: quotes error\n", 2);
+		ft_putstr("minishell: echo: quotes error\n", 2);
 		return ;
 	}
 	if (data->line[5] == '-' && data->line[6] == 'n' && data->line[7] == ' ')
