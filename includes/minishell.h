@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/03 00:36:00 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:41:35 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(const char *s, char c);
 int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
+int		ft_is_operator(char c);
+void	input_handler(t_data *data);
 /* MEMORY UTILS */
 void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
@@ -51,6 +53,7 @@ void	free_double_array(char **array);
 void	exit_error(const char *msg);
 
 /****************************** EXECUTE COMMANDS ******************************/
+void	command_launcher(t_data *data);
 char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
@@ -64,7 +67,6 @@ void	ft_exit(t_data *data);
 /*********************************** PIPES ************************************/
 int		ft_open(char *file, int in_out);
 void	ft_close(int *pipe_fd);
-int		ft_quotes(const char c, int *quotes);
 void	ft_error_exit(int *pipe_fd, const char *msg);
 void	ft_here_doc(int ac, char **av);
 void	ft_pipe(char *cmd, char **env);
