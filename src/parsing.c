@@ -6,7 +6,7 @@
 /*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nikotine          #+#    #+#             */
-/*   Updated: 2024/01/03 20:12:29 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/03 21:13:58 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ int	operator_pos(char *str)
 /*
  *	Returns the next operator id found in the given string
  *	id list : 
- *		0 : pipe								; |
- *		1 : output redirection					; >
- *		2 : input redirection					; <
- *		3 : output redirection in append mode	; >>
- *		4 : here_doc							; <<
+ *		0 : no operator found
+ *		1 : pipe								; |
+ *		2 : output redirection					; >
+ *		3 : input redirection					; <
+ *		4 : output redirection in append mode	; >>
+ *		5 : here_doc							; <<
 */
 int get_next_operator(char *str)
 {
@@ -42,17 +43,17 @@ int get_next_operator(char *str)
 
 	pos = operator_pos(str);
 	if (pos == -1)
-		return (NULL);
-	if (str[pos] == '|')
 		return (0);
-	if (str[pos] == '>' && str[pos + 1] != '>')
+	if (str[pos] == '|')
 		return (1);
-	if (str[pos] == '<' && str[pos + 1] != '<')
+	if (str[pos] == '>' && str[pos + 1] != '>')
 		return (2);
-	if (str[pos] == '>' && str[pos + 1] == '>')
+	if (str[pos] == '<' && str[pos + 1] != '<')
 		return (3);
-	if (str[pos] == '<' && str[pos + 1] == '<')
+	if (str[pos] == '>' && str[pos + 1] == '>')
 		return (4);
+	if (str[pos] == '<' && str[pos + 1] == '<')
+		return (5);
 	return (-1);
 }
 
