@@ -6,7 +6,7 @@
 /*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/02 22:41:52 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:41:35 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
 /* ECHO */
 void	echo(t_data *data);
+/* CD */
+void	cd(t_data *data);
 /* EXIT */
 void	ft_exit(t_data *data);
 
