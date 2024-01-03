@@ -1,0 +1,7 @@
+ls|wc
+ls        |       wc
+ls >>> file
+wc <<< file
+wc <> file
+ls >< file
+ls |> wc
