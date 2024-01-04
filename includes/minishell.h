@@ -6,7 +6,7 @@
 /*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/03 20:41:35 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:44:03 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int		ft_open(char *file, int in_out);
 void	ft_close(int *pipe_fd);
 void	ft_error_exit(int *pipe_fd, const char *msg);
 void	ft_here_doc(int ac, char **av);
-void	ft_pipe(char *cmd, char **env);
 char	*get_next_line(int fd);
 
 #endif
