@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/04 13:00:55 by nikotine         ###   ########.fr        #
+#    Updated: 2024/01/04 17:46:00 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ INCLUDE_PATH	=	./includes
 SRCS			=	builtin/cd.c \
 					builtin/echo.c \
 					builtin/exit.c \
+					builtin/parse_line.c \
+					builtin/parsed_line_len.c \
 					utils/strings.c \
 					utils/strings2.c \
 					utils/memory.c \

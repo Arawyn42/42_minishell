@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nikotine          #+#    #+#             */
-/*   Updated: 2024/01/04 12:43:50 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:59:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,41 +85,3 @@ void input_handler(t_data *data)
 	data->line = line;
 	command_launcher(data);
 }
-
-
-// int	parsed_line_len(char *line)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 0;
-// 	len = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '\'' || line[i] == '\"')
-// 		{
-
-// 		}
-// 		i++;
-// 	}
-// }
-
-// char	*parse_line(char *line)
-// {
-// 	int		i;
-// 	char	*new_line;
-// 	int	in_single_quotes;
-// 	int	in_double_quotes;
-
-// 	i = 0;
-// 	in_single_quotes = 0;
-// 	in_double_quotes = 0;
-// 	new_line = 
-// 	while (line[i])
-// 	{
-		
-
-// 	}
-// 	free(line);
-// 	return (new_line);
-// }

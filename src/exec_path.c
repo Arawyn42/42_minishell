@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/29 23:34:12 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:45:16 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_exec(char *cmds, char **env)
 			free_double_array(cmd);
 			if (cmd_path)
 				free(cmd_path);
-			clear_history();
+			rl_clear_history();
 			exit(EXIT_FAILURE);
 		}
 	}

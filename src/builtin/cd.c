@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/03 00:36:23 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:42:38 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,15 @@
 
 void	cd(t_data *data)
 {
-	int	i;
-	int	j;
-	char *path;
+	char	*error_msg;
+	char	*path;
 
-	i = 3;
-	j = 0;
-	if (count_single_quotes(data->line) % 2
-		|| count_double_quotes(data->line) % 2)
-	{
-		ft_putstr("minishell: cd: quotes error\n", 2);
-		return ;
-	}
-	while (data->line[i])
-	{
-		if (data->line[i] != 34 && data->line[i] != 39)
-			j++;
-		i++;
-	}
-	path = ft_calloc(j + 1, sizeof(char));
-	if (!path)
-		return ;
-	i = 3;
-	j = 0;
-	while (data->line[i])
-	{
-		if (data->line[i] != 34 && data->line[i] != 39)
-		{
-			path[j] = data->line[i];
-			j++;
-		}
-		i++;
-	}
+	parse_line(data);
+	path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
 	if (chdir(path) == -1)
 	{
-		ft_putstr("minishell: cd: ", 2);
-		ft_putstr(path, 2);
-		ft_putstr(": No such file or directory\n", 2);
+		error_msg = ft_strjoin("minishell: cd: ", path);
+		perror(error_msg);
+		free(error_msg);
 	}
-	free(path);
 }
