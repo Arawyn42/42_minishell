@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/04 17:46:00 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/05 18:44:32 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS			=	builtin/cd.c \
 					builtin/exit.c \
 					builtin/parse_line.c \
 					builtin/parsed_line_len.c \
+					builtin/parse_line_utils.c \
 					utils/strings.c \
 					utils/strings2.c \
 					utils/memory.c \

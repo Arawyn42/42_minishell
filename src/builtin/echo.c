@@ -6,11 +6,20 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/04 20:26:38 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:35:39 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	echo_write(char *line, int i)
+{
+	while(line[i])
+	{
+		write(1, &line[i], 1);
+		i++;
+	}
+}
 
 void	echo(t_data *data)
 {
@@ -27,14 +36,12 @@ void	echo(t_data *data)
 	if (data->line[5] == '-' && data->line[6] == 'n' && data->line[7] == ' ')
 	{
 		i = 8;
-		while(data->line[i])
-			write(1, &data->line[i++], 1);
+		echo_write(data->line, i);
 	}
 	else
 	{
 		i = 5;
-		while(data->line[i])
-			write(1, &data->line[i++], 1);
+		echo_write(data->line, i);
 		write(1, "\n", 1);
 	}
 }

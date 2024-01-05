@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/04 19:39:45 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:23:42 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	exit_error(const char *msg);
 void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i);
 void	new_line_len(t_data *data, int *len);
 char 	*get_dollar_var(t_data *data, int *i, int *j);
+int		parse_conditions(char *line, int i, int insq, int indq);
 void	parse_line(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
