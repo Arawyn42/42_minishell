@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/04 13:00:55 by nikotine         ###   ########.fr        #
+#    Updated: 2024/01/08 17:48:06 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
