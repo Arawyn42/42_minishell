@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 18:40:28 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/08 18:11:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_quote(int *in_quote, char s)
 	return (*in_quote);
 }
 
-static int	count_words(char const *s, char c)
+static int	count_words(char const *s, char *charset)
 {
 	int	counter;
 	int	in_word;
@@ -46,7 +46,7 @@ static int	count_words(char const *s, char c)
 			in_quote = ft_quote(&in_quote, *s);
 		if (!in_quote)
 		{
-			if (*s == c)
+			if (ft_strchr(charset, *s))
 				in_word = 0;
 			else if (!in_word)
 			{
@@ -66,7 +66,7 @@ static void	ft_free_split(char **tab, int i)
 	free(tab);
 }
 
-static char	*get_word(char const *s, char c)
+static char	*get_word(char const *s, char *charset)
 {
 	int		size;
 	char	*word;
@@ -80,7 +80,7 @@ static char	*get_word(char const *s, char c)
 		size++;
 	}
 	else
-		while (s[size] != c && s[size])
+		while (!ft_strchr(charset, s[size]) && s[size])
 			size++;
 	if (size == 0)
 		return (NULL);
@@ -90,24 +90,24 @@ static char	*get_word(char const *s, char c)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char *charset)
 {
 	char	**tab;
 	int		i;
 
 	if (!s)
 		return (NULL);
-	tab = (char **) ft_calloc(sizeof(char *), count_words(s, c) + 1);
+	tab = (char **) ft_calloc(sizeof(char *), count_words(s, charset) + 1);
 	if (!tab)
 		return (NULL);
 	i = 0;
 	while (*s)
 	{
-		while (*s == c && *s)
+		while (ft_strchr(charset, *s) && *s)
 			s++;
 		if (*s != '\0')
 		{
-			tab[i] = get_word(s, c);
+			tab[i] = get_word(s, charset);
 			if (!tab[i])
 				return (ft_free_split(tab, i), NULL);
 			s += ft_strlen(tab[i++]);
@@ -116,4 +116,3 @@ char	**ft_split(char const *s, char c)
 	tab[i] = NULL;
 	return (tab);
 }
-

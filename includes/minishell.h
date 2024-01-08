@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 17:58:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/08 18:11:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_strchr(char const *s, int c);
 char	*ft_strdup(char const *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	**ft_split(const char *s, char c);
+char	**ft_split(char const *s, char *charset);
 int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
 int		ft_is_operator(char c);
