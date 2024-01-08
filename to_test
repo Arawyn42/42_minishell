@@ -5,3 +5,11 @@ wc <<< file
 wc <> file
 ls >< file
 ls |> wc
+
+
+
+
+
+BUILTINS A FAIRE :
+cd -
+cd ..

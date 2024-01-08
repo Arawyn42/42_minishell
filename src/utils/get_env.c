@@ -1,47 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 20:57:55 by drenassi         ###   ########.fr       */
+/*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
+/*   Updated: 2024/01/08 20:11:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_write(char *line, int i)
+char	*get_pwd(t_data *data)
 {
-	while(line[i])
-	{
-		write(1, &line[i], 1);
-		i++;
-	}
-}
-
-void	ft_echo(t_data *data)
-{
-	int	i;
+	char	*pwd;
+	int		i;
 
 	i = 0;
-	if (count_double_quotes(data->line) % 2
-		|| count_single_quotes(data->line) % 2)
+	while (data->env[i])
 	{
-		ft_putstr("minishell: echo: quotes error\n", 2);
-		return ;
+		if (!ft_strncmp(data->env[i], "PWD", 3))
+			pwd = ft_substr(data->env[i], 4, ft_strlen(data->env[i]) - 4);
+		i++;
 	}
-	parse_line(data);
-	if (data->line[5] == '-' && data->line[6] == 'n' && data->line[7] == ' ')
+	return (pwd);
+}
+
+char	*get_home_path(t_data *data)
+{
+	char	*home_path;
+	int		i;
+
+	i = 0;
+	while (data->env[i])
 	{
-		i = 8;
-		echo_write(data->line, i);
+		if (!ft_strncmp(data->env[i], "HOME", 4))
+			home_path = ft_substr(data->env[i], 5,
+				ft_strlen(data->env[i]) - 5);
+		i++;
 	}
-	else
-	{
-		i = 5;
-		echo_write(data->line, i);
-		write(1, "\n", 1);
-	}
+	return (home_path);
 }

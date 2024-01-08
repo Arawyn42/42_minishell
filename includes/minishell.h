@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 21:23:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:59:23 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@
 /********************************* STRUCTURES *********************************/
 typedef struct s_data
 {
+	char	*prompt;
 	char	**env;
+	char	**export;
 	char	*line;
 }			t_data;
 
 /*********************************** UTILS ************************************/
-/* STRINGS UTILS */
+/* STRINGS */
 void	ft_putstr(char *s, int fd);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -46,11 +48,14 @@ int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
 int		ft_is_operator(char c);
 void	input_handler(t_data *data);
-/* MEMORY UTILS */
+/* MEMORY */
 void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
 /* ERRORS */
 void	exit_error(const char *msg);
+/* ENV */
+char	*get_pwd(t_data *data);
+char	*get_home_path(t_data *data);
 
 /********************************** PARSING ***********************************/
 void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i);
@@ -64,10 +69,15 @@ void	command_launcher(t_data *data);
 char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
+/* PWD */
+void	refresh_prompt(t_data *data);
+void	set_pwd(t_data *data);
+void	set_old_pwd(t_data *data);
+void	ft_pwd();
 /* ECHO */
-void	echo(t_data *data);
+void	ft_echo(t_data *data);
 /* CD */
-void	cd(t_data *data);
+void	ft_cd(t_data *data);
 /* EXIT */
 void	ft_exit(t_data *data);
 

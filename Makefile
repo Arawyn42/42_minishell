@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/05 18:44:32 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/08 22:33:01 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,14 @@ SRCS_PATH		=	./src
 
 INCLUDE_PATH	=	./includes
 
-SRCS			=	builtin/cd.c \
+SRCS			=	builtin/pwd.c \
+					builtin/cd.c \
 					builtin/echo.c \
 					builtin/exit.c \
 					builtin/parse_line.c \
 					builtin/parsed_line_len.c \
 					builtin/parse_line_utils.c \
+					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
 					utils/memory.c \

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 22:05:15 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:49:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	command_launcher(t_data *data)
 {
-	if (!ft_strncmp(data->line, "echo ", 5))
-		echo(data);
+	if (!ft_strncmp(data->line, "pwd", 3)
+		&& (data->line[3] == ' ' || !data->line[3]))
+		ft_pwd();
+	else if (!ft_strncmp(data->line, "echo ", 5))
+		ft_echo(data);
 	else if (!ft_strncmp(data->line, "cd", 2))
-		cd(data);
+		ft_cd(data);
 	else if (!ft_strcmp(data->line, "exit")
 		|| !ft_strncmp(data->line, "exit ", 5))
 		ft_exit(data);
@@ -46,9 +49,11 @@ char	**cpy_env(char **base_env)
 void	minishell(t_data *data, char **base_env)
 {
 	data->env = cpy_env(base_env);
+	data->prompt = NULL;
 	while (1)
 	{
-		data->line = readline("minishell>");
+		refresh_prompt(data);
+		data->line = readline(data->prompt);
 		if (!data->line)
 		{
 			free_double_array(data->env);

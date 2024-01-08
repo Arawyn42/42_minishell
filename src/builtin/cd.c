@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 22:24:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:59:09 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*cd_home_path(t_data *data)
 	return (home_path);
 }
 
-void	cd(t_data *data)
+void	ft_cd(t_data *data)
 {
 	char	*error_msg;
 	char	*path;
@@ -57,10 +57,13 @@ void	cd(t_data *data)
 		path = cd_home_path(data);
 	else
 		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
+	set_old_pwd(data);
 	if (chdir(path) == -1)
 	{
 		error_msg = ft_strjoin("minishell: cd: ", path);
 		perror(error_msg);
 		free(error_msg);
 	}
+	set_pwd(data);
+	free(path);
 }
