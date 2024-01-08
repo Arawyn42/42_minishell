@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/02 14:51:45 by nikotine          #+#    #+#             */
-/*   Updated: 2024/01/04 14:59:19 by drenassi         ###   ########.fr       */
+/*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
+/*   Updated: 2024/01/08 19:44:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
  *	Returns the index of the next minishell's operator in the string,
  *	returns -1 if no operator is found.
 */
-int	operator_pos(char *str)
+int	get_operator(char *str)
 {
 	int	i;
 
 	i = -1;
 	while (str[++i])
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
+		if (str[i] == '|' || \
+			str[i] == '>' || \
+			str[i] == '<')
 			return (i);
 	return (-1);
 }
@@ -36,30 +38,24 @@ int	operator_pos(char *str)
  *		>>	: output redirection in append mode
  *		<<	: here_doc
 */
-void	apply_next_operator(char *line)
+void	apply_next_operator(char *command1, char *command2, char *operator)
 {
-	int 	pos;
-	pid_t	pid;
-
-	pos = operator_pos(line);
-	if (pos == -1)
+	(void)command1;
+	(void)command2;
+	if (!operator)
 		return ;
-	pid = fork();
-	if (pid == 0)
-		return ;
-	if (line[pos] == '|')
+	if (ft_strncmp(operator, "|", 1) == 0)
 		printf("not supported yet\n");
-		// ft_pipe(line, pos);
-	if (line[pos] == '>' && line[pos + 1] != '>')
+	else if (ft_strncmp(operator, ">>", 2) == 0)
 		printf("not supported yet\n");
-	if (line[pos] == '<' && line[pos + 1] != '<')
+	else if (ft_strncmp(operator, "<<", 2) == 0)
 		printf("not supported yet\n");
-	if (line[pos] == '>' && line[pos + 1] == '>')
+	else if (ft_strncmp(operator, ">", 1) == 0)
 		printf("not supported yet\n");
-	if (line[pos] == '<' && line[pos + 1] == '<')
+	else if (ft_strncmp(operator, "<", 1) == 0)
 		printf("not supported yet\n");
-	printf("Error operator\n");
-	exit(EXIT_FAILURE);
+	else
+		printf("Error operator\n");
 }
 
 /*	WORK IN PROGRESS
@@ -68,20 +64,26 @@ void	apply_next_operator(char *line)
 */
 void input_handler(t_data *data)
 {
-	char	*line;
-	int		pos;
+	char	**commands;
+	char 	*line;
+	int		ope_pos;
+	int		i;
 
-	line = ft_strdup(data->line);
-	pos = operator_pos(line);
-	while (pos != -1)
+	line = data->line;
+	commands = ft_split(line, "|><");
+	ope_pos = get_operator(line);
+	i = -1;
+	while (commands[++i + 1] && ope_pos != -1)
+	{
+		apply_next_operator(commands[i], commands[i + 1], &line[ope_pos]);
+		line += ope_pos;
+		ope_pos = get_operator(line);
+	}
+	if (i == 0)
 	{
 		free(data->line);
-		data->line = ft_substr(line, 0, pos);
+		data->line = ft_strdup(commands[i]);
 		command_launcher(data);
-		line += pos;
-		pos = operator_pos(line);
 	}
-	free(data->line);
-	data->line = line;
-	command_launcher(data);
+	free_double_array(commands);
 }

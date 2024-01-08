@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/04 16:45:16 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:18:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_get_path(char *cmd, char **env)
 	char	*path_slash;
 
 	i = 0;
-	path_array = ft_split(ft_get_path_env(env), ':');
+	path_array = ft_split(ft_get_path_env(env), ":");
 	while (path_array[i])
 	{
 		path_slash = ft_strjoin(path_array[i], "/");
@@ -114,7 +114,7 @@ void	ft_exec(char *cmds, char **env)
 			exit_error("fork");
 	if (pid == 0)
 	{
-		cmd = ft_split(cmds, ' ');
+		cmd = ft_split(cmds, " ");
 		cmd_path = ft_get_path(cmd[0], env);
 		if (execve(cmd_path, cmd, env) == -1)
 		{
