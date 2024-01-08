@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/08 17:48:06 by nsalles          ###   ########.fr        #
+#    Updated: 2024/01/08 17:57:57 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,9 @@ INCLUDE_PATH	=	./includes
 SRCS			=	builtin/cd.c \
 					builtin/echo.c \
 					builtin/exit.c \
+					builtin/parse_line.c \
+					builtin/parsed_line_len.c \
+					builtin/parse_line_utils.c \
 					utils/strings.c \
 					utils/strings2.c \
 					utils/memory.c \

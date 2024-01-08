@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 18:40:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:58:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	command_launcher(t_data *data)
 {
 	if (!ft_strncmp(data->line, "echo ", 5))
 		echo(data);
-	else if (!ft_strncmp(data->line, "cd ", 3))
+	else if (!ft_strncmp(data->line, "cd", 2))
 		cd(data);
 	else if (!ft_strcmp(data->line, "exit")
 		|| !ft_strncmp(data->line, "exit ", 5))

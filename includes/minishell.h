@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 17:48:48 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:58:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
 /* ERRORS */
 void	exit_error(const char *msg);
+
+/********************************** PARSING ***********************************/
+void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i);
+void	new_line_len(t_data *data, int *len);
+char 	*get_dollar_var(t_data *data, int *i, int *j);
+int		parse_conditions(char *line, int i, int insq, int indq);
+void	parse_line(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
 void	command_launcher(t_data *data);

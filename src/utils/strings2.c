@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 18:40:33 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:58:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,36 +56,4 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (i == n)
 		return (0);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-int	count_double_quotes(char *str)
-{
-	int	i;
-	int	double_quotes;
-
-	i = 0;
-	double_quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == 34)
-			double_quotes++;
-		i++;
-	}
-	return (double_quotes);
-}
-
-int	count_single_quotes(char *str)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == 39)
-			quotes++;
-		i++;
-	}
-	return (quotes);
 }
