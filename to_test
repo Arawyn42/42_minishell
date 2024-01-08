@@ -1,7 +1,18 @@
 ls|wc
 ls        |       wc
 ls >>> file
+ls >>      > file
+ls >      >> file
 wc <<< file
+wc <<      < file
+wc <      << file
 wc <> file
 ls >< file
 ls |> wc
+echo ">" file
+echo '>' file
+touch 'fi|le'
+touch "fi|le"
+touch "'file'"
+touch '"'"file"'"'
+echo hello >    > file
