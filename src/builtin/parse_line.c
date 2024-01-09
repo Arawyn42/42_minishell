@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 22:11:48 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:57:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	parse_spaces(char *line, int *i)
 {
 	while (line[*i] == ' ' && line[*i + 1] == ' ')
 		(*i)++;
-	if (!line[*i + 1])
-		(*i)++;
 }
 
 static void	parsed_line(t_data *data, char *new_line,
@@ -77,21 +75,23 @@ static void	parsed_line(t_data *data, char *new_line,
 	}
 }
 
-void	parse_line(t_data *data)
+void	parse_line(char *line, char **env)
 {
+	t_data	data;
 	char	*new_line;
 	int		in_singleq;
 	int		in_doubleq;
 	int		len;
 
+	data.line = line;
+	data.env = env;
 	in_singleq = 0;
 	in_doubleq = 0;
 	len = 0;
-	new_line_len(data, &len);
+	new_line_len(&data, &len);
 	new_line = ft_calloc(len + 1, sizeof(char));
 	if (!new_line)
 		return ;
-	parsed_line(data, new_line, &in_singleq, &in_doubleq);
-	free(data->line);
-	data->line = new_line;
+	parsed_line(&data, new_line, &in_singleq, &in_doubleq);
+	line = new_line;
 }

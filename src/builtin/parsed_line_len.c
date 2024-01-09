@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 22:12:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:50:10 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	spaces_len(char *line, int *i)
 {
 	while (line[*i] == ' ' && line[*i + 1] == ' ')
 		(*i)++;
-	if (!line[*i + 1])
-		(*i)++;
 }
 
 void	new_line_len(t_data *data, int *len)
@@ -57,8 +55,8 @@ void	new_line_len(t_data *data, int *len)
 
 	in_singleq = 0;
 	in_doubleq = 0;
-	i = -1;
-	while (data->line[++i])
+	i = 0;
+	while (data->line[i])
 	{
 		if (data->line[i] == ' ' && !in_singleq && !in_doubleq)
 			spaces_len(data->line, &i);
@@ -71,5 +69,6 @@ void	new_line_len(t_data *data, int *len)
 			(*len)++;
 		if ((data->line[i] == '\'' || data->line[i] == '\"'))
 			in_or_out_quotes(data->line, &in_singleq, &in_doubleq, i);
+		i++;
 	}
 }
