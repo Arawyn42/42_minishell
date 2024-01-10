@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/09 17:17:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:44:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,39 @@ int	get_operator(char *str)
 }
 
 /*
- *	Applies the next operator found in the command line
- *	operator list : 
+ *	Execute the command cmd in the environement env with the given operator.
+ *	Operators list : 
  *		|	: pipe
  *		>	: output redirection
  *		<	: input redirection
  *		>>	: output redirection in append mode
  *		<<	: here_doc
+ *	ARGUMENTS:
+ *		char *cmd		: The command to execute.
+ *		char *file		: NOT IMPLEMENTED.
+ *		char *operator	: The operator.
+ *		char **env		: The environement.
+ *	RETURN VALUE:
+ *		None.
 */
-void	apply_next_operator(char *command1, char *command2, char *operator)
+void	apply_next_operator(t_data *data, char *file, char *operator)
 {
-	(void)command1;
-	(void)command2;
+	(void)file;
+	// write(2, "operator = ", 11);
+	// write(2, operator, ft_strlen(operator));
+	// write(2, "\n", 1);
 	if (!operator)
 		return ;
 	if (ft_strncmp(operator, "|", 1) == 0)
-		printf("not supported yet\n");
+		ft_pipe(data);
 	else if (ft_strncmp(operator, ">>", 2) == 0)
-		printf("not supported yet\n");
+		printf(">> is not supported yet\n");
 	else if (ft_strncmp(operator, "<<", 2) == 0)
-		printf("not supported yet\n");
+		printf("<< is not supported yet\n");
 	else if (ft_strncmp(operator, ">", 1) == 0)
-		printf("not supported yet\n");
+		printf("> is not supported yet\n");
 	else if (ft_strncmp(operator, "<", 1) == 0)
-		printf("not supported yet\n");
+		printf("< is not supported yet\n");
 	else
 		printf("Error operator\n");
 }
@@ -64,26 +73,27 @@ void	apply_next_operator(char *command1, char *command2, char *operator)
 */
 void input_handler(t_data *data)
 {
-	char	**commands;
-	char 	*line;
+	char	**cmds;
+	char	*line_backup;
 	int		ope_pos;
 	int		i;
 
-	line = data->line;
-	commands = ft_split(line, "|><");
-	ope_pos = get_operator(line);
+	line_backup = ft_strdup(data->line);
+	cmds = ft_split(data->line, "|><");
+	ope_pos = 0;
+	ope_pos = get_operator(line_backup);
+	free(data->line);
 	i = -1;
-	while (commands[++i + 1] && ope_pos != -1)
+	while (cmds[++i + 1])
 	{
-		apply_next_operator(commands[i], commands[i + 1], &line[ope_pos]);
-		line += ope_pos;
-		ope_pos = get_operator(line);
+		data->line = cmds[i];
+		apply_next_operator(data, NULL, &line_backup[ope_pos]);
+		ope_pos = get_operator(line_backup);
 	}
-	if (i == 0)
-	{
-		free(data->line);
-		data->line = ft_strdup(commands[i]);
-		command_launcher(data);
-	}
-	free_double_array(commands);
+	data->line = ft_strdup(cmds[i]);
+	if (!command_launcher(data))
+		ft_fork_exec(data->line, data->env);
+	free_double_array(cmds);
+	free(data->line);
+	free(line_backup);
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:40:27 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:27:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -44,11 +45,11 @@ char	*ft_strchr(char const *s, int c);
 char	*ft_strdup(char const *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char *charset);
 char	*ft_strtrim(char const *s1, char const *set);
 int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
-int		ft_is_operator(char c);
 void	input_handler(t_data *data);
 /* MEMORY */
 void	*ft_calloc(size_t n, size_t size);
@@ -69,7 +70,8 @@ void	parse_spaces(char *line, int *i);
 char	*parse_line(char *line, char **env);
 
 /****************************** EXECUTE COMMANDS ******************************/
-void	command_launcher(t_data *data);
+void	ft_fork_exec(char *cmds, char **env);
+int		command_launcher(t_data *data);
 char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
 void	ft_exec(char *cmds, char **env);
@@ -91,5 +93,6 @@ void	ft_close(int *pipe_fd);
 void	ft_error_exit(int *pipe_fd, const char *msg);
 void	ft_here_doc(int ac, char **av);
 char	*get_next_line(int fd);
+void	ft_pipe(t_data *data);
 
 #endif

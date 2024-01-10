@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 18:18:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/10 22:08:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,19 @@ char	*ft_get_path(char *cmd, char **env)
 	return (cmd_path);
 }
 
+void	ft_fork_exec(char *cmds, char **env)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit_error("fork");
+	if (pid == 0)
+		ft_exec(cmds, env);
+	else
+		waitpid(pid, NULL, 0); // cat | cat | ls ??
+}
+
 /********** Executes the command cmds in the environnement env **********/
 /* 1. Split cmds if there is spaces in it.								*/
 /* 2. Take the path, which is the command execution.					*/
@@ -107,26 +120,29 @@ void	ft_exec(char *cmds, char **env)
 {
 	char	**cmd;
 	char	*cmd_path;
-	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-			exit_error("fork");
-	if (pid == 0)
+	cmd = ft_split(cmds, " ");
+	cmd_path = ft_get_path(cmd[0], env);
+
+	// write(2, "\ncmd_path = ", 12);
+	// write(2, cmd_path, ft_strlen(cmd_path));
+	// write(2, "\ncmd[0] = ", 10);
+	// write(2, cmd[0], ft_strlen(cmd[0]));
+	// if (cmd[1])
+	// {
+	// 	write(2, "\ncmd[1] = ", 10);
+	// 	write(2, cmd[1], ft_strlen(cmd[1]));
+	// }
+	
+	if (execve(cmd_path, cmd, env) == -1)
 	{
-		cmd = ft_split(cmds, " ");
-		cmd_path = ft_get_path(cmd[0], env);
-		if (execve(cmd_path, cmd, env) == -1)
-		{
-			ft_putstr(cmd[0], STDERR_FILENO);
-			ft_putstr(": command not found\n", STDERR_FILENO);
-			free_double_array(cmd);
-			if (cmd_path)
-				free(cmd_path);
-			rl_clear_history();
-			exit(EXIT_FAILURE);
-		}
+		ft_putstr(cmd[0], STDERR_FILENO);
+		ft_putstr(": command not found\n", STDERR_FILENO);
+		free_double_array(cmd);
+		if (cmd_path)
+			free(cmd_path);
+		free(cmds);
+		rl_clear_history();
+		exit(EXIT_FAILURE);
 	}
-	else
-		waitpid(pid, NULL, 0);
 }

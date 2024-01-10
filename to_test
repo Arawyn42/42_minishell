@@ -1,5 +1,9 @@
 ls|wc
 ls        |       wc
+ls | rev | tr 'e' 'E' | grep -v "caca" | cat -e
+ls |   # todo
+ls ~
+
 ls >>> file
 ls >>      > file
 ls >      >> file
@@ -9,6 +13,9 @@ wc <      << file
 wc <> file
 ls >< file
 ls |> wc
+echo hello >    > file
+cat Makefile | grep "@" << FIN
+
 
 
 
@@ -19,8 +26,10 @@ cd -
 cd ..
 echo ">" file
 echo '>' file
+echo -n
+echo -nlol
 touch 'fi|le'
 touch "fi|le"
 touch "'file'"
 touch '"'"file"'"'
-echo hello >    > file
+

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/09 00:00:57 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/10 22:09:44 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS			=	builtin/pwd.c \
 					here_doc.c \
 					errors.c \
 					exec_path.c \
-					parsing.c 
+					parsing.c # rename file
 
 MAIN			=	main.c
 

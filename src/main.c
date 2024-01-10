@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:44:28 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:28:49 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-void	command_launcher(t_data *data)
+int	command_launcher(t_data *data)
 {
 	data->line = parse_line(data->line, data->env);
 	if (!ft_strncmp(data->line, "pwd", 3)
@@ -27,7 +27,8 @@ void	command_launcher(t_data *data)
 		|| !ft_strncmp(data->line, "exit ", 5))
 		ft_exit(data);
 	else
-		ft_exec(data->line, data->env);
+		return (0);
+	return (1);
 }
 
 char	**cpy_env(char **base_env)
@@ -50,11 +51,18 @@ char	**cpy_env(char **base_env)
 
 void	minishell(t_data *data, char **base_env)
 {
+	int	saved_stdin;
+	int	saved_stdout;
+
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	data->env = cpy_env(base_env);
 	data->prompt = NULL;
 	while (1)
 	{
 		refresh_prompt(data);
+		dup2(saved_stdin, STDIN_FILENO);
+		dup2(saved_stdout, STDOUT_FILENO);
 		data->line = readline(data->prompt);
 		if (!data->line)
 		{
@@ -63,8 +71,10 @@ void	minishell(t_data *data, char **base_env)
 			break ;
 		}
 		add_history(data->line);
-		input_handler(data);
-		free(data->line);
+		if (ft_strlen(data->line) != 0)
+			input_handler(data);
+		else
+			free(data->line);
 	}
 }
 
