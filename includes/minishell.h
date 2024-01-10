@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 18:01:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:40:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*ft_strdup(char const *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char *charset);
+char	*ft_strtrim(char const *s1, char const *set);
 int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
 int		ft_is_operator(char c);
@@ -61,9 +62,10 @@ char	*get_home_path(t_data *data);
 
 /********************************** PARSING ***********************************/
 void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i);
-void	new_line_len(t_data *data, int *len);
+void	new_line_len(t_data *data, int *len, int in_singleq, int in_doubleq);
 char 	*get_dollar_var(t_data *data, int *i, int *j);
 int		parse_conditions(char *line, int i, int insq, int indq);
+void	parse_spaces(char *line, int *i);
 char	*parse_line(char *line, char **env);
 
 /****************************** EXECUTE COMMANDS ******************************/

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/09 00:01:41 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:44:28 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	command_launcher(t_data *data)
 {
+	data->line = parse_line(data->line, data->env);
 	if (!ft_strncmp(data->line, "pwd", 3)
 		&& (data->line[3] == ' ' || !data->line[3]))
 		ft_pwd();

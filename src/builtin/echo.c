@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 18:02:12 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:45:10 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_echo(t_data *data)
 		ft_putstr("minishell: echo: quotes error\n", 2);
 		return ;
 	}
-	data->line = parse_line(data->line, data->env);
-	if (data->line[5] == '-' && data->line[6] == 'n' && data->line[7] == ' ')
+	if (data->line[5] == '-' && data->line[6] == 'n' && (data->line[7] == ' '
+		|| !data->line[7]))
 	{
 		i = 8;
 		echo_write(data->line, i);

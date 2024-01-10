@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 18:02:04 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:45:17 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_exit(t_data *data)
 {
 	int	i;
 
-	data->line = parse_line(data->line, data->env);
 	i = 5;
 	if (!ft_strncmp(data->line, "exit ", 5))
 	{

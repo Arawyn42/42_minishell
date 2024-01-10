@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 18:07:09 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:54:47 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 		parse_dollar_value(data, new_line, i, j);
 }
 
-static void	parse_spaces(char *line, int *i)
+static void	parse_tilde(t_data *data, char *newline, int *i, int *j)
 {
-	while (line[*i] == ' ' && line[*i + 1] == ' ')
+	char	*home_path;
+	int		k;
+
+	if (data->line[*i + 1])
 		(*i)++;
+	home_path = get_home_path(data);
+	k = 0;
+	while (home_path && home_path[k])
+	{
+		newline[*j] = home_path[k];
+		(*j)++;
+		k++;
+	}
+	if (home_path)
+		free(home_path);
 }
 
 static void	parsed_line(t_data *data, char *new_line,
@@ -65,9 +78,13 @@ static void	parsed_line(t_data *data, char *new_line,
 			parse_spaces(data->line, &i);
 		if (data->line[i] == '\\' && !(*in_singleq) && !(*in_doubleq))
 			i++;
-		if (data->line[i] == '$' && !(*in_singleq)
-			&& (i == 0 || data->line[i - 1] != '\\'))
+		if (data->line[i] == '$' && !(*in_singleq) && (i == 0 
+			|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
 			parse_dollar_var(data, new_line, &i, &j);
+		if (data->line[i] == '~' && !(*in_singleq) && !(*in_doubleq)
+			&& data->line[i - 1] == ' ' && (data->line[i + 1] == ' '
+			|| data->line[i + 1] == '/' || !data->line[i + 1]))
+			parse_tilde(data, new_line, &i, &j);
 		if (parse_conditions(data->line, i, *in_singleq, *in_doubleq))
 			new_line[j++] = data->line[i];
 		if ((data->line[i] == '\'' || data->line[i] == '\"'))
@@ -83,16 +100,17 @@ char	*parse_line(char *line, char **env)
 	int		in_doubleq;
 	int		len;
 
-	data.line = line;
+	data.line = ft_strtrim(line, " ");
 	data.env = env;
 	in_singleq = 0;
 	in_doubleq = 0;
 	len = 0;
-	new_line_len(&data, &len);
+	new_line_len(&data, &len, in_singleq, in_doubleq);
 	new_line = ft_calloc(len + 1, sizeof(char));
 	if (!new_line)
 		return (NULL);
 	parsed_line(&data, new_line, &in_singleq, &in_doubleq);
 	free(line);
+	free(data.line);
 	return (new_line);
 }
