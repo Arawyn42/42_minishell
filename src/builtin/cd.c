@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/09 17:54:58 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:06:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ static char	*cd_home_path(t_data *data)
 	return (home_path);
 }
 
+static char	*cd_previous_path(t_data *data)
+{
+	char	*previous_path;
+	char	*home_path;
+	int		i;
+
+	previous_path = get_oldpwd(data);
+	home_path = cd_home_path(data);
+	i = 0;
+	if (data->line[i])
+	{
+		printf("Youpilol\n");
+	}
+	return (previous_path);
+}
+
 void	ft_cd(t_data *data)
 {
 	char	*error_msg;
@@ -52,11 +68,14 @@ void	ft_cd(t_data *data)
 	path = NULL;
 	if (cd_error(data))
 		return ;
-	parse_line(data->line, data->env);
+	data->line = parse_line(data->line, data->env);
 	if (!data->line[2])
 		path = cd_home_path(data);
+	else if (!ft_strncmp(data->line, "cd -", 4))
+		path = cd_previous_path(data);
 	else
 		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
+	
 	set_old_pwd(data);
 	if (chdir(path) == -1)
 	{

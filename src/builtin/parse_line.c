@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/09 17:57:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:07:09 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	parsed_line(t_data *data, char *new_line,
 	}
 }
 
-void	parse_line(char *line, char **env)
+char	*parse_line(char *line, char **env)
 {
 	t_data	data;
 	char	*new_line;
@@ -91,7 +91,8 @@ void	parse_line(char *line, char **env)
 	new_line_len(&data, &len);
 	new_line = ft_calloc(len + 1, sizeof(char));
 	if (!new_line)
-		return ;
+		return (NULL);
 	parsed_line(&data, new_line, &in_singleq, &in_doubleq);
-	line = new_line;
+	free(line);
+	return (new_line);
 }
