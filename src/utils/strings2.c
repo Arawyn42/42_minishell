@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 17:58:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/09 17:30:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (i == n)
 		return (0);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (s1[i] && ft_strchr(set, s1[i]))
+		i++;
+	j = ft_strlen(s1) - 1;
+	while (s1[j] && ft_strchr(set, s1[j]))
+		j--;
+	res = ft_substr(s1, i, j - i + 1);
+	return (res);
 }
