@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 23:27:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/11 12:51:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	parse_spaces(char *line, int *i);
 char	*parse_line(char *line, char **env);
 
 /****************************** EXECUTE COMMANDS ******************************/
-void	ft_fork_exec(char *cmds, char **env);
 int		command_launcher(t_data *data);
 char	*ft_get_path_env(char **env);
 char	*ft_get_path(char *cmd, char **env);
+void	ft_fork_exec(char *cmds, char **env);
 void	ft_exec(char *cmds, char **env);
 /* PWD */
 void	refresh_prompt(t_data *data);
@@ -91,8 +91,11 @@ void	ft_exit(t_data *data);
 int		ft_open(char *file, int in_out);
 void	ft_close(int *pipe_fd);
 void	ft_error_exit(int *pipe_fd, const char *msg);
-void	ft_here_doc(int ac, char **av);
+// void	ft_here_doc(int ac, char **av);
 char	*get_next_line(int fd);
 void	ft_pipe(t_data *data);
+
+/*********************************** REDIRECTION ******************************/
+void	output_redirection(char *file, t_data *data);
 
 #endif
