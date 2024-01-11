@@ -1,6 +1,6 @@
 ls|wc
 ls        |       wc
-ls | rev | tr 'e' 'E' | grep -v "caca" | cat -e
+ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
 ls |   # todo
 ls | exit
 ls ~
