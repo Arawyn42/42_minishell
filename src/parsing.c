@@ -6,27 +6,22 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/10 23:44:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/11 19:34:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* 
- *	Returns the index of the next minishell's operator in the string,
- *	returns -1 if no operator is found.
-*/
-int	get_operator(char *str)
+void	get_operator_pos(char *str, int *pos)
 {
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		if (str[i] == '|' || \
-			str[i] == '>' || \
-			str[i] == '<')
-			return (i);
-	return (-1);
+	while (str[++(*pos)])
+	{
+		if (str[*pos] == '|' || \
+			str[*pos] == '>' || \
+			str[*pos] == '<')
+			return ;
+	}
+	*pos = -1;
 }
 
 /*
@@ -38,22 +33,24 @@ int	get_operator(char *str)
  *		>>	: output redirection in append mode
  *		<<	: here_doc
  *	ARGUMENTS:
- *		char *cmd		: The command to execute.
- *		char *file		: NOT IMPLEMENTED.
- *		char *operator	: The operator.
- *		char **env		: The environement.
+ *		t_data	*data		: The main datastructure
+ *		char	*file		: The file to open 
+ *		char 	*operator	: The operator.
  *	RETURN VALUE:
  *		None.
 */
 void	apply_next_operator(t_data *data, char *file, char *operator)
 {
-	(void)file;
 	// write(2, "operator = ", 11);
 	// write(2, operator, ft_strlen(operator));
 	// write(2, "\n", 1);
+	(void)file;
 	if (!operator)
-		return ;
-	if (ft_strncmp(operator, "|", 1) == 0)
+	{
+		if (!command_launcher(data))
+			ft_fork_exec(data->line, data->env);
+	}
+	else if (ft_strncmp(operator, "|", 1) == 0)
 		ft_pipe(data);
 	else if (ft_strncmp(operator, ">>", 2) == 0)
 		printf(">> is not supported yet\n");
@@ -75,25 +72,25 @@ void input_handler(t_data *data)
 {
 	char	**cmds;
 	char	*line_backup;
-	int		ope_pos;
+	int		operator_pos;
 	int		i;
 
 	line_backup = ft_strdup(data->line);
 	cmds = ft_split(data->line, "|><");
-	ope_pos = 0;
-	ope_pos = get_operator(line_backup);
-	free(data->line);
+	operator_pos = 0;
+	get_operator_pos(line_backup, &operator_pos);
 	i = -1;
-	while (cmds[++i + 1])
+	while (cmds[++i])
 	{
+		free(data->line);
 		data->line = cmds[i];
-		apply_next_operator(data, NULL, &line_backup[ope_pos]);
-		ope_pos = get_operator(line_backup);
+		if (operator_pos == -1)
+			apply_next_operator(data, cmds[i + 1], NULL);
+		else
+		{
+			apply_next_operator(data, cmds[i + 1], &line_backup[operator_pos]);
+			get_operator_pos(line_backup, &operator_pos);
+		}
 	}
-	data->line = ft_strdup(cmds[i]);
-	if (!command_launcher(data))
-		ft_fork_exec(data->line, data->env);
-	free_double_array(cmds);
-	free(data->line);
-	free(line_backup);
+	free(cmds);
 }
