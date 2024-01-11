@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:08:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/11 17:25:17 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	ft_exec(char *cmds, char **env)
 		if (cmd_path)
 			free(cmd_path);
 		free(cmds);
+		free_double_array(env);
 		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}

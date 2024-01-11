@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:45:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:23:47 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	check_exit_args(t_data *data, int *i)
 		while (data->line[*i])
 			write(2, &data->line[(*i)++], 1);
 		ft_putstr(": numeric argument required\n", 2);
-		rl_clear_history();
-		free(data->line);
-		free_double_array(data->env);
+		free_all(data);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -46,8 +44,6 @@ void	ft_exit(t_data *data)
 		}
 	}
 	ft_putstr("exit\n", 1);
-	rl_clear_history();
-	free(data->line);
-	free_double_array(data->env);
+	free_all(data);
 	exit(EXIT_SUCCESS);
 }

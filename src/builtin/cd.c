@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:45:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:35:25 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 static int	cd_error(t_data *data)
 {
-	if (count_double_quotes(data->line) % 2
-		|| count_single_quotes(data->line) % 2)
-	{
-		ft_putstr("minishell: cd: quotes error\n", 2);
-		return (1);
-	}
 	if (data->line[2] && data->line[2] != ' ')
 	{
 		ft_exec(data->line, data->env);

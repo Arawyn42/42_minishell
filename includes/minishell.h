@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 23:27:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/11 17:16:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	input_handler(t_data *data);
 /* MEMORY */
 void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
+void	free_all(t_data *data);
 /* ERRORS */
 void	exit_error(const char *msg);
 /* ENV */

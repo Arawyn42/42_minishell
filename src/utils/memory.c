@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/05 18:40:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/11 18:17:25 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,24 @@ void	free_double_array(char **array)
 		i++;
 	}
 	free(array);
+	array = NULL;
+}
+
+void	free_all(t_data *data)
+{
+	rl_clear_history();
+	if (data->line)
+	{
+		free(data->line);
+		data->line = NULL;
+	}
+	if (data->prompt)
+	{
+		free(data->prompt);
+		data->prompt = NULL;
+	}
+	if (data->env)
+		free_double_array(data->env);
+	// if (data->export)
+	// 	free_double_array(data->export);
 }
