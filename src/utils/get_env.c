@@ -6,11 +6,29 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 17:07:36 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:14:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**cpy_env(char **base_env)
+{
+	int		i;
+	char	**env_cpy;
+
+	i = 0;
+	while (base_env[i])
+		i++;
+	env_cpy = ft_calloc(i + 1, sizeof(char *));
+	i = 0;
+	while (base_env[i])
+	{
+		env_cpy[i] = ft_strdup(base_env[i]);
+		i++;
+	}
+	return (env_cpy);
+}
 
 char	*get_pwd(t_data *data)
 {

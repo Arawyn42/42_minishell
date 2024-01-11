@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 19:52:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:22:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,20 @@
 # define BUFFER_SIZE 42
 
 /********************************* STRUCTURES *********************************/
+typedef struct s_export
+{
+	char			*content;
+	struct s_export	*next;
+}				t_export;
+
 typedef struct s_data
 {
-	char	*prompt;
-	char	**env;
-	char	**export;
-	char	*line;
-}			t_data;
+	char		*prompt;
+	char		**env;
+	t_export	*export;
+	char		*line;
+}				t_data;
+
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -51,13 +58,20 @@ char	*ft_strtrim(char const *s1, char const *set);
 int		count_double_quotes(char *str);
 int		count_single_quotes(char *str);
 void	input_handler(t_data *data);
+/* LISTS */
+t_export	*lst_new_node(char *content);
+void	lst_add_front(t_export **lst, t_export *new);
+t_export	*lst_get_last(t_export *lst);
+void	lst_add_back(t_export **lst, t_export *new);
 /* MEMORY */
 void	*ft_calloc(size_t n, size_t size);
 void	free_double_array(char **array);
+void	free_export(t_export **lst);
 void	free_all(t_data *data);
 /* ERRORS */
 void	exit_error(const char *msg);
 /* ENV */
+char	**cpy_env(char **base_env);
 char	*get_pwd(t_data *data);
 char	*get_oldpwd(t_data *data);
 char	*get_home_path(t_data *data);
@@ -85,6 +99,11 @@ void	ft_pwd();
 void	ft_echo(t_data *data);
 /* CD */
 void	ft_cd(t_data *data);
+/* ENV */
+void	ft_env(t_data *data);
+/* EXPORT */
+void	init_export(t_data *data);
+void	ft_export(t_data *data);
 /* EXIT */
 void	ft_exit(t_data *data);
 

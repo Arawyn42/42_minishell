@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 21:11:04 by drenassi         ###   ########.fr       */
+/*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
+/*   Updated: 2024/01/11 22:04:09 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_write(char *line, int i)
-{
-	while(line[i])
-	{
-		write(1, &line[i], 1);
-		i++;
-	}
-}
-
-void	ft_echo(t_data *data)
+void	ft_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (!data->line[4])
-		write(1, "\n", 1);
-	else if (data->line[5] == '-' && data->line[6] == 'n' && (data->line[7] == ' '
-		|| !data->line[7]))
+	while (data->env[i])
 	{
-		i = 8;
-		echo_write(data->line, i);
-	}
-	else
-	{
-		i = 5;
-		echo_write(data->line, i);
-		write(1, "\n", 1);
+		ft_putstr(data->env[i], 1);
+		ft_putstr("\n", 1);
+		i++;
 	}
 }

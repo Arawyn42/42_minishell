@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/11 12:25:09 by nsalles          ###   ########.fr        #
+#    Updated: 2024/01/11 22:27:11 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ INCLUDE_PATH	=	./includes
 SRCS			=	builtin/pwd.c \
 					builtin/cd.c \
 					builtin/echo.c \
+					builtin/env.c \
+					builtin/export.c \
 					builtin/exit.c \
 					builtin/parse_line.c \
 					builtin/parsed_line_len.c \
@@ -42,6 +44,7 @@ SRCS			=	builtin/pwd.c \
 					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
+					utils/lst.c \
 					utils/memory.c \
 					utils/ft_split.c \
 					utils/get_next_line.c \

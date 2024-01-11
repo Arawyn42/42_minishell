@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 18:17:25 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:18:51 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,17 @@ void	free_all(t_data *data)
 	}
 	if (data->env)
 		free_double_array(data->env);
-	// if (data->export)
-	// 	free_double_array(data->export);
+	if (data->export)
+		free_export(&data->export);
+}
+
+void	free_export(t_export **lst)
+{
+	if (lst && *lst)
+	{
+		free_export(&(*lst)->next);
+		free((*lst)->content);
+		free(*lst);
+		*lst = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/08 23:58:31 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:32:34 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ void	refresh_prompt(t_data *data)
 	{
 		second_part = ft_substr(pwd, ft_strlen(home_path),
 			ft_strlen(pwd) - ft_strlen(home_path));
-		prompt = ft_strjoin("minishell:~", second_part);
+		prompt = ft_strjoin("\033[0;34mminishell:\033[0;36m~", second_part);
 	}
 	else
 	{
-		second_part = ft_strjoin("~", pwd);
-		prompt = ft_strjoin("minishell:", second_part);
+		second_part = ft_strdup(pwd);
+		prompt = ft_strjoin("\033[0;34mminishell:\033[0;36m", second_part);
 	}
 	free(home_path);
 	free(pwd);
 	free(second_part);
 	if (data->prompt)
 		free(data->prompt);
-	data->prompt = ft_strjoin(prompt, "$ ");
+	data->prompt = ft_strjoin(prompt, "\033[m$ ");
 	free(prompt);
 }
 
