@@ -2,8 +2,12 @@ ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "caca" | cat -e
 ls |   # todo
+ls | exit
 ls ~
 
+exit > file
+cd > file
+ls > no_permission/file
 ls >>> file
 ls >>      > file
 ls >      >> file
