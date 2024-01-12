@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:23:02 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:28:42 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	export_var(t_data *data)
 		while (data->line[i + j] && data->line[i + j] != ' ')
 			j++;
 		var = ft_substr(data->line, i, j);
-		printf("var = '%s'\n", var);
 		add_export_var(data, var);
 		free(var);
 		i += j;

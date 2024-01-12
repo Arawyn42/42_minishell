@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/11 22:27:11 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/12 22:28:20 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS			=	builtin/pwd.c \
 					builtin/echo.c \
 					builtin/env.c \
 					builtin/export.c \
+					builtin/export_utils.c \
 					builtin/exit.c \
 					builtin/parse_line.c \
 					builtin/parsed_line_len.c \
