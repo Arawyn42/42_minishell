@@ -25,9 +25,7 @@ cat Makefile | grep "@" << FIN
 
 
 
-BUILTINS A FAIRE :
-cd -
-cd ..
+BUILTINS :
 echo ">" file
 echo '>' file
 echo -n
@@ -37,3 +35,8 @@ touch "fi|le"
 touch "'file'"
 touch '"'"file"'"'
 
+
+
+BUILTINS A FAIRE :
+export var dans l'env
+unset

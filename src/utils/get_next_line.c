@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:57:14 by drenassi          #+#    #+#             */
-/*   Updated: 2023/12/26 20:19:53 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:25:43 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	*gnl_strjoin(char *s1, char const *s2)
 	free(s1);
 	return (res);
 }
-
 
 static char	*ft_stash(char *stash)
 {

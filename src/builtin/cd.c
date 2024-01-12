@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 18:35:25 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:23:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_cd(t_data *data)
 	if (cd_error(data))
 		return ;
 	if (!cd_check_args(data))
-		return;
+		return ;
 	if (!data->line[2])
 		path = cd_home_path(data);
 	else if (!ft_strcmp(data->line, "cd -"))

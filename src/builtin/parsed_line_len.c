@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 22:50:44 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:24:11 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void	new_line_len(t_data *data, int *len, int in_singleq, int in_doubleq)
 			parse_spaces(data->line, &i);
 		if (data->line[i] == '\\' && !in_singleq && !in_doubleq)
 			i++;
-		if (data->line[i] == '$' && !in_singleq && (i == 0 
-			|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
+		if (data->line[i] == '$' && !in_singleq && (i == 0
+				|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
 			dollar_var_len(data, &i, len);
 		if (data->line[i] == '~' && !in_singleq && !in_doubleq
 			&& data->line[i - 1] == ' ' && (data->line[i + 1] == ' '
-			|| data->line[i + 1] == '/' || !data->line[i + 1]))
+				|| data->line[i + 1] == '/' || !data->line[i + 1]))
 			tilde_len(data, &i, len);
 		if (parse_conditions(data->line, i, in_singleq, in_doubleq))
 			(*len)++;

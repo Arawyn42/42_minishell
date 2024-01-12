@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 18:41:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:23:41 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i)
 		*doubleq = 0;
 }
 
-char *get_dollar_var(t_data *data, int *i, int *var_len)
+char	*get_dollar_var(t_data *data, int *i, int *var_len)
 {
 	int		k;
 	char	*var;
@@ -88,7 +88,7 @@ char *get_dollar_var(t_data *data, int *i, int *var_len)
 			if (var)
 				free(var);
 			var = ft_substr(data->env[k], *var_len,
-				ft_strlen(data->env[k]) - *var_len);
+					ft_strlen(data->env[k]) - *var_len);
 			return (var);
 		}
 	}

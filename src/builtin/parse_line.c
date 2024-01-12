@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 20:01:58 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:24:42 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 		k++;
 	var = get_dollar_var(data, i, &k);
 	k = 0;
-	while(var && var[k])
+	while (var && var[k])
 	{
 		new_line[*j] = var[k];
 		(*j)++;
@@ -78,12 +78,12 @@ static void	parsed_line(t_data *data, char *new_line,
 			parse_spaces(data->line, &i);
 		if (data->line[i] == '\\' && !(*in_singleq) && !(*in_doubleq))
 			i++;
-		if (data->line[i] == '$' && !(*in_singleq) && (i == 0 
-			|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
+		if (data->line[i] == '$' && !(*in_singleq) && (i == 0
+				|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
 			parse_dollar_var(data, new_line, &i, &j);
 		if (data->line[i] == '~' && !(*in_singleq) && !(*in_doubleq)
 			&& data->line[i - 1] == ' ' && (data->line[i + 1] == ' '
-			|| data->line[i + 1] == '/' || !data->line[i + 1]))
+				|| data->line[i + 1] == '/' || !data->line[i + 1]))
 			parse_tilde(data, new_line, &i, &j);
 		if (parse_conditions(data->line, i, *in_singleq, *in_doubleq))
 			new_line[j++] = data->line[i];

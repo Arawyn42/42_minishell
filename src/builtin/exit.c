@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 17:23:47 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:24:54 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	check_exit_args(t_data *data, int *i)
 		exit(EXIT_SUCCESS);
 	}
 }
+
 /* exit builtin */
 void	ft_exit(t_data *data)
 {

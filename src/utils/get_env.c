@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 20:14:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:25:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_home_path(t_data *data)
 	{
 		if (!ft_strncmp(data->env[i], "HOME", 4))
 			home_path = ft_substr(data->env[i], 5,
-				ft_strlen(data->env[i]) - 5);
+					ft_strlen(data->env[i]) - 5);
 		i++;
 	}
 	return (home_path);

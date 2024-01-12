@@ -6,10 +6,9 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 22:01:38 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/12 22:21:34 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -61,14 +60,13 @@ void	minishell(t_data *data)
 		add_history(data->line);
 		if (ft_strlen(data->line) != 0)
 			input_handler(data);
-		else
-			free(data->line);
+		free(data->line);
 	}
 }
 
 int	main(int ac, char **av, char **base_env)
 {
-	t_data data;
+	t_data	data;
 
 	(void) av;
 	if (ac != 1)

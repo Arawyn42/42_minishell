@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/11 19:34:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/12 22:00:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void input_handler(t_data *data)
 		free(data->line);
 		data->line = cmds[i];
 		if (operator_pos == -1)
-			apply_next_operator(data, cmds[i + 1], NULL);
+			free(line_backup), apply_next_operator(data, cmds[i + 1], NULL);
 		else
 		{
 			apply_next_operator(data, cmds[i + 1], &line_backup[operator_pos]);
