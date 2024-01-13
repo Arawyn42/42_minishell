@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/12 22:00:15 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/13 16:09:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	get_operator_pos(char *str, int *pos)
-{
-	while (str[++(*pos)])
-	{
-		if (str[*pos] == '|' || \
-			str[*pos] == '>' || \
-			str[*pos] == '<')
-			return ;
-	}
-	*pos = -1;
-}
 
 /*
  *	Execute the command cmd in the environement env with the given operator.
@@ -44,7 +32,6 @@ void	apply_next_operator(t_data *data, char *file, char *operator)
 	// write(2, "operator = ", 11);
 	// write(2, operator, ft_strlen(operator));
 	// write(2, "\n", 1);
-	(void)file;
 	if (!operator)
 	{
 		if (!command_launcher(data))
@@ -57,7 +44,7 @@ void	apply_next_operator(t_data *data, char *file, char *operator)
 	else if (ft_strncmp(operator, "<<", 2) == 0)
 		printf("<< is not supported yet\n");
 	else if (ft_strncmp(operator, ">", 1) == 0)
-		printf("> is not supported yet\n");
+		output_redirection(file, data);
 	else if (ft_strncmp(operator, "<", 1) == 0)
 		printf("< is not supported yet\n");
 	else
@@ -71,26 +58,20 @@ void	apply_next_operator(t_data *data, char *file, char *operator)
 void input_handler(t_data *data)
 {
 	char	**cmds;
-	char	*line_backup;
-	int		operator_pos;
+	char	**operators;
 	int		i;
 
-	line_backup = ft_strdup(data->line);
+	operators = get_operators_array(data->line);
+	if (!operators)
+		return ;
 	cmds = ft_split(data->line, "|><");
-	operator_pos = 0;
-	get_operator_pos(line_backup, &operator_pos);
 	i = -1;
 	while (cmds[++i])
 	{
 		free(data->line);
 		data->line = cmds[i];
-		if (operator_pos == -1)
-			free(line_backup), apply_next_operator(data, cmds[i + 1], NULL);
-		else
-		{
-			apply_next_operator(data, cmds[i + 1], &line_backup[operator_pos]);
-			get_operator_pos(line_backup, &operator_pos);
-		}
+		apply_next_operator(data, cmds[i + 1], operators[i]);
 	}
 	free(cmds);
+	free_double_array(operators);
 }

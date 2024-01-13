@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/12 22:28:20 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/13 16:09:41 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS			=	builtin/pwd.c \
 					utils/memory.c \
 					utils/ft_split.c \
 					utils/get_next_line.c \
+					utils/split_operators.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
 					here_doc.c \

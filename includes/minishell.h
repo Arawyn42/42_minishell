@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:20:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/13 16:10:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char *charset);
 char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			count_single_quotes(char *str);
+char		**get_operators_array(char *str);
 void		input_handler(t_data *data);
 /* LISTS */
 t_export	*lst_new_node(char *content);

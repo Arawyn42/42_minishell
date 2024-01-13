@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/09 17:30:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:13:35 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,36 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[j] && ft_strchr(set, s1[j]))
 		j--;
 	res = ft_substr(s1, i, j - i + 1);
+	return (res);
+}
+
+/*
+ *	Returns a new string which is the string str but cleaned of all
+ *	occurences found in the charset.
+ *	Memory for the new string is obtained with malloc, and can be freed
+ *	with free.
+*/
+char	*ft_strclean(char *str, char *charset)
+{
+	char	*res;
+	int		size;
+	int		i;
+
+	size = 0;
+	i = -1;
+	while (str[++i])
+		if (!ft_strchr(charset, str[i]))
+			size++;
+	res = malloc(sizeof(char) * (i + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (*str)
+	{
+		if (!ft_strchr(charset, *str))
+			res[i++] = *str;
+		str++;
+	}
+	res[i] = '\0';
 	return (res);
 }
