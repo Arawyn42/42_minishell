@@ -1,15 +1,21 @@
+PIPE :
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
 ls |   # todo
-ls | exit
-ls ~
+ls | exit # todo
 
+REDIRECTION RIGHT :
 exit > file
 cd > file
+ls > file > file2 # todo
 ls > no_permission/file
+
+
+ls ~
 ls >>> file
 ls >>      > file
+cat \ file
 ls >      >> file
 wc <<< file
 wc <<      < file
@@ -34,9 +40,13 @@ touch 'fi|le'
 touch "fi|le"
 touch "'file'"
 touch '"'"file"'"'
+cd - # not printing the path
 
 
 
 BUILTINS A FAIRE :
 export var dans l'env
 unset
+
+regarder les still reachables leak. Notamment en lançant une command qui 
+	n'existe pas
