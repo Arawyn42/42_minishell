@@ -9,6 +9,7 @@ REDIRECTION RIGHT :
 exit > file
 cd > file
 ls > file > file2 # todo
+ls > # todo
 ls > no_permission/file
 
 

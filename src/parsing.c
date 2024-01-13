@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/13 16:09:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/13 20:59:17 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,32 @@ void	apply_next_operator(t_data *data, char *file, char *operator)
 */
 void input_handler(t_data *data)
 {
-	char	**cmds;
+	char	**commands;
 	char	**operators;
 	int		i;
+	int		j;
 
 	operators = get_operators_array(data->line);
 	if (!operators)
 		return ;
-	cmds = ft_split(data->line, "|><");
+	commands = ft_split(data->line, "|><");
 	i = -1;
-	while (cmds[++i])
+	j = 0;
+	while (commands[++i])
 	{
 		free(data->line);
-		data->line = cmds[i];
-		apply_next_operator(data, cmds[i + 1], operators[i]);
+		data->line = parse_line(commands[i], data->env);
+		if (operators[j] && commands[i + 1] && \
+			ft_strchr("<>", operators[i][0]))
+		{
+			commands[i + 1] = parse_line(commands[i + 1], data->env);
+			apply_next_operator(data, commands[i + 1], operators[j]);
+			free(commands[++i]);
+		}
+		else
+			apply_next_operator(data, NULL, operators[i]);
+		j++;
 	}
-	free(cmds);
-	free_double_array(operators);
+	free(commands);
+	free_double_array(operators); // still reachable leaks with exit command
 }
