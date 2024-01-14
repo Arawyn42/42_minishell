@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/14 16:58:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:47:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	output_redirection(char **cmds, int *index, t_data *data)
+void	output_redirection(char **cmds, int *index, int oflags, t_data *data)
 {
 	int		fd;
 	char	*file;
@@ -25,7 +25,7 @@ void	output_redirection(char **cmds, int *index, t_data *data)
 		return ;
 	}
 	file = parse_line(ft_strdup(file), data->env);
-	fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+	fd = open(file, oflags, 0666);
 	if (fd == -1)
 	{
 		ft_putstr("minishell: ", 2);

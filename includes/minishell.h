@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/14 16:55:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:47:31 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ char		*get_next_line(int fd);
 void		ft_pipe(char *cmd, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-void		output_redirection(char **cmds, int *index, t_data *data);
+void	output_redirection(char **cmds, int *index, int oflags, t_data *data);
 
 #endif
