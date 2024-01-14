@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/13 19:17:06 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 00:05:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	command_launcher(t_data *data)
+int	builtin_launcher(t_data *data)
 {
 	if (!data->line)
 		return (1);
