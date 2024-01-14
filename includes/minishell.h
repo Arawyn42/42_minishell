@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/13 16:10:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 16:55:12 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
 
 /****************************** EXECUTE COMMANDS ******************************/
-int			command_launcher(t_data *data);
+int			builtin_launcher(t_data *data);
 char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);
 void		ft_fork_exec(char *cmds, char **env);
@@ -116,9 +116,9 @@ void		ft_close(int *pipe_fd);
 void		ft_error_exit(int *pipe_fd, const char *msg);
 // void		ft_here_doc(int ac, char **av);
 char		*get_next_line(int fd);
-void		ft_pipe(t_data *data);
+void		ft_pipe(char *cmd, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-void		output_redirection(char *file, t_data *data);
+void		output_redirection(char **cmds, int *index, t_data *data);
 
 #endif

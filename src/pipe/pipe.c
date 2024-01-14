@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/10 23:40:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 01:01:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 /*	  then execute the current cmd (av[i]).									*/
 /* 2. In parent process, link the pipe input to the standard input (0).		*/
 /****************************************************************************/
-void	ft_pipe(t_data *data)
+void	ft_pipe(char *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -43,7 +43,8 @@ void	ft_pipe(t_data *data)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		ft_close(pipe_fd);
-		if (command_launcher(data))
+		data->line = parse_line(ft_strdup(cmd), data->env);
+		if (builtin_launcher(data))
 			exit(EXIT_SUCCESS);
 		else
 			ft_exec(data->line, data->env);
