@@ -51,3 +51,4 @@ unset
 
 regarder les still reachables leak. Notamment en lançant une command qui 
 	n'existe pas
+possible de ne pas free line dans parse_line ?
