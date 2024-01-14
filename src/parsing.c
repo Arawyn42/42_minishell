@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/14 17:52:47 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/14 18:13:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	apply_operator(char *operator, char **cmds, int *index, t_data *data)
 	else if (ft_strncmp(operator, ">", 1) == 0)
 		output_redirection(cmds, index, O_WRONLY | O_TRUNC | O_CREAT, data);
 	else if (ft_strncmp(operator, "<", 1) == 0)
-		printf("< is not supported yet\n");
+		input_redirection(cmds, index, data);
 }
 
 /*	WORK IN PROGRESS

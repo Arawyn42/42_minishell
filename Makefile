@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/13 16:09:41 by nsalles          ###   ########.fr        #
+#    Updated: 2024/01/14 17:58:23 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRCS			=	builtin/pwd.c \
 					errors.c \
 					exec_path.c \
 					parsing.c \
-					output_redirection.c
+					redirections.c
 
 MAIN			=	main.c
 
