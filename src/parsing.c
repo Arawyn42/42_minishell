@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/14 16:58:38 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:55:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	apply_operator(char *operator, char **cmds, int *index, t_data *data)
 	else if (ft_strncmp(operator, "|", 1) == 0)
 		ft_pipe(cmds[*index], data);
 	else if (ft_strncmp(operator, ">>", 2) == 0)
-		printf(">> is not supported yet\n");
+		output_redirection(cmds, index, O_WRONLY | O_APPEND | O_CREAT, data);
 	else if (ft_strncmp(operator, "<<", 2) == 0)
-		printf("<< is not supported yet\n");
+		here_doc(cmds, index, data);
 	else if (ft_strncmp(operator, ">", 1) == 0)
-		output_redirection(cmds, index, data);
+		output_redirection(cmds, index, O_WRONLY | O_TRUNC | O_CREAT, data);
 	else if (ft_strncmp(operator, "<", 1) == 0)
-		printf("< is not supported yet\n");
+		input_redirection(cmds, index, data);
 }
 
 /*	WORK IN PROGRESS
@@ -93,6 +93,7 @@ void	input_handler(t_data *data)
 	if (!operators)
 		return ;
 	commands = ft_split(data->line, "|><");
+	free(data->line);
 	i = -1;
 	while (commands[++i])
 		apply_operator(operators[i], commands, &i, data);

@@ -8,9 +8,13 @@ ls | exit # todo
 REDIRECTION RIGHT :
 exit > file
 cd > file
+ls >  # space
 ls > file > file2 # todo
 ls > # todo
 ls > no_permission/file
+
+REDIRECTION LEFT :
+wc < FIN # todo
 
 
 ls ~
@@ -52,3 +56,4 @@ unset
 regarder les still reachables leak. Notamment en lançant une command qui 
 	n'existe pas
 possible de ne pas free line dans parse_line ?
+revoir les messages d'erreurs des operateurs
