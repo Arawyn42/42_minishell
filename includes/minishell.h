@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 18:26:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 18:34:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ void		ft_exit(t_data *data);
 int			ft_open(char *file, int in_out);
 void		ft_close(int *pipe_fd);
 void		ft_error_exit(int *pipe_fd, const char *msg);
-// void		ft_here_doc(int ac, char **av);
 char		*get_next_line(int fd);
 void		ft_pipe(char *cmd, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-void	input_redirection(char **cmds, int *index, t_data *data);
-void	output_redirection(char **cmds, int *index, int oflags, t_data *data);
+void		output_redirection(char **cmds, int *index, int oflags, t_data *data);
+void		input_redirection(char **cmds, int *index, t_data *data);
+void		here_doc(char **cmds, int *index, t_data *data);
 
 #endif
