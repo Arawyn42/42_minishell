@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:28:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:15:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,14 @@ static void	export_var(t_data *data)
 		while (data->line[i + j] && data->line[i + j] != ' ')
 			j++;
 		var = ft_substr(data->line, i, j);
-		add_export_var(data, var);
+		if (var[0] == '=')
+		{
+			ft_putstr("minishell: export: `", 2);
+			ft_putstr(var, 2);
+			ft_putstr("': not a valid identifier\n", 2);
+		}
+		else
+			add_export_var(data, var);
 		free(var);
 		i += j;
 	}

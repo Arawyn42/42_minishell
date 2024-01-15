@@ -6,13 +6,13 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 22:04:09 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:19:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_data *data)
+void	ft_print_env(t_data *data)
 {
 	int	i;
 
@@ -24,3 +24,4 @@ void	ft_env(t_data *data)
 		i++;
 	}
 }
+
