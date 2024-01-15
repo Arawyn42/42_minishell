@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/14 17:58:23 by nsalles          ###   ########.fr        #
+#    Updated: 2024/01/15 23:44:55 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS			=	builtin/pwd.c \
 					builtin/env.c \
 					builtin/export.c \
 					builtin/export_utils.c \
+					builtin/unset.c \
 					builtin/exit.c \
 					builtin/parse_line.c \
 					builtin/parsed_line_len.c \

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 19:14:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:56:38 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ void	ft_export(t_data *data)
 		sort_export(data);
 		print_export(data);
 	}
-	else if (data->line[6] == ' ')
-	{
+	else
 		export_var(data);
-	}
 }

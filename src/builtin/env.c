@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 21:07:10 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 23:08:04 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_env(t_data *data)
 	}
 }
 
-static void	refresh_env(t_data *data, t_export *env)
+void	refresh_env(t_data *data, t_export *env)
 {
 	t_export	*ptr;
 	char		**new_env;
@@ -47,7 +47,7 @@ static void	refresh_env(t_data *data, t_export *env)
 	data->env = new_env;
 }
 
-static t_export	*convert_env_list(t_data *data)
+t_export	*convert_env_list(t_data *data)
 {
 	t_export	*env;
 	t_export	*new;

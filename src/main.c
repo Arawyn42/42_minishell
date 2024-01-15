@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 21:11:37 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:55:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	builtin_launcher(t_data *data)
 	else if (!ft_strcmp(data->line, "env")
 		|| !ft_strncmp(data->line, "env ", 4))
 		ft_print_env(data);
-	else if (!ft_strncmp(data->line, "export", 6))
+	else if (!ft_strcmp(data->line, "export")
+		|| !ft_strncmp(data->line, "export ", 7))
 		ft_export(data);
+	else if (!ft_strcmp(data->line, "unset")
+		|| !ft_strncmp(data->line, "unset ", 6))
+		ft_unset(data);
 	else if (!ft_strcmp(data->line, "exit")
 		|| !ft_strncmp(data->line, "exit ", 5))
 		ft_exit(data);
