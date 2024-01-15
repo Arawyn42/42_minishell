@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/14 16:55:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 18:19:32 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		ft_echo(t_data *data);
 /* CD */
 void		ft_cd(t_data *data);
 /* ENV */
-void		ft_env(t_data *data);
+void		ft_print_env(t_data *data);
 /* EXPORT */
 void		init_export(t_data *data);
 char		*convert_env_export(char *env_line);
