@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/14 18:13:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:14:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	input_handler(t_data *data)
 	if (!operators)
 		return ;
 	commands = ft_split(data->line, "|><");
+	free(data->line);
 	i = -1;
 	while (commands[++i])
 		apply_operator(operators[i], commands, &i, data);
