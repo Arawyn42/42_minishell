@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/14 00:05:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 18:21:58 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtin_launcher(t_data *data)
 		ft_cd(data);
 	else if (!ft_strcmp(data->line, "env")
 		|| !ft_strncmp(data->line, "env ", 4))
-		ft_env(data);
+		ft_print_env(data);
 	else if (!ft_strncmp(data->line, "export", 6))
 		ft_export(data);
 	else if (!ft_strcmp(data->line, "exit")

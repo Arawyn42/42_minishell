@@ -6,25 +6,25 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 18:15:00 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:14:22 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_var_name(char *export_line)
+char	*get_var_name(char *export_line, int i)
 {
 	char	*var_name;
-	int		i;
+	int		start;
 
-	i = 11;
+	start = i;
 	while (export_line[i])
 	{
 		if (export_line[i] == '=')
 			break ;
 		i++;
 	}
-	var_name = ft_substr(export_line, 11, i - 11);
+	var_name = ft_substr(export_line, start, i - start);
 	return (var_name);
 }
 
@@ -44,10 +44,11 @@ static void	add_export_var(t_data *data, char *var)
 	t_export	*ptr;
 	char		*var_name;
 
+	add_env_var(data, var);
 	ptr = data->export;
 	while (ptr)
 	{
-		var_name = get_var_name(ptr->content);
+		var_name = get_var_name(ptr->content, 11);
 		if (!ft_strncmp(var_name, var, ft_strlen(var_name)))
 		{
 			if (var[ft_strlen(var_name)] == '=')
