@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 18:34:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:48:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		sort_export(t_data *data);
 void		print_export(t_data *data);
 void		ft_export(t_data *data);
 /* EXIT */
+int			is_exit(t_data *data);
 void		ft_exit(t_data *data);
 
 /*********************************** PIPES ************************************/

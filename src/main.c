@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 18:31:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:49:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ int	builtin_launcher(t_data *data)
 		ft_print_env(data);
 	else if (!ft_strncmp(data->line, "export", 6))
 		ft_export(data);
-	else if (!ft_strcmp(data->line, "exit")
-		|| !ft_strncmp(data->line, "exit ", 5))
-		ft_exit(data);
 	else
 		return (0);
 	return (1);
@@ -53,12 +50,14 @@ void	minishell(t_data *data)
 		if (!data->line)
 		{
 			free_double_array(data->env);
-			clear_history();
+			clear_history(); // forbidden
 			break ;
 		}
-		add_history(data->line);
-		if (ft_strlen(data->line) != 0)
+		if (ft_strlen(data->line) != 0 && !is_exit(data))
+		{
+			add_history(data->line);
 			input_handler(data);
+		}
 		free(data->line);
 	}
 }
