@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:23:41 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:01:04 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char	*get_dollar_var(t_data *data, int *i, int *var_len)
 
 int	parse_conditions(char *line, int i, int insq, int indq)
 {
+	if (i >= 1 && line[i] == '?' && line[i - 1] == '$')
+		return (0);
 	if (line[i] == '~' && !insq && !indq && line[i - 1] == ' '
 		&& (line[i + 1] == ' ' || line[i + 1] == '/' || !line[i + 1]))
 		return (0);

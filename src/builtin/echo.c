@@ -6,11 +6,13 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:22:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:51:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	error_value;
 
 void	echo_write(char *line, int i)
 {
@@ -26,6 +28,7 @@ void	ft_echo(t_data *data)
 	int	i;
 
 	i = 0;
+	error_value = 0;
 	if (!data->line[4])
 		write(1, "\n", 1);
 	else if (data->line[5] == '-' && data->line[6] == 'n'

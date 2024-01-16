@@ -6,11 +6,13 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:24:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:50:16 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	error_value;
 
 static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 {
@@ -36,10 +38,25 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 
 static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 {
+	char	*err_val;
+	int		k;
+
+	k = 0;
 	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0')
 		return ;
 	(*i)++;
-	if (data->line[*i] >= '0' && data->line[*i] <= '9')
+	if (data->line[*i] == '?')
+	{
+		err_val = ft_itoa(error_value);
+		while (err_val[k])
+		{
+			new_line[*j] = err_val[k];
+			(*j)++;
+			k++;
+		}
+		free(err_val);
+	}
+	else if (data->line[*i] >= '0' && data->line[*i] <= '9')
 		(*i)++;
 	else
 		parse_dollar_value(data, new_line, i, j);

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 22:55:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:50:31 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int ac, char **av, char **base_env)
 		ft_putstr("Error: Too much arguments. No argument needed.\n", 2);
 		return (1);
 	}
+	// error_value = 0;
 	data.env = cpy_env(base_env);
 	data.prompt = NULL;
 	init_export(&data);

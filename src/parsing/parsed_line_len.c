@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:24:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:00:34 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,18 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 
 static void	dollar_var_len(t_data *data, int *i, int *len)
 {
+	char	*err_val;
+
 	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0')
 		return ;
 	(*i)++;
-	if (data->line[*i] >= '0' && data->line[*i] <= '9')
+	if (data->line[*i] == '?')
+	{
+		err_val = ft_itoa(error_value);
+		*len += ft_strlen(err_val);
+		free(err_val);
+	}
+	else if (data->line[*i] >= '0' && data->line[*i] <= '9')
 		(*i)++;
 	else
 		dollar_value_len(data, i, len);
