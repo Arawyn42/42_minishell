@@ -6,13 +6,11 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 19:50:16 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	error_value;
 
 static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 {
@@ -38,7 +36,7 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 
 static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 {
-	char	*err_val;
+	char	*ex_stat;
 	int		k;
 
 	k = 0;
@@ -47,14 +45,14 @@ static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 	(*i)++;
 	if (data->line[*i] == '?')
 	{
-		err_val = ft_itoa(error_value);
-		while (err_val[k])
+		ex_stat = ft_itoa(exit_status);
+		while (ex_stat[k])
 		{
-			new_line[*j] = err_val[k];
+			new_line[*j] = ex_stat[k];
 			(*j)++;
 			k++;
 		}
-		free(err_val);
+		free(ex_stat);
 	}
 	else if (data->line[*i] >= '0' && data->line[*i] <= '9')
 		(*i)++;

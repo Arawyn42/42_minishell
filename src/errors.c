@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:27:52 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/15 19:01:44 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	exit_error(const char *msg)
 {
 	perror(msg);
-	exit(EXIT_FAILURE);
+	exit_status = 1;
+	exit(exit_status);
 }

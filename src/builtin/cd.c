@@ -6,13 +6,11 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 19:52:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	error_value;
 
 static int	cd_error(t_data *data)
 {
@@ -34,7 +32,7 @@ static int	cd_check_args(t_data *data)
 		if (data->line[i] == ' ')
 		{
 			ft_putstr("minishell: cd: too many arguments\n", 2);
-			error_value = 1;
+			exit_status = 1;
 			return (0);
 		}
 		i++;
@@ -75,12 +73,12 @@ void	ft_cd(t_data *data)
 	else
 		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
 	set_old_pwd(data);
-	error_value = 0;
+	exit_status = 0;
 	if (chdir(path) == -1)
 	{
 		error_msg = ft_strjoin("minishell: cd: ", path);
 		perror(error_msg);
-		error_value = 1;
+		exit_status = 1;
 		free(error_msg);
 	}
 	set_pwd(data);

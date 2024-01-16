@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:20:53 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:01:51 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	*ft_get_path(char *cmd, char **env)
 void	ft_fork_exec(char *cmds, char **env)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -107,7 +108,10 @@ void	ft_fork_exec(char *cmds, char **env)
 	if (pid == 0)
 		ft_exec(cmds, env);
 	else
-		waitpid(pid, NULL, 0); // cat | cat | ls ??
+	{
+		waitpid(pid, &status, 0); // cat | cat | ls ??
+		exit_status = WEXITSTATUS(status);
+	}
 }
 
 /********** Executes the command cmds in the environnement env **********/
@@ -144,6 +148,7 @@ void	ft_exec(char *cmds, char **env)
 		free(cmds);
 		free_double_array(env);
 		rl_clear_history();
-		exit(EXIT_FAILURE);
+		exit_status = 127;
+		exit(exit_status);
 	}
 }
