@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 15:48:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/16 17:50:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,18 @@ void		ft_echo(t_data *data);
 void		ft_cd(t_data *data);
 /* ENV */
 void		ft_print_env(t_data *data);
+t_export	*convert_env_list(t_data *data);
+void		refresh_env(t_data *data, t_export *env);
+void		add_env_var(t_data *data, char *var);
 /* EXPORT */
 void		init_export(t_data *data);
+char		*get_var_name(char *export_line, int i);
 char		*convert_env_export(char *env_line);
 void		sort_export(t_data *data);
 void		print_export(t_data *data);
 void		ft_export(t_data *data);
+/* UNSET */
+void		ft_unset(t_data *data);
 /* EXIT */
 int			is_exit(t_data *data);
 void		ft_exit(t_data *data);
