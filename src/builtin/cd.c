@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:51:17 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,48 @@ static char	*cd_home_path(t_data *data)
 	return (home_path);
 }
 
+static char	*get_cd_path(t_data *data)
+{
+	char	*path;
+
+	if (!data->line[2])
+		path = cd_home_path(data);
+	else if (!ft_strcmp(data->line, "cd -"))
+	{
+		path = get_oldpwd(data);
+		ft_putstr(path, 1);
+		ft_putstr("\n", 1);
+	}
+	else
+		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
+	return (path);
+}
+
 void	ft_cd(t_data *data)
 {
 	char	*error_msg;
 	char	*path;
+	char	*oldpwd;
 
 	path = NULL;
 	if (cd_error(data))
 		return ;
 	if (!cd_check_args(data))
 		return ;
-	if (!data->line[2])
-		path = cd_home_path(data);
-	else if (!ft_strcmp(data->line, "cd -"))
-		path = get_oldpwd(data);
-	else
-		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
-	set_old_pwd(data);
+	path = get_cd_path(data);
+	oldpwd = get_oldpwd(data);
+	set_old_pwd(data, NULL);
 	exit_status = 0;
 	if (chdir(path) == -1)
 	{
+		set_old_pwd(data, oldpwd);
+		free(oldpwd);
 		error_msg = ft_strjoin("minishell: cd: ", path);
 		perror(error_msg);
 		exit_status = 1;
 		free(error_msg);
 	}
 	set_pwd(data);
+	free(oldpwd);
 	free(path);
 }

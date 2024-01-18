@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 09:21:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/18 18:39:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		ft_exec(char *cmds, char **env);
 /* PWD */
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);
-void		set_old_pwd(t_data *data);
+void		set_old_pwd(t_data *data, char *path);
 void		ft_pwd(void);
 /* ECHO */
 void		ft_echo(t_data *data);

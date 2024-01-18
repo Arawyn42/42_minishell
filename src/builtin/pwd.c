@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 18:53:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:39:14 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,16 @@ void	set_pwd(t_data *data)
 	free(new_pwd);
 }
 
-void	set_old_pwd(t_data *data)
+void	set_old_pwd(t_data *data, char *path)
 {
 	int		i;
 	char	*old_pwd;
 
 	i = 0;
-	old_pwd = getcwd(NULL, 0);
+	if (!path)
+		old_pwd = getcwd(NULL, 0);
+	else
+		old_pwd = ft_strdup(path);
 	while (data->env[i])
 	{
 		if (!ft_strncmp(data->env[i], "OLDPWD", 3))
