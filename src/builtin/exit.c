@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 09:22:06 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/18 18:12:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_exit(t_data *data)
 	char	*line;
 
 	line = parse_line(ft_strdup(data->line), data->env);
+	if (!line)
+		return (0);
 	if (!ft_strcmp(line, "exit") || !ft_strncmp(data->line, "exit ", 5))
 	{
 		free(line);
