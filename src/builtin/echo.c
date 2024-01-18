@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:22:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:19:34 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	ft_echo(t_data *data)
 		echo_write(data->line, i);
 		write(1, "\n", 1);
 	}
+	exit_status = 0;
 }

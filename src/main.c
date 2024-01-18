@@ -6,11 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 17:55:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:21:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exit_status;
 
 int	builtin_launcher(t_data *data)
 {
@@ -79,6 +81,7 @@ int	main(int ac, char **av, char **base_env)
 	data.env = cpy_env(base_env);
 	data.prompt = NULL;
 	init_export(&data);
+	exit_status = 0;
 	minishell(&data);
 	return (0);
 }

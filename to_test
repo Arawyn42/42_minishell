@@ -49,11 +49,10 @@ cd - # not printing the path
 
 
 
-BUILTINS A FAIRE :
-export var dans l'env
-unset
+A FAIRE :
+Signaux + exit status des signaux
 
-regarder les still reachables leak. Notamment en lançant une command qui 
+regarder les still reachables leak. Notamment en lançant une commande qui 
 	n'existe pas
 possible de ne pas free line dans parse_line ?
 revoir les messages d'erreurs des operateurs

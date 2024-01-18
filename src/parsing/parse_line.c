@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:24:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,25 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 
 static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 {
+	char	*ex_stat;
+	int		k;
+
+	k = 0;
 	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0')
 		return ;
 	(*i)++;
-	if (data->line[*i] >= '0' && data->line[*i] <= '9')
+	if (data->line[*i] == '?')
+	{
+		ex_stat = ft_itoa(exit_status);
+		while (ex_stat[k])
+		{
+			new_line[*j] = ex_stat[k];
+			(*j)++;
+			k++;
+		}
+		free(ex_stat);
+	}
+	else if (data->line[*i] >= '0' && data->line[*i] <= '9')
 		(*i)++;
 	else
 		parse_dollar_value(data, new_line, i, j);

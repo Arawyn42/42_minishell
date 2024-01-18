@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 17:56:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/18 09:21:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <readline/history.h>
 
 # define BUFFER_SIZE 42
+
+/****************************** GLOBAL VARIABLES ******************************/
+extern int			exit_status;
 
 /********************************* STRUCTURES *********************************/
 typedef struct s_export
@@ -51,6 +54,8 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char *charset);
+int			ft_atoi(const char *s);
+char		*ft_itoa(int n);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
