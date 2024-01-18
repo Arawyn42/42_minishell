@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:04:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,10 @@ t_export	*convert_env_list(t_data *data)
 static void	add_env_new_var(t_data *data, char *var)
 {
 	int			i;
-	int			size;
 	t_export	*env;
 	t_export	*new;
 
 	i = 0;
-	size = 0;
 	env = NULL;
 	if (!var)
 		return ;
