@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 22:04:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:21:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void		ft_export(t_data *data);
 /* UNSET */
 void		ft_unset(t_data *data);
 /* EXIT */
+int			is_exit(t_data *data);
 void		ft_exit(t_data *data);
 
 /*********************************** PIPES ************************************/

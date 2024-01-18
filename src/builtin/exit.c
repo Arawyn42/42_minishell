@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:12:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_exit(t_data *data)
+{
+	char	*line;
+
+	line = parse_line(ft_strdup(data->line), data->env);
+	if (!line)
+		return (0);
+	if (!ft_strcmp(line, "exit") || !ft_strncmp(data->line, "exit ", 5))
+	{
+		free(line);
+		ft_exit(data);
+	}
+	free(line);
+	return (0);
+}
 
 static void	check_exit_args(t_data *data, int *i)
 {

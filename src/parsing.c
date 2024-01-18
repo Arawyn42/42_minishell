@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/15 17:55:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/15 19:47:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,7 @@ void	input_handler(t_data *data)
 	free_double_array(operators);
 	free_double_array(commands);
 }
+
+// gestions des quotes entre les pipes
+// exit dans cette fonction
+// gerer ls > file > file2
