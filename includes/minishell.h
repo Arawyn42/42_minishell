@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 18:39:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:37:16 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
+char		*unclosed_quotes(t_data *data);
+int			is_unclosed_quotes(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
 int			builtin_launcher(t_data *data);

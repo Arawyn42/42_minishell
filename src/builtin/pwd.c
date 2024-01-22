@@ -6,12 +6,13 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 18:39:14 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:03:23 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Colors : Add \033[0;34m at beginning then \033[0;36m then \033[m*/
 void	refresh_prompt(t_data *data)
 {
 	char	*second_part;
@@ -25,19 +26,19 @@ void	refresh_prompt(t_data *data)
 	{
 		second_part = ft_substr(pwd, ft_strlen(home_path),
 				ft_strlen(pwd) - ft_strlen(home_path));
-		prompt = ft_strjoin("\033[0;34mminishell:\033[0;36m~", second_part);
+		prompt = ft_strjoin("minishell:~", second_part);
 	}
 	else
 	{
 		second_part = ft_strdup(pwd);
-		prompt = ft_strjoin("\033[0;34mminishell:\033[0;36m", second_part);
+		prompt = ft_strjoin("minishell:", second_part);
 	}
 	free(home_path);
 	free(pwd);
 	free(second_part);
 	if (data->prompt)
 		free(data->prompt);
-	data->prompt = ft_strjoin(prompt, "\033[m$ ");
+	data->prompt = ft_strjoin(prompt, "$ ");
 	free(prompt);
 }
 

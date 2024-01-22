@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:30:17 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,14 @@ char	*parse_line(char *line, char **env)
 	data.env = env;
 	in_singleq = 0;
 	in_doubleq = 0;
-	if (count_double_quotes(line) % 2
-		|| count_single_quotes(line) % 2)
-	{
-		ft_putstr("minishell: quotes error\n", 2);
-		return (NULL);
-	}
+	data.line = unclosed_quotes(&data);
+	free(line);
 	len = 0;
 	new_line_len(&data, &len, in_singleq, in_doubleq);
 	new_line = ft_calloc(len + 1, sizeof(char));
 	if (!new_line)
 		return (NULL);
 	parsed_line(&data, new_line, &in_singleq, &in_doubleq);
-	free(line);
 	free(data.line);
 	return (new_line);
 }
