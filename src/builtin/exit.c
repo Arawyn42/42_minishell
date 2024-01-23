@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 18:08:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:07:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_exit(t_data *data)
 	line = ft_strdup(data->line); // Avant il y avait un parse line ici
 	if (!line)
 		return (0);
+	if (line && line[0] == 4)
+		ft_exit(data);
 	if (!ft_strcmp(line, "exit") || !ft_strncmp(data->line, "exit ", 5))
 	{
 		free(line);

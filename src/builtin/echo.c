@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:19:34 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 00:42:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_echo(t_data *data)
 	int	i;
 
 	i = 0;
+	if (!data->line[0])
+		return ;
 	if (!data->line[4])
 		write(1, "\n", 1);
 	else if (data->line[5] == '-' && data->line[6] == 'n'

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 17:42:57 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:24:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ void	minishell(t_data *data)
 		data->line = readline(data->prompt);
 		if (!data->line)
 		{
+			ft_putstr("\nexit\n", 1);
 			free_double_array(data->env);
 			rl_clear_history();
 			break ;
 		}
-		if (ft_strlen(data->line) != 0 && !is_exit(data))
+		else if (ft_strlen(data->line) != 0 && !is_exit(data))
 		{
 			if (!is_unclosed_quotes(data))
 				add_history(data->line);
