@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 09:21:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/23 01:01:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			count_single_quotes(char *str);
 char		**get_operators_array(char *str);
-void		input_handler(t_data *data);
 /* LISTS */
 t_export	*lst_new_node(char *content);
 void		lst_add_front(t_export **lst, t_export *new);
@@ -88,8 +87,10 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
+void		parse_logic_operators(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
+void		command_launcher(t_data *data);
 int			builtin_launcher(t_data *data);
 char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);
