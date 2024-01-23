@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 18:53:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:38:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ void	minishell(t_data *data)
 		data->line = readline(data->prompt);
 		if (!data->line)
 		{
+			ft_putstr("\nexit\n", 1);
 			free_double_array(data->env);
-			clear_history(); // forbidden
+			rl_clear_history();
 			break ;
 		}
-		if (ft_strlen(data->line) != 0 && !is_exit(data))
+		else if (ft_strlen(data->line) != 0 && !is_exit(data))
 		{
-			add_history(data->line);
+			if (!is_unclosed_quotes(data))
+				add_history(data->line);
 			parse_logic_operators(data);
 		}
 	}

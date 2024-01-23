@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 18:12:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/22 21:07:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	is_exit(t_data *data)
 {
 	char	*line;
 
-	line = parse_line(ft_strdup(data->line), data->env);
+	line = ft_strdup(data->line); // Avant il y avait un parse line ici
 	if (!line)
 		return (0);
+	if (line && line[0] == 4)
+		ft_exit(data);
 	if (!ft_strcmp(line, "exit") || !ft_strncmp(data->line, "exit ", 5))
 	{
 		free(line);
@@ -65,7 +67,7 @@ void	ft_exit(t_data *data)
 		}
 	}
 	exit_status = 0;
-	if (data->line[5])
+	if (data->line[4] && data->line[5])
 	{
 		arg = ft_substr(data->line, 5, ft_strlen(data->line) - 5);
 		exit_status = ft_atoi(arg) % 256;

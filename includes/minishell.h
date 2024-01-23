@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 01:01:27 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:37:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
+char		*unclosed_quotes(t_data *data);
+int			is_unclosed_quotes(t_data *data);
 void		parse_logic_operators(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
@@ -99,7 +101,7 @@ void		ft_exec(char *cmds, char **env);
 /* PWD */
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);
-void		set_old_pwd(t_data *data);
+void		set_old_pwd(t_data *data, char *path);
 void		ft_pwd(void);
 /* ECHO */
 void		ft_echo(t_data *data);

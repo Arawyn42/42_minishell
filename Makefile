@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/22 18:51:26 by nsalles          ###   ########.fr        #
+#    Updated: 2024/01/23 14:37:37 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS			=	builtin/pwd.c \
 					parsing/parse_line.c \
 					parsing/parsed_line_len.c \
 					parsing/parse_line_utils.c \
+					parsing/unclosed_quotes.c \
 					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
@@ -54,7 +55,6 @@ SRCS			=	builtin/pwd.c \
 					utils/split_operators.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
-					here_doc.c \
 					logic_operators.c \
 					errors.c \
 					exec_path.c \

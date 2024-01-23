@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/15 18:47:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:27:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	here_doc_reading(char *limiter, int *pipe_fd)
+static void	here_doc_error(char *limiter)
+{
+	ft_putstr("bash: warning: here-document at line delimited by", 2);
+	ft_putstr(" end-of-file (wanted `", 2);
+	ft_putstr(limiter, 2);
+	ft_putstr("')\n", 2);
+	exit_status = 2;
+}
+
+static void	here_doc_reading(char *limiter, int *pipe_fd)
 {
 	char	*line;
 
@@ -22,23 +31,29 @@ void	here_doc_reading(char *limiter, int *pipe_fd)
 	{
 		write(0, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
+		if (!line)
+		{
+			here_doc_error(limiter);
+			break ;
+		}
 		line[ft_strlen(line) - 1] = '\0';
 		if (!ft_strcmp(line, limiter))
-		{
-			get_next_line(-1);
-			free(line);
-			close(pipe_fd[1]);
-			exit(EXIT_SUCCESS);
-		}
+			break ;
 		ft_putstr(line, pipe_fd[1]);
 		free(line);
 	}
+	if (line)
+		free(line);
+	get_next_line(-1);
+	close(pipe_fd[1]);
+	exit(exit_status);
 }
 
 void	here_doc(char **cmds, int *index, t_data *data)
 {
 	int	pid;
 	int	pipe_fd[2];
+	int	status;
 
 	if (!cmds[(*index) + 1])
 	{
@@ -46,10 +61,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 		return (ft_putstr("unexpected pipe or redirection\n", 2));
 	}
 	if (pipe(pipe_fd) == -1)
-	{
-		ft_putstr("minishell: unexpected fork error", 2);
-		exit(EXIT_FAILURE);
-	}
+		return (ft_putstr("minishell: unexpected fork error", 2));
 	pid = fork();
 	if (pid == -1)
 		ft_error_exit(pipe_fd, "minishell: unexpected fork error");
@@ -57,7 +69,8 @@ void	here_doc(char **cmds, int *index, t_data *data)
 		here_doc_reading(parse_line(cmds[(*index) + 1], data->env), pipe_fd);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
-	wait(NULL);
+	waitpid(pid, &status, 0); // cat | cat | ls ??
+	exit_status = WEXITSTATUS(status);
 	data->line = parse_line(ft_strdup(cmds[*index]), data->env);
 	(*index)++;
 	if (!builtin_launcher(data))
