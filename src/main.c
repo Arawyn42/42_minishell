@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 18:11:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:13:04 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	g_exit_status;
 int	g_sigint;
-int	g_sigquit;
 int	g_pid;
 
 int	builtin_launcher(t_data *data)
@@ -52,7 +51,7 @@ void	minishell(t_data *data)
 	saved_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
-		init_signals();
+		g_sigint = 0;
 		refresh_prompt(data);
 		dup2(saved_stdin, STDIN_FILENO);
 		dup2(saved_stdout, STDOUT_FILENO);

@@ -6,17 +6,11 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:45:07 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 18:11:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:12:59 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_signals()
-{
-	g_sigint = 0;
-	g_sigquit = 0;
-}
 
 void	sigquit_handler()
 {
