@@ -1,58 +1,131 @@
 PIPE :
+ls | wc
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
-ls |   # todo
-ls | exit # todo
+ls |												
+ls |  # space										
+ls | exit											
 
-REDIRECTION RIGHT :
-exit > file
+REDIRECTION_RIGHT :
+ls > file
+ls > notexisting
+ls    >   file
+exit > file											
 cd > file
-ls >  # space
-ls > file > file2 # todo
-ls > # todo
-ls > no_permission/file
+ls >  # space										
+ls > file > file2 > file3 > file4
+ls > no_permission/file			
+> file
+ls > file | ls
 
-REDIRECTION LEFT :
-wc < FIN # todo
+REDIRECTION_RIGHT_APPEND :
 
 
+REDIRECTION_LEFT :
+wc < file
+wc < notexisting
+wc < no_permission/file
+wc <
+< file wc
+
+HERE DOC :
+wc << END
+wc << END				# ctrl+d should work wc should be launched
+<< END
+wc << ls
+export HEY=hello    and   wc << $HEY
+wc << he'll'o
+
+TILDE
 ls ~
+cd ~
+cd ~/..
+export HOME=$HOME/notexisting  and   ls ~
+
+OPERATORS
 ls >>> file
 ls >>      > file
-cat \ file
 ls >      >> file
 wc <<< file
 wc <<      < file
-wc <      << file
 wc <> file
 ls >< file
 ls |> wc
 echo hello >    > file
-cat Makefile | grep "@" << FIN
+cat Makefile | grep "@" << END\
 
+LOGIC_OPERATORS
+true || echo aaa && echo bbb
+true || (echo aaa && echo bbb)
+true || (echo aaa && echo bbb
+true || echo aaa && echo bbb)
+true || (echo a && echo b) && echo c
+true || (echo a) && echo b
+true || ((echo a && echo b) && echo c)
+ls > file && echo "salut"  					# check dup status
+false && (echo aaa)
+ls & & ls
+ls && && ls
+ls | | ls
+ls (&&) ls
+echo "&&" ls
+echo '"'&&'"' ls
+exit && ls
+ls && exit							# check still reachable leaks
+ls &&
+&& ls
 
+ECHO :
+echo hello
+  echo  -n    hello
+echo-n
+echo -n hello
+echo -n
+echo -nhello
+echo $NOTEXISTING
 
+CD :
+cd - 
+unset OLDPWD   and   cd -
+cd ..			# check $PWD and $OLDPWD is set correctly
+cd .			# check $PWD and $OLDPWD is set correctly
+cd notexisting	# check $PWD and $OLDPWD is set correctly
+cd no_permission
 
+ENV :
+env
 
+EXPORT :
+export			# must be sorted in alphabetical order
+export  =hello
+export =
+export HEY=hello
+exportHEY=hello
+export HEY=
+export HEY
+export "HEY"=hello
+export HEY="hello"
+export "HEY=hello"
+export PATH=#your_path  # Check if the path is correctly changed in env
 
-BUILTINS :
+PWD :
+pwd
+unset PWD      and    pwd  # pwd should work
+
+UNSET :
+unset
+export ZZZ     and    unset ZZZ
+unset PATH     and    ls   			# ls should not be found
+
+PARSING :
+cat \ file
+echo $OLDPWD
 echo ">" file
 echo '>' file
-echo -n
-echo -nlol
 touch 'fi|le'
 touch "fi|le"
 touch "'file'"
 touch '"'"file"'"'
-cd - # not printing the path
-
-
-
-A FAIRE :
-Signaux + exit status des signaux
-
-regarder les still reachables leak. Notamment en lançant une commande qui 
-	n'existe pas
-possible de ne pas free line dans parse_line ?
-revoir les messages d'erreurs des operateurs
+echo "salut
+echo 'salut
