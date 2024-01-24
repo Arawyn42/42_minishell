@@ -3,30 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   logic_operators.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:54:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 01:34:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:01:16 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	logic_operator_pos(char *str)
+static int	condition(char *operator)
 {
-	static int	pos = 0;
+	if (!operator)
+		return (1);
+	return ((!ft_strncmp(operator, "&&", 2) && !g_exit_status) || 
+			(!ft_strncmp(operator, "||", 2) && g_exit_status));
+}
 
-	while (str[pos])
+int	skip_parenthesis(char *str, int pos)
+{
+	int	parenthesis_depth;
+
+	parenthesis_depth = 1;
+	while (parenthesis_depth != 0 && str[pos])
 	{
-		if (!ft_strncmp(&str[pos], "&&", 2) || !ft_strncmp(&str[pos], "||", 2))
-		{
-			pos += 2;
-			return (pos);
-		}
+		if (str[pos] == '(')
+			parenthesis_depth++;
+		else if (str[pos] == ')')
+			parenthesis_depth--;
 		pos++;
 	}
-	pos = 0;
-	return (-1);
+	return (pos);
+}
+
+//	Change cette fonction en mode 'get_word' avec un substr et tout.
+//	Comme dans split, skip le start si tu es dans les parentheses qui ne  
+//		doivent pas être interprété.
+//	Le mot commence à 0 (sauf dans le cas de parentheses skip) et fini au
+//		prochain operateur ou à la fin du str.
+static char	*get_command(char *str, int *start, char *last_operator)
+{
+	char		*res;
+	int			len;
+
+	len = -1;
+	while (len == -1 || str[*start + len])
+	{
+		len++;
+		if (!condition(last_operator) && str[*start + len] == '(')
+		{
+			*start = skip_parenthesis(str, *start + len + 1);
+			len = 0;
+		}
+		if (!ft_strncmp(&str[*start + len], "&&", 2) ||
+			!ft_strncmp(&str[*start + len], "||", 2))
+		{
+			if (condition(last_operator))
+				break ;
+			last_operator = &str[*start + len];
+			*start = *start + len + 2;
+			len = 0;
+		}
+	}
+	if (condition(last_operator))
+		res = ft_substr(str, *start, len);
+	else
+		res = NULL;
+	// printf("start = %d\n", *start);
+	// printf("len = %d\n", len);
+	// printf("line = %s\n", res);
+	// printf("last operator = %s\n", last_operator);
+	*start = *start + len;
+	if (!str[*start] || len == 0)
+		*start = -1;
+	return (res);
 }
 
 /*
@@ -34,25 +84,20 @@ int	logic_operator_pos(char *str)
 */
 void	parse_logic_operators(t_data *data)
 {
-	int 	pos;
-	int		old;
-	char	*line;
+	char	*line; // move the backup dub here
+	int		start;
 
-	line = ft_strtrim(data->line, " ()");
-	pos = logic_operator_pos(line);
-	old = 0;
-	data->line = ft_substr(line, old, pos - 2 - old);
+	start = 0;
+	line = ft_strtrim(data->line, " ");
+	free(data->line);
+	data->line = get_command(line, &start, NULL);
 	command_launcher(data);
-	while (pos != -1)
+	while (start != -1)
 	{
-		old = pos;
-		pos = logic_operator_pos(line);
-		if (pos == -1)
-			data->line = ft_substr(line, old, ft_strlen(line) - old);
-		else
-			data->line = ft_substr(line, old, pos - 2 - old);
-		if ((!ft_strncmp(&line[old - 2], "&&", 2) && !g_exit_status) ||
-			(!ft_strncmp(&line[old - 2], "||", 2) && g_exit_status))
+		start += 2;
+		data->line = get_command(line, &start, &line[start - 2]);
+		if (data->line)
 			command_launcher(data);
 	}
+	free(line);
 }

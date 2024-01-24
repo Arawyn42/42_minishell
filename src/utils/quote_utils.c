@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:03:08 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/22 18:17:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:46:10 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_in_quote(char *str, int pos)
+int	is_in_quote(char *str, int pos) // unused
 {
 	int	i;
 	int	single_quote;
@@ -30,4 +30,20 @@ int	is_in_quote(char *str, int pos)
 		i++;
 	}
 	return (double_quote % 2 == 1 || single_quote % 2 == 1);
+}
+
+void	unclosed_parenthesis(char *str) // unfinished
+{
+	int	i;
+	int	parenthesis_depth;
+
+	parenthesis_depth = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '(')
+			parenthesis_depth++;
+		else if (str[i] == ')')
+			parenthesis_depth--;
+	}
 }

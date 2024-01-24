@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/22 20:05:18 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:16:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	command_launcher(t_data *data)
 		apply_operator(operators[i], commands, &i, data);
 	free_double_array(operators);
 	free_double_array(commands);
+	free(data->line);
 }
 

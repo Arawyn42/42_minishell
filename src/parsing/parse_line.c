@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:38:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	*parse_line(char *line, char **env)
 	int		in_doubleq;
 	int		len;
 
-	data.line = ft_strtrim(line, " ");
+	data.line = ft_strtrim(line, " ()");
 	data.env = env;
 	in_singleq = 0;
 	in_doubleq = 0;
