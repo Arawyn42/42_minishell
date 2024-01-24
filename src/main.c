@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 01:32:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:38:45 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	minishell(t_data *data)
 		if (!data->line)
 		{
 			ft_putstr("\nexit\n", 1);
-			free_double_array(data->env);
+			free_all(data);
 			rl_clear_history();
 			break ;
 		}
