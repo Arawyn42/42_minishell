@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 00:51:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:29:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			count_single_quotes(char *str);
 char		**get_operators_array(char *str);
-void		input_handler(t_data *data);
 /* LISTS */
 t_export	*lst_new_node(char *content);
 void		lst_add_front(t_export **lst, t_export *new);
@@ -94,8 +93,10 @@ void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
 char		*unclosed_quotes(t_data *data);
 int			is_unclosed_quotes(t_data *data);
+void		parse_logic_operators(t_data *data);
 
 /****************************** EXECUTE COMMANDS ******************************/
+void		command_launcher(t_data *data);
 int			builtin_launcher(t_data *data);
 char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);

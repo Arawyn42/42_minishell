@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/15 19:47:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/22 20:05:18 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	apply_operator(char *operator, char **cmds, int *index, t_data *data)
  *	Unlike bash, this implementation does not support any redirection or 
  *	pipe after an output redirection. (yet ?)
 */
-void	input_handler(t_data *data)
+void	command_launcher(t_data *data)
 {
 	char	**commands;
 	char	**operators;
@@ -101,6 +101,3 @@ void	input_handler(t_data *data)
 	free_double_array(commands);
 }
 
-// gestions des quotes entre les pipes
-// exit dans cette fonction
-// gerer ls > file > file2
