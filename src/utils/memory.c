@@ -6,13 +6,13 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 21:54:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:26:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_bzero(void *dest, size_t n)
+void	ft_bzero(void *dest, size_t n)
 {
 	size_t	i;
 

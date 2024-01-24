@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:45:07 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 18:12:59 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:27:33 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	sigquit_handler()
 {
 	struct sigaction	s;
+
+	ft_bzero(&s, sizeof(s));
 	s.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &s, NULL);
 }

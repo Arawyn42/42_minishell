@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 18:13:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:26:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void		lst_add_front(t_export **lst, t_export *new);
 t_export	*lst_get_last(t_export *lst);
 void		lst_add_back(t_export **lst, t_export *new);
 /* MEMORY */
+void		ft_bzero(void *dest, size_t n);
 void		*ft_calloc(size_t n, size_t size);
 void		free_double_array(char **array);
 void		free_export(t_export **lst);
