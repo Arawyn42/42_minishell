@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 01:38:45 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:18:11 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	minishell(t_data *data)
 	saved_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
-		g_sigint = 0;
+		init_signals();
 		refresh_prompt(data);
 		dup2(saved_stdin, STDIN_FILENO);
 		dup2(saved_stdout, STDOUT_FILENO);
 		data->line = readline(data->prompt);
-		if (!data->line)
+		if (!data->line && !g_sigint)
 		{
 			ft_putstr("\nexit\n", 1);
 			free_all(data);

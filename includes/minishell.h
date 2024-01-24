@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 01:29:56 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:21:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void		input_redirection(char **cmds, int *index, t_data *data);
 void		here_doc(char **cmds, int *index, t_data *data);
 
 /*********************************** SIGNALS ******************************/
+void		init_signals();
 void		sigint_handler(int signum);
 
 #endif
