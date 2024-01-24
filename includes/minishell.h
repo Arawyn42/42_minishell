@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 15:21:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:53:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
-# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -29,6 +28,7 @@
 /****************************** GLOBAL VARIABLES ******************************/
 extern int	g_exit_status;
 extern int	g_sigint;
+extern int	g_sigquit;
 extern int	g_pid;
 
 /********************************* STRUCTURES *********************************/
@@ -143,6 +143,7 @@ void		here_doc(char **cmds, int *index, t_data *data);
 
 /*********************************** SIGNALS ******************************/
 void		init_signals();
-void		sigint_handler(int signum);
+void		sigquit_handler();
+void		signals_handler(int signum);
 
 #endif

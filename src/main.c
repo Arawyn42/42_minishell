@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 16:18:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:11:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	g_exit_status;
 int	g_sigint;
+int	g_sigquit;
 int	g_pid;
 
 int	builtin_launcher(t_data *data)
@@ -88,7 +89,8 @@ int	main(int ac, char **av, char **base_env)
 	init_export(&data);
 	g_exit_status = 0;
 	g_pid = 1;
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, signals_handler);
+	sigquit_handler();
 	minishell(&data);
 	return (0);
 }
