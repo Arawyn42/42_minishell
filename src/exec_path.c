@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 22:01:51 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:21:37 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_fork_exec(char *cmds, char **env)
 	int		status;
 
 	pid = fork();
+	g_pid = pid;
 	if (pid == -1)
 		exit_error("fork");
 	if (pid == 0)
@@ -110,7 +111,7 @@ void	ft_fork_exec(char *cmds, char **env)
 	else
 	{
 		waitpid(pid, &status, 0); // cat | cat | ls ??
-		exit_status = WEXITSTATUS(status);
+		g_exit_status = WEXITSTATUS(status);
 	}
 }
 
@@ -148,7 +149,7 @@ void	ft_exec(char *cmds, char **env)
 		free(cmds);
 		free_double_array(env);
 		rl_clear_history();
-		exit_status = 127;
-		exit(exit_status);
+		g_exit_status = 127;
+		exit(g_exit_status);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 17:30:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 	(*i)++;
 	if (data->line[*i] == '?')
 	{
-		ex_stat = ft_itoa(exit_status);
+		ex_stat = ft_itoa(g_exit_status);
 		while (ex_stat[k])
 		{
 			new_line[*j] = ex_stat[k];

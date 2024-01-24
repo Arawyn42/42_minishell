@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 21:07:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	check_exit_args(t_data *data, int *i)
 			write(2, &data->line[(*i)++], 1);
 		ft_putstr(": numeric argument required\n", 2);
 		free_all(data);
-		exit_status = 2;
-		exit(exit_status);
+		g_exit_status = 2;
+		exit(g_exit_status);
 	}
 }
 
@@ -66,14 +66,14 @@ void	ft_exit(t_data *data)
 			i++;
 		}
 	}
-	exit_status = 0;
+	g_exit_status = 0;
 	if (data->line[4] && data->line[5])
 	{
 		arg = ft_substr(data->line, 5, ft_strlen(data->line) - 5);
-		exit_status = ft_atoi(arg) % 256;
+		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
 	ft_putstr("exit\n", 1);
 	free_all(data);
-	exit(exit_status);
+	exit(g_exit_status);
 }

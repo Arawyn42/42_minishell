@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 17:37:16 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 00:51:39 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 # define BUFFER_SIZE 42
 
 /****************************** GLOBAL VARIABLES ******************************/
-extern int			exit_status;
+extern int	g_exit_status;
+extern int	g_sigint;
+extern int	g_pid;
 
 /********************************* STRUCTURES *********************************/
 typedef struct s_export
@@ -135,5 +139,8 @@ void		ft_pipe(char *cmd, t_data *data);
 void		output_redirection(char **cmds, int *index, int oflags, t_data *data);
 void		input_redirection(char **cmds, int *index, t_data *data);
 void		here_doc(char **cmds, int *index, t_data *data);
+
+/*********************************** SIGNALS ******************************/
+void		sigint_handler(int signum);
 
 #endif

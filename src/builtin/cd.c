@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/18 18:51:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	cd_check_args(t_data *data)
 		if (data->line[i] == ' ')
 		{
 			ft_putstr("minishell: cd: too many arguments\n", 2);
-			exit_status = 1;
+			g_exit_status = 1;
 			return (0);
 		}
 		i++;
@@ -87,14 +87,14 @@ void	ft_cd(t_data *data)
 	path = get_cd_path(data);
 	oldpwd = get_oldpwd(data);
 	set_old_pwd(data, NULL);
-	exit_status = 0;
+	g_exit_status = 0;
 	if (chdir(path) == -1)
 	{
 		set_old_pwd(data, oldpwd);
 		free(oldpwd);
 		error_msg = ft_strjoin("minishell: cd: ", path);
 		perror(error_msg);
-		exit_status = 1;
+		g_exit_status = 1;
 		free(error_msg);
 	}
 	set_pwd(data);

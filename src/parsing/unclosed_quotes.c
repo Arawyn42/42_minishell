@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:44:46 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 22:38:02 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*unclosed_double(t_data *data)
 			ft_putstr("matching `\"'\nminishell: syntax error: unexpected", 2);
 			ft_putstr(" end of file\n", 2);
 			free(new_line);
-			exit_status = 2;
+			g_exit_status = 2;
 			return (add_history(data->line), free(data->line), ft_strdup(""));
 		}
 		line = ft_strjoin(data->line, "\n");
@@ -55,7 +55,7 @@ static char	*unclosed_single(t_data *data)
 			ft_putstr("matching `\''\nminishell: syntax error: unexpected", 2);
 			ft_putstr(" end of file\n", 2);
 			free(new_line);
-			exit_status = 2;
+			g_exit_status = 2;
 			return (add_history(data->line), free(data->line), ft_strdup(""));
 		}
 		line = ft_strjoin(data->line, "\n");

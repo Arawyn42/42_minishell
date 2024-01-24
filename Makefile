@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/22 17:40:51 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/23 18:24:18 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ SRCS			=	builtin/pwd.c \
 					builtin/echo.c \
 					builtin/env.c \
 					builtin/export.c \
-					builtin/export_utils.c \
 					builtin/unset.c \
 					builtin/exit.c \
+					builtin/signals.c \
 					parsing/parse_line.c \
 					parsing/parsed_line_len.c \
 					parsing/parse_line_utils.c \
@@ -52,6 +52,7 @@ SRCS			=	builtin/pwd.c \
 					utils/ft_split.c \
 					utils/ft_itoa.c \
 					utils/get_next_line.c \
+					utils/export_utils.c \
 					utils/split_operators.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \

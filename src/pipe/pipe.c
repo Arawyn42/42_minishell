@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/23 14:27:30 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:05:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 static void	here_doc_error(char *limiter)
 {
-	ft_putstr("bash: warning: here-document at line delimited by", 2);
-	ft_putstr(" end-of-file (wanted `", 2);
-	ft_putstr(limiter, 2);
-	ft_putstr("')\n", 2);
-	exit_status = 2;
+	if (!g_sigint)
+	{
+		ft_putstr("bash: warning: here-document at line delimited by", 2);
+		ft_putstr(" end-of-file (wanted `", 2);
+		ft_putstr(limiter, 2);
+		ft_putstr("')\n", 2);
+		g_exit_status = 2;
+	}
+	else
+	{
+		g_exit_status = 130;
+	}
 }
 
 static void	here_doc_reading(char *limiter, int *pipe_fd)
@@ -41,12 +48,13 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 			break ;
 		ft_putstr(line, pipe_fd[1]);
 		free(line);
+		line = NULL;
 	}
 	if (line)
 		free(line);
 	get_next_line(-1);
 	close(pipe_fd[1]);
-	exit(exit_status);
+	exit(g_exit_status);
 }
 
 void	here_doc(char **cmds, int *index, t_data *data)
@@ -63,6 +71,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 	if (pipe(pipe_fd) == -1)
 		return (ft_putstr("minishell: unexpected fork error", 2));
 	pid = fork();
+	g_pid = pid;
 	if (pid == -1)
 		ft_error_exit(pipe_fd, "minishell: unexpected fork error");
 	if (pid == 0)
@@ -70,7 +79,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
 	waitpid(pid, &status, 0); // cat | cat | ls ??
-	exit_status = WEXITSTATUS(status);
+	g_exit_status = WEXITSTATUS(status);
 	data->line = parse_line(ft_strdup(cmds[*index]), data->env);
 	(*index)++;
 	if (!builtin_launcher(data))

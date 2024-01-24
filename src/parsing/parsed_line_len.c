@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	dollar_var_len(t_data *data, int *i, int *len)
 	(*i)++;
 	if (data->line[*i] == '?')
 	{
-		ex_stat = ft_itoa(exit_status);
+		ex_stat = ft_itoa(g_exit_status);
 		*len += ft_strlen(ex_stat);
 		free(ex_stat);
 	}

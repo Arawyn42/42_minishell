@@ -6,13 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/22 21:24:00 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:00:38 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exit_status;
+int	g_exit_status;
+int	g_sigint;
+int	g_pid;
 
 int	builtin_launcher(t_data *data)
 {
@@ -49,6 +51,7 @@ void	minishell(t_data *data)
 	saved_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
+		g_sigint = 0;
 		refresh_prompt(data);
 		dup2(saved_stdin, STDIN_FILENO);
 		dup2(saved_stdout, STDOUT_FILENO);
@@ -83,7 +86,9 @@ int	main(int ac, char **av, char **base_env)
 	data.env = cpy_env(base_env);
 	data.prompt = NULL;
 	init_export(&data);
-	exit_status = 0;
+	g_exit_status = 0;
+	g_pid = 1;
+	signal(SIGINT, sigint_handler);
 	minishell(&data);
 	return (0);
 }
