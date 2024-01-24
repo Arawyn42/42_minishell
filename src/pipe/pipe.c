@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 16:12:02 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:04:28 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	here_doc_error(char *limiter)
 {
 	if (!g_sigint)
 	{
-		ft_putstr("bash: warning: here-document at line delimited by", 2);
+		ft_putstr("\nbash: warning: here-document at line delimited by", 2);
 		ft_putstr(" end-of-file (wanted `", 2);
 		ft_putstr(limiter, 2);
 		ft_putstr("')\n", 2);
@@ -82,7 +82,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 	g_exit_status = WEXITSTATUS(status);
 	data->line = parse_line(ft_strdup(cmds[*index]), data->env);
 	(*index)++;
-	if (!builtin_launcher(data))
+	if (!g_sigint && !builtin_launcher(data))
 		ft_fork_exec(data->line, data->env);
 }
 
@@ -102,6 +102,7 @@ void	ft_pipe(char *cmd, t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	pid = fork();
+	g_pid = pid;
 	if (pid == -1)
 		ft_error_exit(pipe_fd, "minishell: unexpected fork error");
 	if (pid == 0)
