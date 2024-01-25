@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 23:26:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 04:18:24 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <readline/history.h>
 
 # define BUFFER_SIZE 42
+# define PROMPT_HOME "\001\e[34m\002minishell\001\e[0m\002:\001\e[36m\002~"
+# define PROMPT_ROOT "\001\e[34m\002minishell\001\e[0m\002:\001\e[36m\002"
 
 /****************************** GLOBAL VARIABLES ******************************/
 extern int	g_exit_status;

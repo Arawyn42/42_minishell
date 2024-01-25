@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 03:46:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 04:21:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	minishell(t_data *data, int	saved_stdin)
 		refresh_prompt(data);
 		data->line = readline(data->prompt);
 		if (!data->line && !g_sigint)
-			return (printf("\nexit\n"), free_all(data), rl_clear_history());
-		if (!data->line && is_old_line_null)
+			return (ft_putstr("exit\n", 1), free_all(data), rl_clear_history());
+		if (!data->line && g_sigint && is_old_line_null)
 			ft_putstr("\n", 1);
 		if (ft_strlen(data->line) != 0 && !is_exit(data))
 		{

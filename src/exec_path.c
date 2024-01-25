@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:21:37 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 04:22:13 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	ft_open(char *file, int in_out)
 	if (in_out == -1)
 		res = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (res == -1)
-		exit(127);
+	{
+		g_exit_status = 127;
+		exit(g_exit_status);
+	}
 	return (res);
 }
 
