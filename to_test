@@ -63,8 +63,10 @@ true || echo aaa && echo bbb)
 true || (echo a && echo b) && echo c
 true || (echo a) && echo b
 true || ((echo a && echo b) && echo c)
+true || (echo b && echo c) echo d
 ls > file && echo "salut"  					# check dup status
 false && (echo aaa)
+(ls && ls)
 ls & & ls
 ls && && ls
 ls | | ls
