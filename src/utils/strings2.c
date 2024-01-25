@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 14:13:35 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 13:28:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[i] && ft_strchr(set, s1[i]))
 		i++;
 	j = ft_strlen(s1) - 1;
-	while (s1[j] && ft_strchr(set, s1[j]))
+	while (j > 0 && ft_strchr(set, s1[j]))
 		j--;
 	res = ft_substr(s1, i, j - i + 1);
 	return (res);
