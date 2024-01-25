@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:51:18 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void	new_line_len(t_data *data, int *len, int in_singleq, int in_doubleq)
 			&& data->line[i - 1] == ' ' && (data->line[i + 1] == ' '
 				|| data->line[i + 1] == '/' || !data->line[i + 1]))
 			tilde_len(data, &i, len);
+		if (data->line[i] == '*' && !in_singleq && !in_doubleq
+			&& (i == 0 || data->line[i - 1] != '\\'))
+			wildcard_len(data, &i, len);
 		if (parse_conditions(data->line, i, in_singleq, in_doubleq))
 			(*len)++;
 		if ((data->line[i] == '\'' || data->line[i] == '\"'))

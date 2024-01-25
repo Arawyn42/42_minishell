@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 01:25:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:56:50 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,3 @@ void	command_launcher(t_data *data)
 	free(data->line);
 	dup2(saved_stdout, STDOUT_FILENO);
 }
-

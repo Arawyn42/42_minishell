@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:52:54 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	check_exit_args(t_data *data, int *i)
 /* exit builtin */
 void	ft_exit(t_data *data)
 {
-	int	i;
+	int		i;
 	char	*arg;
 
 	i = 5;

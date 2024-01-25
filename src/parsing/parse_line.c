@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 14:38:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:51:23 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,28 +82,30 @@ static void	parse_tilde(t_data *data, char *newline, int *i, int *j)
 static void	parsed_line(t_data *data, char *new_line,
 		int *in_singleq, int *in_doubleq)
 {
-	int		i;
-	int		j;
+	int		i[2];
 
-	i = -1;
-	j = 0;
-	while (data->line[++i])
+	i[0] = -1;
+	i[1] = 0;
+	while (data->line[++(i[0])])
 	{
-		if (data->line[i] == ' ' && !(*in_singleq) && !(*in_doubleq))
-			parse_spaces(data->line, &i);
-		if (data->line[i] == '\\' && !(*in_singleq) && !(*in_doubleq))
-			i++;
-		if (data->line[i] == '$' && !(*in_singleq) && (i == 0
-				|| data->line[i - 1] != '\\') && data->line[i + 1] != '~')
-			parse_dollar_var(data, new_line, &i, &j);
-		if (data->line[i] == '~' && !(*in_singleq) && !(*in_doubleq)
-			&& data->line[i - 1] == ' ' && (data->line[i + 1] == ' '
-				|| data->line[i + 1] == '/' || !data->line[i + 1]))
-			parse_tilde(data, new_line, &i, &j);
-		if (parse_conditions(data->line, i, *in_singleq, *in_doubleq))
-			new_line[j++] = data->line[i];
-		if ((data->line[i] == '\'' || data->line[i] == '\"'))
-			in_or_out_quotes(data->line, in_singleq, in_doubleq, i);
+		if (data->line[i[0]] == ' ' && !(*in_singleq) && !(*in_doubleq))
+			parse_spaces(data->line, &i[0]);
+		if (data->line[i[0]] == '\\' && !(*in_singleq) && !(*in_doubleq))
+			(i[0])++;
+		if (data->line[i[0]] == '$' && !(*in_singleq) && (i[0] == 0
+				|| data->line[i[0] - 1] != '\\') && data->line[i[0] + 1] != '~')
+			parse_dollar_var(data, new_line, &i[0], &i[1]);
+		if (data->line[i[0]] == '~' && !(*in_singleq) && !(*in_doubleq)
+			&& data->line[i[0] - 1] == ' ' && (data->line[i[0] + 1] == ' '
+				|| data->line[i[0] + 1] == '/' || !data->line[i[0] + 1]))
+			parse_tilde(data, new_line, &i[0], &i[1]);
+		if (data->line[i[0]] == '*' && !(*in_singleq) && !(*in_doubleq)
+			&& (i[0] == 0 || data->line[i[0] - 1] != '\\'))
+			parse_wildcard(data->line, new_line, &i[0], &i[1]);
+		if (parse_conditions(data->line, i[0], *in_singleq, *in_doubleq))
+			new_line[(i[1])++] = data->line[i[0]];
+		if ((data->line[i[0]] == '\'' || data->line[i[0]] == '\"'))
+			in_or_out_quotes(data->line, in_singleq, in_doubleq, i[0]);
 	}
 }
 

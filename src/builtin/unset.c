@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:39:33 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 20:51:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:53:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	unset_var(t_data *data, char *var, int error)
 void	ft_unset(t_data *data)
 {
 	char	*var;
-	int	error;
+	int		error;
 	int		i;
 	int		j;
 
