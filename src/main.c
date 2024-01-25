@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 01:09:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 01:25:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	g_pid;
 void	minishell(t_data *data)
 {
 	int	is_old_line_null;
+	int	saved_stdin;
 
+	saved_stdin = dup(STDIN_FILENO);
 	is_old_line_null = 1;
 	while (1)
 	{
+		dup2(saved_stdin, STDIN_FILENO);
 		g_sigint = 0;
 		refresh_prompt(data);
 		data->line = readline(data->prompt);

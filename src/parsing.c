@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 01:08:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 01:25:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,9 @@ void	command_launcher(t_data *data)
 {
 	char	**commands;
 	char	**operators;
-	int		saved_stdin;
 	int		saved_stdout;
 	int		i;
 
-	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	operators = get_operators_array(data->line);
 	if (!operators)
@@ -130,8 +128,6 @@ void	command_launcher(t_data *data)
 	free_double_array(operators);
 	free_double_array(commands);
 	free(data->line);
-	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
-
 }
 
