@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 04:18:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:48:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -93,9 +94,16 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
+void		parse_logic_operators(t_data *data);
+/* UNCLOSED QUOTES */
 char		*unclosed_quotes(t_data *data);
 int			is_unclosed_quotes(t_data *data);
-void		parse_logic_operators(t_data *data);
+/* WILDCARD */
+char		*get_start_path(char *line, int *i);
+char		*get_full_start_path(char *start_path, char *end_path, int slash);
+char		*get_slash_path(char *start_path, char *end_path);
+void		wildcard_len(t_data *data, int *i, int *len);
+void		parse_wildcard(char *line, char *new_line, int *i, int *j);
 
 /****************************** EXECUTE COMMANDS ******************************/
 void		command_launcher(t_data *data);
@@ -139,13 +147,13 @@ char		*get_next_line(int fd);
 void		ft_pipe(char *cmd, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-void		output_redirection(char **cmds, int *index, int oflags, t_data *data);
+void		output_redirection(char **cmds, int *index,
+				int oflags, t_data *data);
 void		input_redirection(char **cmds, int *index, t_data *data);
 void		here_doc(char **cmds, int *index, t_data *data);
 
 /*********************************** SIGNALS ******************************/
-void		init_signals();
-void		sigquit_handler();
+void		sigquit_handler(void);
 void		signals_handler(int signum);
 
 #endif
