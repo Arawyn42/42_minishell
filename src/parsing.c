@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 21:56:50 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 22:46:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int	builtin_launcher(t_data *data)
 	else if (!ft_strcmp(data->line, "unset")
 		|| !ft_strncmp(data->line, "unset ", 6))
 		ft_unset(data);
+	else if ((!ft_strcmp(data->line, "exit")
+		|| !ft_strncmp(data->line, "exit ", 5)))
+		ft_exit(data);
 	else
 		return (0);
 	return (1);

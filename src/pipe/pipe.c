@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 17:04:28 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:39:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	here_doc_error(char *limiter)
 {
 	if (!g_sigint)
 	{
-		ft_putstr("\nbash: warning: here-document at line delimited by", 2);
+		ft_putstr("minishell: warning: here-document at line delimited by", 2);
 		ft_putstr(" end-of-file (wanted `", 2);
 		ft_putstr(limiter, 2);
 		ft_putstr("')\n", 2);

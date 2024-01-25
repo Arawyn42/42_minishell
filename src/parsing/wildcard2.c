@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:26:39 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:53:51 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 22:48:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_parsed_wildcard(char *line, int *i)
 			|| line[*i + j + 1] != '/'))
 		j++;
 	end_path = ft_substr(line, *i + 1, j);
-	if (i > 0 && line[*i - 1] == '/')
+	if (*i > 0 && line[*i - 1] == '/')
 		add_path = wildcard_after_slash(line, end_path, i);
 	else
 		add_path = wildcard_after_char(line, end_path, i);
