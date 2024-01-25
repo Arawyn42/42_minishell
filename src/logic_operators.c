@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:54:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 15:01:16 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 02:30:06 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ void	parse_logic_operators(t_data *data)
 		if (data->line)
 			command_launcher(data);
 	}
-	free(line);
+	data->line = line;
 }
