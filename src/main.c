@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 19:39:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 01:09:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,59 +16,29 @@ int	g_exit_status;
 int	g_sigint;
 int	g_pid;
 
-int	builtin_launcher(t_data *data)
-{
-	if (!data->line)
-		return (1);
-	if (!ft_strncmp(data->line, "pwd", 3)
-		&& (data->line[3] == ' ' || !data->line[3]))
-		ft_pwd();
-	else if (!ft_strcmp(data->line, "echo")
-		|| !ft_strncmp(data->line, "echo ", 5))
-		ft_echo(data);
-	else if (!ft_strncmp(data->line, "cd", 2))
-		ft_cd(data);
-	else if (!ft_strcmp(data->line, "env")
-		|| !ft_strncmp(data->line, "env ", 4))
-		ft_print_env(data);
-	else if (!ft_strcmp(data->line, "export")
-		|| !ft_strncmp(data->line, "export ", 7))
-		ft_export(data);
-	else if (!ft_strcmp(data->line, "unset")
-		|| !ft_strncmp(data->line, "unset ", 6))
-		ft_unset(data);
-	else
-		return (0);
-	return (1);
-}
-
 void	minishell(t_data *data)
 {
-	int	saved_stdin;
-	int	saved_stdout;
+	int	is_old_line_null;
 
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
+	is_old_line_null = 1;
 	while (1)
 	{
 		g_sigint = 0;
 		refresh_prompt(data);
-		dup2(saved_stdin, STDIN_FILENO);
-		dup2(saved_stdout, STDOUT_FILENO);
 		data->line = readline(data->prompt);
 		if (!data->line && !g_sigint)
-		{
-			ft_putstr("\nexit\n", 1);
-			free_all(data);
-			rl_clear_history();
-			break ;
-		}
-		else if (ft_strlen(data->line) != 0 && !is_exit(data))
+			return (printf("\nexit\n"), free_all(data), rl_clear_history());
+		if (!data->line && is_old_line_null)
+			ft_putstr("\n", 1);
+		if (ft_strlen(data->line) != 0 && !is_exit(data))
 		{
 			if (!is_unclosed_quotes(data))
 				add_history(data->line);
 			parse_logic_operators(data);
 		}
+		else
+			free(data->line);
+		is_old_line_null = data->line != NULL;
 	}
 }
 

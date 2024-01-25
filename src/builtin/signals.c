@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:45:07 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 23:27:33 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 01:10:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	signals_handler(int signum)
 	if (signum == SIGINT)
 	{
 		g_sigint = 1;
-		ft_putstr("\n", 1);
 		close(0);
 		g_exit_status = 130;
 	}

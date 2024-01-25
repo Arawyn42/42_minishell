@@ -6,11 +6,37 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 14:16:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 01:08:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	builtin_launcher(t_data *data)
+{
+	if (!data->line)
+		return (1);
+	if (!ft_strncmp(data->line, "pwd", 3)
+		&& (data->line[3] == ' ' || !data->line[3]))
+		ft_pwd();
+	else if (!ft_strcmp(data->line, "echo")
+		|| !ft_strncmp(data->line, "echo ", 5))
+		ft_echo(data);
+	else if (!ft_strncmp(data->line, "cd", 2))
+		ft_cd(data);
+	else if (!ft_strcmp(data->line, "env")
+		|| !ft_strncmp(data->line, "env ", 4))
+		ft_print_env(data);
+	else if (!ft_strcmp(data->line, "export")
+		|| !ft_strncmp(data->line, "export ", 7))
+		ft_export(data);
+	else if (!ft_strcmp(data->line, "unset")
+		|| !ft_strncmp(data->line, "unset ", 6))
+		ft_unset(data);
+	else
+		return (0);
+	return (1);
+}
 
 /*
  *	Execute the command cmd in the environement env with the given operator.
@@ -87,8 +113,12 @@ void	command_launcher(t_data *data)
 {
 	char	**commands;
 	char	**operators;
+	int		saved_stdin;
+	int		saved_stdout;
 	int		i;
 
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	operators = get_operators_array(data->line);
 	if (!operators)
 		return ;
@@ -100,5 +130,8 @@ void	command_launcher(t_data *data)
 	free_double_array(operators);
 	free_double_array(commands);
 	free(data->line);
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+
 }
 
