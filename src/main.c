@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 03:44:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 04:21:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	g_exit_status;
 int	g_sigint;
 int	g_pid;
 
-void	minishell(t_data *data, int saved_stdin)
+void	minishell(t_data *data, int	saved_stdin)
 {
 	int	is_old_line_null;
 
@@ -30,8 +30,8 @@ void	minishell(t_data *data, int saved_stdin)
 		refresh_prompt(data);
 		data->line = readline(data->prompt);
 		if (!data->line && !g_sigint)
-			return (printf("\nexit\n"), free_all(data), rl_clear_history());
-		if (!data->line && is_old_line_null)
+			return (ft_putstr("exit\n", 1), free_all(data), rl_clear_history());
+		if (!data->line && g_sigint && is_old_line_null)
 			ft_putstr("\n", 1);
 		if (ft_strlen(data->line) != 0 && !is_exit(data))
 		{
@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **base_env)
 	init_export(&data);
 	g_exit_status = 0;
 	g_pid = 1;
+	g_sigint = 0;
 	signal(SIGINT, signals_handler);
 	sigquit_handler();
 	minishell(&data, dup(STDIN_FILENO));

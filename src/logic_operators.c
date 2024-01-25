@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:54:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 02:30:06 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 03:05:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	*get_command(char *str, int *start, char *last_operator)
 */
 void	parse_logic_operators(t_data *data)
 {
-	char	*line; // move the backup dub here
+	char	*line; // crash one space
 	int		start;
 
 	start = 0;
