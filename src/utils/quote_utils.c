@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:03:08 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 17:10:18 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:31:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_in_quote(char *str, int pos) // unused
 	{
 		if (str[i] == 39 && (i == 0 || str[i - 1] != 92))
 			single_quote++;
-		else if (str[i] == 34 && (i == 0 || str[i - 1] != 92) && 
+		else if (str[i] == 34 && (i == 0 || str[i - 1] != 92) && \
 				single_quote % 2 == 0)
 			double_quote++;
 		i++;

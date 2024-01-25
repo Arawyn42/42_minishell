@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 22:46:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:35:13 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	builtin_launcher(t_data *data)
 	else if (!ft_strcmp(data->line, "unset")
 		|| !ft_strncmp(data->line, "unset ", 6))
 		ft_unset(data);
-	else if ((!ft_strcmp(data->line, "exit")
-		|| !ft_strncmp(data->line, "exit ", 5)))
+	else if ((!ft_strcmp(data->line, "exit") || \
+		!ft_strncmp(data->line, "exit ", 5)))
 		ft_exit(data);
 	else
 		return (0);

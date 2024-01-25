@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:33:20 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 23:04:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:34:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_logic_operators_broken(char *line)
 			is_ok = 1;
 	}
 	if (!is_ok)
-		return(syntax_error_message(&line[last_operator_pos], 2), 1);
+		return (syntax_error_message(&line[last_operator_pos], 2), 1);
 	return (0);
 }
 

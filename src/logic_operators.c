@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:54:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 22:55:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:34:03 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	condition(char *operator)
 {
 	if (!operator)
 		return (1);
-	return ((!ft_strncmp(operator, "&&", 2) && !g_exit_status) || 
-			(!ft_strncmp(operator, "||", 2) && g_exit_status));
+	return ((!ft_strncmp(operator, "&&", 2) && !g_exit_status) || \
+		(!ft_strncmp(operator, "||", 2) && g_exit_status));
 }
 
 int	skip_parenthesis(char *str, int pos, int *len)
@@ -82,8 +82,8 @@ int	skip_parenthesis(char *str, int pos, int *len)
 
 static int	is_operator_found(char *str, char **last_ope, int *start, int i)
 {
-	if ((!ft_strncmp(&str[*start + i], "&&", 2) ||
-		!ft_strncmp(&str[*start + i], "||", 2)) && 
+	if ((!ft_strncmp(&str[*start + i], "&&", 2) || \
+		!ft_strncmp(&str[*start + i], "||", 2)) && \
 		!is_in_quote(str, *start + i))
 	{
 		*start = *start + i + 2;
@@ -130,7 +130,7 @@ static char	*get_command(char *str, int str_len, int *start)
 */
 void	parse_logic_operators(t_data *data)
 {
-	char	*line; // crash one space
+	char	*line;
 	int		line_len;
 	int		start;
 

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 19:39:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:14:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 		here_doc_reading(parse_line(cmds[(*index) + 1], data->env), pipe_fd);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
-	waitpid(pid, &status, 0); // cat | cat | ls ??
+	waitpid(pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
 	data->line = parse_line(ft_strdup(cmds[*index]), data->env);
 	(*index)++;

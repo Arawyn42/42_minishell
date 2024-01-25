@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:10:27 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/13 16:01:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:14:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	get_next_operator_pos(char *str, int *pos)
 {
 	while (str[++(*pos)])
 	{
-		if (ft_strncmp(&str[*pos], ">>", 2) == 0 || 
+		if (ft_strncmp(&str[*pos], ">>", 2) == 0 || \
 			ft_strncmp(&str[*pos], "<<", 2) == 0)
 		{
 			(*pos)++;
@@ -51,7 +51,7 @@ static char	*get_operator(char *str, int pos)
 static int	operator_array_size(char *str)
 {
 	int	pos;
-	int size;
+	int	size;
 
 	pos = -1;
 	get_next_operator_pos(str, &pos);

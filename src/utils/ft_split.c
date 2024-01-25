@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/10 21:26:28 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:31:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@
 #include <stdio.h>
 #include "minishell.h"
 
-static int	ft_quote(int *in_quote, char s)
+static int	ft_quote(int *in_quote, char c)
 {
-	if (*in_quote == 0 && s == 39)
-		*in_quote = 1;
-	else if (*in_quote == 1 && s == 39)
-		*in_quote = 0;
-	return (*in_quote); // fix this
+	if (*in_quote % 2 && c == 39)
+		(*in_quote)--;
+	else if (!(*in_quote % 2) && c == 39)
+		(*in_quote)++;
+	else if (*in_quote > 2 && c == 34)
+		*in_quote -= 2;
+	else if (!(*in_quote > 2) && c == 34)
+		*in_quote += 2;
+	return (*in_quote); // finish to fix this
 }
 
 static int	count_words(char const *s, char *charset)

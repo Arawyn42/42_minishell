@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/14 21:47:58 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:32:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	input_redirection(char **cmds, int *index, t_data *data)
 {
 	int		fd;
 	char	*file;
-	
+
 	file = cmds[*index + 1];
 	if (!file)
 	{
