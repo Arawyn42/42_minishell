@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 22:45:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:33:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			is_in_quote(char *str, int pos);
+int			ft_quote(int *in_quote, char c);
 int			count_single_quotes(char *str);
 char		**get_operators_array(char *str);
 /* LISTS */

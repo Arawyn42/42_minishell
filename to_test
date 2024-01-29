@@ -1,3 +1,8 @@
+BASIC :
+cat file
+ls
+not_existing
+
 PIPE :
 ls | wc
 ls|wc
@@ -9,6 +14,7 @@ ls | exit
 
 REDIRECTION_RIGHT :
 ls > file
+ls > wc
 ls > notexisting
 ls    >   file
 exit > file											
@@ -20,7 +26,10 @@ ls > no_permission/file
 ls > file | ls
 
 REDIRECTION_RIGHT_APPEND :
-
+echo hello >> file
+echo hello >> not_existing
+echo hello >> no_permission/file
+echo hello >>
 
 REDIRECTION_LEFT :
 wc < file
@@ -32,6 +41,7 @@ wc <
 HERE DOC :
 wc << END
 wc << END				# ctrl+d should work wc should be launched
+wc << END				# ctrl+c should work, with newline and no ^C
 << END
 wc << ls
 export HEY=hello    and   wc << $HEY
@@ -44,6 +54,11 @@ cd ~/..
 export HOME=$HOME/notexisting  and   ls ~
 
 WILDCARD
+echo *
+echo "*"
+echo '*'
+echo $*
+cat *.c
 cat src/*.c | grep "printf"
 
 OPERATORS

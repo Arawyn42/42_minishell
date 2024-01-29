@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 23:31:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:30:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@
 #include <stdio.h>
 #include "minishell.h"
 
-static int	ft_quote(int *in_quote, char c)
-{
-	if (*in_quote % 2 && c == 39)
-		(*in_quote)--;
-	else if (!(*in_quote % 2) && c == 39)
-		(*in_quote)++;
-	else if (*in_quote > 2 && c == 34)
-		*in_quote -= 2;
-	else if (!(*in_quote > 2) && c == 34)
-		*in_quote += 2;
-	return (*in_quote); // finish to fix this
-}
-
 static int	count_words(char const *s, char *charset)
 {
 	int	counter;
@@ -46,17 +33,12 @@ static int	count_words(char const *s, char *charset)
 	in_quote = 0;
 	while (*s)
 	{
-		if (*s == 39)
-			in_quote = ft_quote(&in_quote, *s);
-		if (!in_quote)
+		if (ft_strchr(charset, *s) || ft_quote(&in_quote, *s))
+			in_word = 0;
+		else if (!in_word)
 		{
-			if (ft_strchr(charset, *s))
-				in_word = 0;
-			else if (!in_word)
-			{
-				in_word = 1;
-				counter++;
-			}
+			in_word = 1;
+			counter++;
 		}
 		s++;
 	}
@@ -70,22 +52,15 @@ static void	ft_free_split(char **tab, int i)
 	free(tab);
 }
 
-static char	*get_word(char const *s, char *charset)
+static char	*get_word(char const *s, char *charset, int *in_quote)
 {
 	int		size;
 	char	*word;
 
 	size = 0;
-	if (s[size] == 39)
-	{
+	while (s[size] && (ft_quote(in_quote, s[size]) || \
+			!ft_strchr(charset, s[size])))
 		size++;
-		while (s[size] != 39 && s[size])
-			size++;
-		size++;
-	}
-	else
-		while (!ft_strchr(charset, s[size]) && s[size])
-			size++;
 	if (size == 0)
 		return (NULL);
 	word = ft_substr(s, 0, size);
@@ -97,21 +72,21 @@ static char	*get_word(char const *s, char *charset)
 char	**ft_split(char const *s, char *charset)
 {
 	char	**tab;
+	int		in_quote;
 	int		i;
 
-	if (!s)
-		return (NULL);
+	in_quote = 0; // unclosed quote ?
 	tab = (char **) ft_calloc(sizeof(char *), count_words(s, charset) + 1);
 	if (!tab)
 		return (NULL);
 	i = 0;
 	while (*s)
 	{
-		while (ft_strchr(charset, *s) && *s)
+		while (*s && (ft_strchr(charset, *s) || ft_quote(&in_quote, *s)))
 			s++;
 		if (*s != '\0')
 		{
-			tab[i] = get_word(s, charset);
+			tab[i] = get_word(s, charset, &in_quote);
 			if (!tab[i])
 				return (ft_free_split(tab, i), NULL);
 			s += ft_strlen(tab[i++]);
