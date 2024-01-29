@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 04:21:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 22:27:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	minishell(t_data *data, int	saved_stdin)
 			return (ft_putstr("exit\n", 1), free_all(data), rl_clear_history());
 		if (!data->line && g_sigint && is_old_line_null)
 			ft_putstr("\n", 1);
-		if (ft_strlen(data->line) != 0 && !is_exit(data))
+		if (ft_strlen(data->line) > 0)
 		{
 			if (!is_unclosed_quotes(data))
 				add_history(data->line);

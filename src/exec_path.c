@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 04:22:13 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/25 23:32:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,17 +131,6 @@ void	ft_exec(char *cmds, char **env)
 
 	cmd = ft_split(cmds, " ");
 	cmd_path = ft_get_path(cmd[0], env);
-	
-	// write(2, "\ncmd_path = ", 12);
-	// write(2, cmd_path, ft_strlen(cmd_path));
-	// write(2, "\ncmd[0] = ", 10);
-	// write(2, cmd[0], ft_strlen(cmd[0]));
-	// if (cmd[1])
-	// {
-	// 	write(2, "\ncmd[1] = ", 10);
-	// 	write(2, cmd[1], ft_strlen(cmd[1]));
-	// }
-	
 	if (execve(cmd_path, cmd, env) == -1)
 	{
 		ft_putstr(cmd[0], STDERR_FILENO);

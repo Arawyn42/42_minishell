@@ -6,11 +6,24 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:03:08 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/24 14:46:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:30:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_quote(int *in_quote, char c)
+{
+	if ((*in_quote) % 2 && c == 39)
+		(*in_quote)--;
+	else if (!((*in_quote) % 2) && c == 39)
+		(*in_quote)++;
+	else if ((*in_quote) >> 1 && c == 34)
+		(*in_quote) -= 2;
+	else if (!((*in_quote) >> 1) && c == 34)
+		(*in_quote) += 2;
+	return (*in_quote);
+}
 
 int	is_in_quote(char *str, int pos) // unused
 {
@@ -25,7 +38,8 @@ int	is_in_quote(char *str, int pos) // unused
 	{
 		if (str[i] == 39 && (i == 0 || str[i - 1] != 92))
 			single_quote++;
-		else if (str[i] == 34 && (i == 0 || str[i - 1] != 92))
+		else if (str[i] == 34 && (i == 0 || str[i - 1] != 92) && \
+				single_quote % 2 == 0)
 			double_quote++;
 		i++;
 	}

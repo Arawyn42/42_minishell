@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/26 19:15:22 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/29 18:17:14 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,11 @@ SRCS			=	builtin/pwd.c \
 					utils/get_next_line.c \
 					utils/export_utils.c \
 					utils/split_operators.c \
+					utils/quote_utils.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
 					logic_operators.c \
+					logic_operators_utils.c \
 					errors.c \
 					exec_path.c \
 					parsing.c \

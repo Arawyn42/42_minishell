@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:26:39 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/26 19:06:35 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:20:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static char	*get_parsed_wildcard(char *line, int *i)
 			&& line[*i + j + 1] != '/')
 		j++;
 	slash = 0;
-	if (i > 0 && line[*i - 1] == '/')
+	if (*i > 0 && line[*i - 1] == '/')
 		slash = 1;
 	if (line[*i + j + 1] == '/')
 		slash = 2;
 	end_path = ft_substr(line, *i + 1, j);
-	if (i > 0 && line[*i - 1] == '/')
+	if (*i > 0 && line[*i - 1] == '/')
 		add_path = wildcard_after_slash(line, end_path, i, slash);
 	else
 		add_path = wildcard_after_char(line, end_path, i, slash);
