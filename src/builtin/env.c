@@ -6,12 +6,17 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:23:43 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Builtin: env.
+ *	Prints all environnement lines, each on a new line.
+ *	Exit status code is 0;
+*/
 void	ft_print_env(t_data *data)
 {
 	int	i;
@@ -26,6 +31,9 @@ void	ft_print_env(t_data *data)
 	g_exit_status = 0;
 }
 
+/*
+ *	Refresh the env variable in data's structure with the new env entry.
+*/
 void	refresh_env(t_data *data, t_export *env)
 {
 	t_export	*ptr;
@@ -48,6 +56,9 @@ void	refresh_env(t_data *data, t_export *env)
 	data->env = new_env;
 }
 
+/*
+ *	Converts env from char ** into a chained list and returns it.
+*/
 t_export	*convert_env_list(t_data *data)
 {
 	t_export	*env;
@@ -65,6 +76,9 @@ t_export	*convert_env_list(t_data *data)
 	return (env);
 }
 
+/*
+ *	Adds a new variable in env and refreshes it.
+*/
 static void	add_env_new_var(t_data *data, char *var)
 {
 	int			i;
@@ -89,6 +103,11 @@ static void	add_env_new_var(t_data *data, char *var)
 	}
 }
 
+/*
+ *	Adds a new variable in env if it doesn't exist and it has a value.
+ *	If the variable already exists, refreshes its value if it's specified.
+ *	If the variable doesn't exists and no value is specified, it is not added.
+*/
 void	add_env_var(t_data *data, char *var)
 {
 	int		i;

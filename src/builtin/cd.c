@@ -6,12 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/23 21:17:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:45:48 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Checks if there is a space after 'cd'. If not, executes the specified
+ *	command.
+*/
 static int	cd_error(t_data *data)
 {
 	if (data->line[2] && data->line[2] != ' ')
@@ -22,6 +26,10 @@ static int	cd_error(t_data *data)
 	return (0);
 }
 
+/*
+ *	Returns an error when too much arguments are specified in 'cd' command.
+ *	Exit status code is 1;
+*/
 static int	cd_check_args(t_data *data)
 {
 	int	i;
@@ -40,6 +48,9 @@ static int	cd_check_args(t_data *data)
 	return (1);
 }
 
+/*
+ *	Returns the HOME path from the env.
+*/
 static char	*cd_home_path(t_data *data)
 {
 	char	*home_path;
@@ -56,6 +67,9 @@ static char	*cd_home_path(t_data *data)
 	return (home_path);
 }
 
+/*
+ *	Returns the path specified as argument for the 'cd' command.
+*/
 static char	*get_cd_path(t_data *data)
 {
 	char	*path;
@@ -73,6 +87,16 @@ static char	*get_cd_path(t_data *data)
 	return (path);
 }
 
+
+/*
+ *	Builtin: cd.
+ *	When the 'cd' command is used, this function will change 
+ *	the current directory according to the path specified as argument.
+ *	If no path is specified, it will make a cd to the HOME directory.
+ *	If '~' is used as an argument, it will be replaced by the HOME path.
+ *	If 'cd -' command is used, it will return to the previous location.
+ *	Exit status code is 0 in case of success or 1 in case of failure.
+*/
 void	ft_cd(t_data *data)
 {
 	char	*error_msg;

@@ -6,12 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 18:53:14 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:41:46 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Returns the variable name, including the '=' character at the end
+ *	if there is one.
+*/
 char	*get_var_name(char *export_line, int i)
 {
 	char	*var_name;
@@ -28,6 +32,9 @@ char	*get_var_name(char *export_line, int i)
 	return (var_name);
 }
 
+/*
+ *	Adds a new variable in export list.
+*/
 static void	add_export_new_var(t_data *data, char *var)
 {
 	t_export	*new;
@@ -39,6 +46,10 @@ static void	add_export_new_var(t_data *data, char *var)
 	sort_export(data);
 }
 
+/*
+ *	Adds a variable in export or modifies his value. Adds it in env too
+ *	if a value is specified, or modifies his value if it already exists.
+*/
 static void	add_export_var(t_data *data, char *var)
 {
 	t_export	*ptr;
@@ -67,6 +78,11 @@ static void	add_export_var(t_data *data, char *var)
 	add_export_new_var(data, var);
 }
 
+/*
+ *	Export variables in export, and environnement if a value is specified.
+ *	In case of invalid argument, exit status code is 1 and it returns
+ *	an error, but it still exports other variables.
+*/
 static void	export_var(t_data *data)
 {
 	char	*var;
@@ -86,6 +102,7 @@ static void	export_var(t_data *data)
 			ft_putstr("minishell: export: `", 2);
 			ft_putstr(var, 2);
 			ft_putstr("': not a valid identifier\n", 2);
+			g_exit_status = 1;
 		}
 		else
 			add_export_var(data, var);
@@ -94,8 +111,17 @@ static void	export_var(t_data *data)
 	}
 }
 
+/*
+ *	Builtin: export.
+ *	Prints the export variables on new lines if no argument is specified.
+ *	If the export command is followed by arguments, exports the corresponding
+ *	variables into export, and into env if values are specified.
+ *	Exit status code is 0 in case of success or 1 if one of the variables
+ *	failed to be added.
+*/
 void	ft_export(t_data *data)
 {
+	g_exit_status = 0;
 	if (!data->line[6])
 	{
 		sort_export(data);

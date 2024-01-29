@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:45:07 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:47:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:53:09 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Redirects SIGQUIT signal to be ignored. SIGQUIT (CTRL + \) does nothing.
+*/
 void	sigquit_handler(void)
 {
 	struct sigaction	s;
@@ -21,6 +24,10 @@ void	sigquit_handler(void)
 	sigaction(SIGQUIT, &s, NULL);
 }
 
+/*
+ *	Handles SIGINT signal. I SIGINT (CTRL + c) is received,
+ *	exit status code is 130. Exits the children processes.
+*/
 void	signals_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -28,9 +35,7 @@ void	signals_handler(int signum)
 		g_sigint = 1;
 		close(0);
 		g_exit_status = 130;
-	}
-	if (!g_pid)
-	{
-		exit(g_exit_status);
+		if (!g_pid)
+			exit(g_exit_status);
 	}
 }

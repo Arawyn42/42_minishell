@@ -6,13 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 04:06:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:48:37 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Colors : Add \033[0;34m at beginning then \033[0;36m then \033[m*/
+/*
+ *	Refreshes the program's prompt with the current directory's path.
+ *	Follows the bash's prompt behaviour.
+*/
 void	refresh_prompt(t_data *data)
 {
 	char	*second_part;
@@ -42,6 +45,9 @@ void	refresh_prompt(t_data *data)
 	free(prompt);
 }
 
+/*
+ *	Sets the 'PWD' env variable on the current location.
+*/
 void	set_pwd(t_data *data)
 {
 	int		i;
@@ -61,6 +67,9 @@ void	set_pwd(t_data *data)
 	free(new_pwd);
 }
 
+/*
+ *	Sets the 'OLDPWD' env variable on the previous location.
+*/
 void	set_old_pwd(t_data *data, char *path)
 {
 	int		i;
@@ -83,6 +92,11 @@ void	set_old_pwd(t_data *data, char *path)
 	free(old_pwd);
 }
 
+/*
+ *	Prints the current location on the standard output.
+ *	this does NOT depends on the 'PWD' env variable.
+ *	Exit status code is 0.
+*/
 void	ft_pwd(void)
 {
 	char	*pwd;
@@ -91,4 +105,5 @@ void	ft_pwd(void)
 	ft_putstr(pwd, 1);
 	ft_putstr("\n", 1);
 	free(pwd);
+	g_exit_status = 0;
 }

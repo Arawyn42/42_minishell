@@ -6,12 +6,18 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:39:33 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:53:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:13:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+/*
+ *	Deletes a node from a t_export chained list, corresponding to the
+ *	variable to remove, frees the node's content, frees the node
+ *	and sets it to NULL.
+*/
 static void	delete_var(t_export **first,
 				t_export **previous, t_export **to_delete)
 {
@@ -24,6 +30,9 @@ static void	delete_var(t_export **first,
 	*to_delete = NULL;
 }
 
+/*
+ *	Removes a variable form env if it is found in it.
+*/
 static void	unset_env(t_data *data, char *var)
 {
 	t_export	*env;
@@ -49,6 +58,9 @@ static void	unset_env(t_data *data, char *var)
 	free_export(&env);
 }
 
+/*
+ *	Removes a variable from the export list if it is found in it.
+*/
 static void	unset_export(t_data *data, char *var)
 {
 	t_export	*ptr;
@@ -72,6 +84,10 @@ static void	unset_export(t_data *data, char *var)
 	}
 }
 
+/*
+ *	In case of error, exit status code is 1 and the error is printed.
+ *	If no error, removes the variable from env and export if it exists.
+*/
 static void	unset_var(t_data *data, char *var, int error)
 {
 	if (error)
@@ -79,6 +95,7 @@ static void	unset_var(t_data *data, char *var, int error)
 		ft_putstr("minishell: unset: `", 2);
 		ft_putstr(var, 2);
 		ft_putstr("': not a valid identifier\n", 2);
+		g_exit_status = 1;
 	}
 	else
 	{
@@ -87,6 +104,12 @@ static void	unset_var(t_data *data, char *var, int error)
 	}
 }
 
+/*
+ *	Removes variables from export, and form env if it exists in it.
+ *	In case of invalid entry, returns an error and sets the exit status code
+ *	to 1, then continues removing variables if other arguments are specified.
+ *	If no error is returned, exit status code is 0.
+*/
 void	ft_unset(t_data *data)
 {
 	char	*var;
@@ -95,6 +118,7 @@ void	ft_unset(t_data *data)
 	int		j;
 
 	i = 5;
+	g_exit_status = 0;
 	while (data->line[i])
 	{
 		j = 0;

@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 23:32:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 20:28:34 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Returns an error and exits the program with a 2 status exit code
+ *	if arguments are incorrect. Arguments for the exit command should be
+ *	numerical only.
+*/
 static void	check_exit_args(t_data *data, int *i)
 {
 	if (data->line[*i] != ' '
@@ -31,7 +36,12 @@ static void	check_exit_args(t_data *data, int *i)
 	}
 }
 
-/* exit builtin */
+/*
+ *	Builtin: exit.
+ *	Exits the program. If no argument is specified, exit status code is 0.
+ *	If a numerical argument is specified, exit status code is the corresponding
+ *	entry modulo 256, as in bash.
+*/
 void	ft_exit(t_data *data)
 {
 	int		i;
