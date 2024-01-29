@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/25 21:39:58 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/26 19:15:22 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS			=	builtin/pwd.c \
 					parsing/unclosed_quotes.c \
 					parsing/wildcard.c \
 					parsing/wildcard2.c \
+					parsing/wildcard3.c \
 					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
