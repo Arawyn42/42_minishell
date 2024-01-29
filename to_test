@@ -8,37 +8,38 @@ ls | wc
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
-ls |												
-ls |  # space										
-ls | exit											
+ls |	#todo
+ls |  # space #todo
+ls | exit	#todo
 
 REDIRECTION_RIGHT :
 ls > file
 ls > wc
 ls > notexisting
 ls    >   file
-exit > file											
-cd > file
-ls >  # space										
-ls > file > file2 > file3 > file4
-ls > no_permission/file			
-> file
-ls > file | ls
+exit > file		#todo
+cd > file		#todo invalid free
+ls >  			#todo invalid free
+ls >  # space	#todo invalid free
+ls > file > file2 > file3 > file4	#todo
+ls > no_permission/file				#todo leak
+> file	#todo invalid free
+ls > file | ls	#todo leak & not like bash
 
 REDIRECTION_RIGHT_APPEND :
 echo hello >> file
 echo hello >> not_existing
-echo hello >> no_permission/file
-echo hello >>
+echo hello >> no_permission/file	#todo leak
+echo hello >>	#todo invalid free
 
 REDIRECTION_LEFT :
 wc < file
-wc < notexisting
-wc < no_permission/file
-wc <
-< file wc
+wc < notexisting	#todo leak
+wc < no_permission/file #todo leak
+wc <	#todo invalid free
+< file wc	#todo invalid free
 
-HERE DOC :
+HERE DOC : # retour à la ligne ne fonctionne pas ?
 wc << END
 wc << END				# ctrl+d should work wc should be launched
 wc << END				# ctrl+c should work, with newline and no ^C
@@ -53,7 +54,7 @@ cd ~
 cd ~/..
 export HOME=$HOME/notexisting  and   ls ~
 
-WILDCARD
+WILDCARD #not tested
 echo *
 echo "*"
 echo '*'
@@ -61,7 +62,7 @@ echo $*
 cat *.c
 cat src/*.c | grep "printf"
 
-OPERATORS
+OPERATORS	#met systematiquement des erreurs contrairement au bash, flemme de faire mieux
 ls >>> file
 ls >>      > file
 ls >      >> file
@@ -70,8 +71,8 @@ wc <<      < file
 wc <> file
 ls >< file
 ls |> wc
-echo hello >    > file
-cat Makefile | grep "@" << END\
+echo hello >    > file	#todo segfault
+cat Makefile | grep "@" << END	#todo
 
 LOGIC_OPERATORS
 true || echo aaa && echo bbb
@@ -103,23 +104,24 @@ echo hello
   echo  -n    hello
 echo-n
 echo -n hello
-echo -n
+echo -n		#todo invalid read of size 1
 echo -nhello
-echo $NOTEXISTING
+echo $NOTEXISTING #todo invalid read of size 1 & leak
 
 CD :
 cd - 
-unset OLDPWD   and   cd -
+unset OLDPWD   and   cd -	#todo segfault
 cd ..			# check $PWD and $OLDPWD is set correctly
 cd .			# check $PWD and $OLDPWD is set correctly
 cd notexisting	# check $PWD and $OLDPWD is set correctly
-cd no_permission
+cd no_permission	#todo invalid free
 
 ENV :
 env
+env randomthing		#todo error message ?
 
 EXPORT :
-export			# must be sorted in alphabetical order
+export			# must be sorted in ascii order
 export  =hello
 export =
 export HEY=hello
@@ -133,23 +135,31 @@ export PATH=#your_path  # Check if the path is correctly changed in env
 
 PWD :
 pwd
-unset PWD      and    pwd  # pwd should work
+pwd randomthing
+unset PWD      and    pwd  # pwd should work  #not tested
 
 UNSET :
 unset
+unset PWD	#todo multiple valgrind errors and $HOME is broken
 export ZZZ     and    unset ZZZ
-unset PATH     and    ls   			# ls should not be found
+unset PATH     and    ls   			# ls should not be found	#todo segfault
+unset NOTEXISTING
 
 PARSING :
-cat \ file
-echo $OLDPWD
+touch " file"				#todo no space before filename
+cat \ file					#todo
+echo $OLDPWD				#todo invalid read of size 1
 echo ">" file
 echo '>' file
+ls |" rev					#todo
 touch 'fi|le'
 touch "fi|le"
-touch "'file'"
-touch '"'"file"'"'
+touch "'file'"				#todo
+touch '"'"file"'"'			#todo
 echo "salut
 echo 'salut
+"ls | rev"					#todo
 " ls  						#todo
 "two words"					#todo (error message)
+cat "	then ctrd+c			#todo segfault
+cat "	then ctrd+d			#todo segfault
