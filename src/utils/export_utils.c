@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 22:12:19 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 18:53:12 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:45:18 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Initializes the export list by copying all env lines in export nodes.
+*/
 void	init_export(t_data *data)
 {
 	int			i;
@@ -30,6 +33,9 @@ void	init_export(t_data *data)
 	}
 }
 
+/*
+ *	Converts an env line into an export line and returns it.
+*/
 char	*convert_env_export(char *env_line)
 {
 	char	*export_line;
@@ -57,6 +63,9 @@ char	*convert_env_export(char *env_line)
 	return (export_line);
 }
 
+/*
+ *	Sorts the export list according to the ASCII order.
+*/
 void	sort_export(t_data *data)
 {
 	t_export	*ptr;
@@ -84,6 +93,9 @@ void	sort_export(t_data *data)
 	}
 }
 
+/*
+ *	Prints each export node on a new line on the standard output.
+*/
 void	print_export(t_data *data)
 {
 	t_export	*ptr;

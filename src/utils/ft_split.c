@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 16:30:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 22:49:53 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Ft_split modifications for Pipex:
-*	Ft_split no longer cut the string s when the separator c is found
-*	within simple quotes
-*	This is needed for some special case of Pipex like:
-*		./pipex infile cat "tr ' ' '.'" outfile
-*	In this example we want ft_split to keep the space inside 
-*	the simple quotes.
+/*
+ *	Ft_split modifications for Pipex:
+ *	Ft_split no longer cut the string s when the separator c is found
+ *	within simple quotes
+ *	This is needed for some special case of Pipex like:
+ *		./pipex infile cat "tr ' ' '.'" outfile
+ *	In this example we want ft_split to keep the space inside 
+ *	the simple quotes.
 */
 
 #include <stdio.h>
 #include "minishell.h"
 
+/*
+ *	Counts the number of words containeds in a string
+ *	and separated by a charset.
+*/
 static int	count_words(char const *s, char *charset)
 {
 	int	counter;
@@ -45,6 +50,9 @@ static int	count_words(char const *s, char *charset)
 	return (counter);
 }
 
+/*
+ *	Frees a double array of characters.
+*/
 static void	ft_free_split(char **tab, int i)
 {
 	while (i >= 0)
@@ -52,6 +60,9 @@ static void	ft_free_split(char **tab, int i)
 	free(tab);
 }
 
+/*
+ *	Returns the next word according to a charset for the ft_split function.
+*/
 static char	*get_word(char const *s, char *charset, int *in_quote)
 {
 	int		size;
@@ -69,6 +80,9 @@ static char	*get_word(char const *s, char *charset, int *in_quote)
 	return (word);
 }
 
+/*
+ *	Splits a string into a strings array, according to a charset.
+*/
 char	**ft_split(char const *s, char *charset)
 {
 	char	**tab;

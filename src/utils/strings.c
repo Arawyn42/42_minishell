@@ -6,13 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 19:10:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 16:22:50 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 23:01:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Writes a string on a given file descriptor */
+/*
+ *	Writes a string on a given file descriptor.
+*/
 void	ft_putstr(char *s, int fd)
 {
 	int	i;
@@ -25,7 +27,9 @@ void	ft_putstr(char *s, int fd)
 	}
 }
 
-/* Counts the number of chars in a string */
+/*
+ *	Counts the number of chars in a string
+*/
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -36,7 +40,9 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-/* Returns 0 if s1 and s2 are the same string */
+/*
+ *	Compares two strings. Returns 0 if they are the same string.
+*/
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
@@ -47,7 +53,9 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-/* Returns a sub-string from a string */
+/*
+ *	Returns a sub-string from a string.
+*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
@@ -70,7 +78,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-/* Concatenates 2 strings of characters */
+/*
+ *	Concatenates two strings of characters and returns the result.
+*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;

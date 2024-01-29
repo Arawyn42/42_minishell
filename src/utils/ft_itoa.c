@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:14 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/16 19:31:13 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:46:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Converts a string into an int and returns it.
+*/
 int	ft_atoi(const char *s)
 {
 	int		i;
@@ -37,6 +40,9 @@ int	ft_atoi(const char *s)
 	return (res * sign);
 }
 
+/*
+ *	Calculates the length of the result string for the ft_itoa function.
+*/
 static int	ft_len(long n)
 {
 	int	i;
@@ -57,6 +63,9 @@ static int	ft_len(long n)
 	return (i);
 }
 
+/*
+ *	Converts an int into a string and returns it.
+*/
 char	*ft_itoa(int n)
 {
 	char	*res;

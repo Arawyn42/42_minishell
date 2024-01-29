@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:14:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/26 19:15:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:32:35 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Joins the different paths when wildcard (*) is preceded by a '/'.
+*/
 static void	get_slash_path2(char *start_path, char **path, char **tmp)
 {
 	if (*path)
@@ -25,6 +28,9 @@ static void	get_slash_path2(char *start_path, char **path, char **tmp)
 	}
 }
 
+/*
+ *	Returns the path replacing the wildcard (*) when it is preceded by a '/'.
+*/
 char	*get_slash_path(char *start_path, char *end_path)
 {
 	DIR				*dir;

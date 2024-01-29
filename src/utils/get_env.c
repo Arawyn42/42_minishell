@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/12 22:25:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:51:38 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Copies a double array of characters and returns the copy.
+*/
 char	**cpy_env(char **base_env)
 {
 	int		i;
@@ -30,6 +33,9 @@ char	**cpy_env(char **base_env)
 	return (env_cpy);
 }
 
+/*
+ *	Returns the 'PWD' path from the environnement variable.
+*/
 char	*get_pwd(t_data *data)
 {
 	char	*pwd;
@@ -45,6 +51,9 @@ char	*get_pwd(t_data *data)
 	return (pwd);
 }
 
+/*
+ *	Returns the 'OLDPWD' path from the environnement variable.
+*/
 char	*get_oldpwd(t_data *data)
 {
 	char	*oldpwd;
@@ -60,6 +69,9 @@ char	*get_oldpwd(t_data *data)
 	return (oldpwd);
 }
 
+/*
+ *	Returns the 'HOME' path from the environnement variable.
+*/
 char	*get_home_path(t_data *data)
 {
 	char	*home_path;

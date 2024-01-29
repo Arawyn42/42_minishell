@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   strings2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 13:28:26 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/29 23:03:32 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Searches for an occurence of a character in a string.
+*/
 char	*ft_strchr(char const *s, int c)
 {
 	int		i;
@@ -28,6 +31,9 @@ char	*ft_strchr(char const *s, int c)
 	return (NULL);
 }
 
+/*
+ *	Duplicates a string and returns the duplicated string.
+*/
 char	*ft_strdup(char const *src)
 {
 	int		i;
@@ -46,6 +52,9 @@ char	*ft_strdup(char const *src)
 	return (dest);
 }
 
+/*
+ *	Compares two strings on n characters. Returns 0 if there is no difference.
+*/
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -58,6 +67,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+/*
+ *	Trims all characters from a charset presents at the beginning and at the end
+ *	of a string and returns the result.
+*/
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*res;

@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:31:49 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/26 19:29:58 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:15:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Returns a string from the first previous space until the current index.
+*/
 char	*get_start_path(char *line, int *i)
 {
 	int		j;
@@ -25,6 +28,10 @@ char	*get_start_path(char *line, int *i)
 	return (start_path);
 }
 
+/*
+ *	Checks the conditions to print the corresponding files or directories'
+ *	names in case of wildcard (*).
+*/
 static int	start_path_cond(char *start_path, char *end_path,
 				int slash, struct dirent *dr)
 {
@@ -38,21 +45,24 @@ static int	start_path_cond(char *start_path, char *end_path,
 		return (0);
 }
 
+/*
+ *	Joins all paths' names, separated by spaces.
+*/
 static void	full_path_join(char **full_path, char **tmp,
 				int slash, struct dirent *dr)
 {
-	if (*full_path)
-		*tmp = ft_strjoin(*full_path, " ");
 	if (*full_path && slash == 2)
-	{
-		free(*tmp);
 		*tmp = ft_strjoin(*full_path, "/ ");
-	}
+	else if (*full_path)
+		*tmp = ft_strjoin(*full_path, " ");
 	free(*full_path);
 	*full_path = ft_strjoin(*tmp, dr->d_name);
 	free(*tmp);
 }
 
+/*
+ *	Returns the parsed string containing all the paths replacing the wildcard.
+*/
 char	*get_full_start_path(char *start_path, char *end_path, int slash)
 {
 	DIR				*dir;

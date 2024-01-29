@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:19:47 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/11 22:20:16 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:56:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Creates a new node for a list and sets is content.
+*/
 t_export	*lst_new_node(char *content)
 {
 	t_export	*res;
@@ -24,6 +27,9 @@ t_export	*lst_new_node(char *content)
 	return (res);
 }
 
+/*
+ *	Inserts a node at the beginning of a list.
+*/
 void	lst_add_front(t_export **lst, t_export *new)
 {
 	if (lst)
@@ -34,6 +40,9 @@ void	lst_add_front(t_export **lst, t_export *new)
 	}
 }
 
+/*
+ *	Returns the last node of a list.
+*/
 t_export	*lst_get_last(t_export *lst)
 {
 	if (lst)
@@ -44,6 +53,9 @@ t_export	*lst_get_last(t_export *lst)
 	return (lst);
 }
 
+/*
+ *	Inserts a node at the end of a list.
+*/
 void	lst_add_back(t_export **lst, t_export *new)
 {
 	t_export	*last;

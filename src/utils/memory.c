@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 23:26:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:59:20 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Initializes a memory space with 0.
+*/
 void	ft_bzero(void *dest, size_t n)
 {
 	size_t	i;
@@ -24,6 +27,9 @@ void	ft_bzero(void *dest, size_t n)
 	}
 }
 
+/*
+ *	Allocates a memory space with malloc and sets it to 0.
+*/
 void	*ft_calloc(size_t n, size_t size)
 {
 	void	*pointer;
@@ -37,7 +43,9 @@ void	*ft_calloc(size_t n, size_t size)
 	return (pointer);
 }
 
-/* Frees a double array of characters */
+/*
+ *	Frees a double array of characters
+*/
 void	free_double_array(char **array)
 {
 	int	i;
@@ -52,6 +60,10 @@ void	free_double_array(char **array)
 	array = NULL;
 }
 
+/*
+ *	At the end of the program, frees all allocated memory
+ *	if the corresponding space exists.
+*/
 void	free_all(t_data *data)
 {
 	rl_clear_history();
@@ -71,6 +83,9 @@ void	free_all(t_data *data)
 		free_export(&data->export);
 }
 
+/*
+ *	Frees the export list and sets it on NULL.
+*/
 void	free_export(t_export **lst)
 {
 	if (lst && *lst)

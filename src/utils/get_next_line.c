@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:57:14 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 00:52:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:54:39 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Joins two strings into one, frees the first one and returns the result.
+*/
 static char	*gnl_strjoin(char *s1, char const *s2)
 {
 	char	*res;
@@ -38,6 +41,9 @@ static char	*gnl_strjoin(char *s1, char const *s2)
 	return (res);
 }
 
+/*
+ *	Returns the new stash.
+*/
 static char	*ft_stash(char *stash)
 {
 	int		i;
@@ -60,6 +66,9 @@ static char	*ft_stash(char *stash)
 	return (res);
 }
 
+/*
+ *	Returns the current line.
+*/
 static char	*ft_get_line(char *stash)
 {
 	int		i;
@@ -76,6 +85,9 @@ static char	*ft_get_line(char *stash)
 	return (line);
 }
 
+/*
+ *	Reads the fd and joins the buffer in the stash until a new line is found.
+*/
 static char	*ft_read(int fd, char *buffer, char *stash)
 {
 	int		r;
@@ -104,6 +116,9 @@ static char	*ft_read(int fd, char *buffer, char *stash)
 	return (stash);
 }
 
+/*
+ *	Returns the next line found in a file descriptor.
+*/
 char	*get_next_line(int fd)
 {
 	static char	*stash;

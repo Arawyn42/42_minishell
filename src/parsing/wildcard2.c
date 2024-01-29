@@ -6,12 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:26:39 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 18:20:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:30:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Parses the wildcard (*) when it follows a '/'.
+ *	Returns the path replacing the wildcard (*).
+*/
 static char	*wildcard_after_slash(char *line, char *end_path, int *i, int slash)
 {
 	char	*start_path;
@@ -28,6 +32,10 @@ static char	*wildcard_after_slash(char *line, char *end_path, int *i, int slash)
 	return (free(start_path), free(path), add_path);
 }
 
+/*
+ *	Parses the wildcard (*) when it follows a character other than '/'.
+ *	Returns the path replacing the wildcard (*).
+*/
 static char	*wildcard_after_char(char *line, char *end_path, int *i, int slash)
 {
 	char	*start_path;
@@ -42,6 +50,9 @@ static char	*wildcard_after_char(char *line, char *end_path, int *i, int slash)
 	return (free(start_path), free(add_path), path);
 }
 
+/*
+ *	Returns the path replacing the wildcard (*).
+*/
 static char	*get_parsed_wildcard(char *line, int *i)
 {
 	char	*add_path;
@@ -69,6 +80,9 @@ static char	*get_parsed_wildcard(char *line, int *i)
 	return (free(end_path), free(add_path), path);
 }
 
+/*
+ *	Replaces the wildcard (*) by the corresponding path.
+*/
 void	parse_wildcard(char *line, char *new_line, int *i, int *j)
 {
 	char	*path;
@@ -91,6 +105,9 @@ void	parse_wildcard(char *line, char *new_line, int *i, int *j)
 		free(path);
 }
 
+/*
+ *	Calculates the length of the corresponding path for the wildcard (*).
+*/
 void	wildcard_len(t_data *data, int *i, int *len)
 {
 	char	*path;
