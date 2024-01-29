@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/29 18:17:14 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/29 19:10:32 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ SRCS			=	builtin/pwd.c \
 					errors.c \
 					exec_path.c \
 					parsing.c \
-					redirections.c
+					redirections.c 
 
 MAIN			=	main.c
 
@@ -124,13 +124,13 @@ endif
 define run_and_test
 printf "%b%-46b" "$(COM_COLOR)$(COM_STRING) " "$(OBJ_COLOR)$(@F)$(NO_COLOR)"; \
 $(RUN_CMD); \
-if [ $$RESULT -ne 0 ]; then \
+if [[ $$RESULT -ne 0 ]]; then \
 	printf "%b\n" "$(ERROR_COLOR)[✖]$(NO_COLOR)"; \
 	rm -rf .files_changed; \
 	if [ $(NOVISU) -eq 0 ]; then \
 		echo; \
 	fi; \
-elif [ -s $@.log ]; then \
+elif [[ -s $@.log ]]; then \
 	printf "%b\n" "$(WARN_COLOR)[⚠]$(NO_COLOR)"; \
 else  \
 	printf "%b\n" "$(OK_COLOR)[✓]$(NO_COLOR)"; \
@@ -147,10 +147,10 @@ define save_files_changed
 	TO_COMPILE=`echo $$FILE_CPP | wc -w`; \
 	for FILE in $$FILE_CPP; do \
 		for OBJ in $$FILE_OBJ; do \
-			if [ $${FILE%$(FILE_EXTENSION)} = $${OBJ%.o} ]; then \
-				if [ $(SRCS_PATH)/$$FILE -ot objs/$$OBJ ]; then \
+			if [[ $${FILE%$(FILE_EXTENSION)} = $${OBJ%.o} ]]; then \
+				if [[ $(SRCS_PATH)/$$FILE -ot objs/$$OBJ ]]; then \
 					RECOMPILE=0; \
-					if [ $$RECOMPILE -eq 0 ]; then \
+					if [[ $$RECOMPILE -eq 0 ]]; then \
 						((TO_COMPILE=$$TO_COMPILE-1)); \
 					fi; \
 				fi; \
@@ -163,7 +163,7 @@ endef
 define draw_bar
 	FILE_TOTAL=`bash -c 'cat .files_changed | cut -d"/" -f2'`; \
 	FILE_DONE=`bash -c 'cat .files_changed | cut -d"/" -f1'`; \
-	if [ $$FILE_TOTAL -eq 0 ]; then \
+	if [[ $$FILE_TOTAL -eq 0 ]]; then \
 		FILE_TOTAL=1; \
 		FILE_DONE=1; \
 	fi; \
@@ -171,8 +171,8 @@ define draw_bar
 	RES=`echo $${RES%%.*}`; \
 	printf "$(OBJ_COLOR)[$(NO_COLOR)"; \
 	i=0; \
-	while [ $$i -lt 48 ]; do \
-		if [ $$i -lt $$RES ]; then \
+	while [[ $$i -lt 48 ]]; do \
+		if [[ $$i -lt $$RES ]]; then \
 			printf "$(OK_COLOR)█$(NO_COLOR)"; \
 		else \
 			printf "$(COM_COLOR)▒$(NO_COLOR)"; \
@@ -180,14 +180,14 @@ define draw_bar
 		((i=$$i+1)); \
 	done; \
 	printf "$(OBJ_COLOR)]$(NO_COLOR)"; \
-	printf " ($(COM_David Renassia,COLOR)$$FILE_DONE$(NO_COLOR)/$(COM_COLOR)$$FILE_TOTAL$(NO_COLOR))"; \
+	printf " ($(COM_COLOR)$$FILE_DONE$(NO_COLOR)/$(COM_COLOR)$$FILE_TOTAL$(NO_COLOR))"; \
 	printf " "; \
 	((FILE_DONE=$$FILE_DONE+1)); \
 	echo $$FILE_DONE/$$FILE_TOTAL > .files_changed;
 endef
 
 define display_progress_bar
-	if [ $(NOVISU) -eq 0 ]; then \
+	if [[ $(NOVISU) -eq 0 ]]; then \
 		line=`bash -c 'oldstty=$$(stty -g); \
 		stty raw -echo min 0; tput u7 > /dev/tty; IFS=";" \
 		read -r -d R -a pos; stty $$oldstty; \
@@ -202,7 +202,7 @@ define display_progress_bar
 			((i=$$i+1)); \
 		done; \
 		tput rc; \
-		if [ $$line -gt $$max_line ]; then \
+		if [[ $$line -gt $$max_line ]]; then \
 			new_line=1; \
 			echo ; \
 		else \
@@ -211,7 +211,7 @@ define display_progress_bar
 		tput sc; \
 		tput cup $$line; \
 		$(draw_bar) \
-		if [ $$new_line -eq 1 ]; then \
+		if [[ $$new_line -eq 1 ]]; then \
 			((line=$$line-1));\
 			tput cup $$line; \
 		else \
