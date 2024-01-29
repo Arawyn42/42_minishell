@@ -6,12 +6,17 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:51:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:42:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Calculates the length of the corresponding value from an environnement
+ *	variable and modifies the total length's pointer of the parsed
+ *	string accordingly.
+*/
 static void	dollar_value_len(t_data *data, int *i, int *len)
 {
 	char	*var;
@@ -30,6 +35,11 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 	}
 }
 
+/*
+ *	Calculates the length of the parsed string resulted from the dollar '$'
+ *	environnement variable and modifies the total length's pointer
+ *	of the parsed string accordingly.
+*/
 static void	dollar_var_len(t_data *data, int *i, int *len)
 {
 	char	*ex_stat;
@@ -49,6 +59,10 @@ static void	dollar_var_len(t_data *data, int *i, int *len)
 		dollar_value_len(data, i, len);
 }
 
+/*
+ *	Calculates the length of the HOME path and modifies the total length's
+ *	pointer of the parsed string accordingly.
+*/
 static void	tilde_len(t_data *data, int *i, int *len)
 {
 	char	*home_path;
@@ -63,12 +77,19 @@ static void	tilde_len(t_data *data, int *i, int *len)
 	}
 }
 
+/*
+ *	Replaces following multiple spaces by one space in the parsed string.
+*/
 void	parse_spaces(char *line, int *i)
 {
 	while (line[*i] == ' ' && line[*i + 1] == ' ')
 		(*i)++;
 }
 
+/*
+ *	Calculates the total length of the parsed string in order to allocate
+ *	the good amount of memory space for it.
+*/
 void	new_line_len(t_data *data, int *len, int in_singleq, int in_doubleq)
 {
 	int	i;

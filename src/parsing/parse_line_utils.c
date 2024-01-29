@@ -6,12 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:00:56 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:21:59 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Returns the number of double quotes detected in a string, according to
+ *	the bash's quotes rules.
+*/
 int	count_double_quotes(char *str)
 {
 	int	dq;
@@ -33,6 +37,10 @@ int	count_double_quotes(char *str)
 	return (dq);
 }
 
+/*
+ *	Returns the number of single quotes detected in a string, according to
+ *	the bash's quotes rules.
+*/
 int	count_single_quotes(char *str)
 {
 	int	sq;
@@ -54,6 +62,9 @@ int	count_single_quotes(char *str)
 	return (sq);
 }
 
+/*
+ *	Checks if we are in or out single quotes or double quotes, at the index i.
+*/
 void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i)
 {
 	if ((i == 0 || line[i - 1] != '\\') && line[i] == '\''
@@ -69,6 +80,10 @@ void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i)
 		*doubleq = 0;
 }
 
+/*
+ *	Returns the corresponding value from an environnement variable.
+ *	If the variable is not found, returns NULL.
+*/
 char	*get_dollar_var(t_data *data, int *i, int *var_len)
 {
 	int		k;
@@ -95,6 +110,11 @@ char	*get_dollar_var(t_data *data, int *i, int *var_len)
 	return (NULL);
 }
 
+/*
+ *	Checks all parsing conditions according to bash rules, for single quotes,
+ *	double quotes, '$', '\', '~' and '*'.
+ *	Returns 1 to print the character the index is at, or 0 to not print it.
+*/
 int	parse_conditions(char *line, int i, int insq, int indq)
 {
 	if (i >= 1 && line[i] == '?' && line[i - 1] == '$')

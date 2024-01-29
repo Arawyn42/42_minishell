@@ -6,12 +6,17 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:44:46 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/24 16:38:48 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:49:17 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Prints an error when CTRL + D (EOF) signal is received.
+ *	In this case. exit status code is 2.
+ *	If CTRL + C (SIGINT) is received, prints no error.
+*/
 static char	*unclosed_quotes_error(t_data *data, char signal)
 {
 	if (signal == 'd')
@@ -26,6 +31,9 @@ static char	*unclosed_quotes_error(t_data *data, char signal)
 	return (ft_strdup(""));
 }
 
+/*
+ *	Opens a here_document in case of unclosed double quotes, with " as LIMITER.
+*/
 static char	*unclosed_double(t_data *data)
 {
 	char	*line;
@@ -50,6 +58,9 @@ static char	*unclosed_double(t_data *data)
 	return (data->line);
 }
 
+/*
+ *	Opens a here_document in case of unclosed single quotes, with ' as LIMITER.
+*/
 static char	*unclosed_single(t_data *data)
 {
 	char	*line;
@@ -74,6 +85,10 @@ static char	*unclosed_single(t_data *data)
 	return (data->line);
 }
 
+/*
+ *	Returns 1 if the line contains an unclosed quote (double or single).
+ *	Returns 0 if not.
+*/
 int	is_unclosed_quotes(t_data *data)
 {
 	if (count_double_quotes(data->line) % 2 == 0
@@ -82,6 +97,10 @@ int	is_unclosed_quotes(t_data *data)
 	return (1);
 }
 
+/*
+ *	Opens a here_document in case of unclosed quotes,
+ *	until the quotes are closed.
+*/
 char	*unclosed_quotes(t_data *data)
 {
 	int		i;

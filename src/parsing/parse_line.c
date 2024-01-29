@@ -6,12 +6,16 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 21:51:23 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:35:12 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Replaces the environnement variable name (preceded by '$') by its
+ *	corresponding value.
+*/
 static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 {
 	char	*var;
@@ -34,6 +38,12 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 		free(var);
 }
 
+/*
+ *	If '$?' is found, replaces it by the current exit status code.
+ *	If '$' is followed by a numerical character, replaces it by nothing.
+ *	In other cases, replaces the environnement variable by its value if
+ *	the variable exists or by nothing if it doesn't.
+*/
 static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 {
 	char	*ex_stat;
@@ -60,6 +70,9 @@ static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 		parse_dollar_value(data, new_line, i, j);
 }
 
+/*
+ *	Replaces the tilde '~' by the HOME path.
+*/
 static void	parse_tilde(t_data *data, char *newline, int *i, int *j)
 {
 	char	*home_path;
@@ -79,6 +92,12 @@ static void	parse_tilde(t_data *data, char *newline, int *i, int *j)
 		free(home_path);
 }
 
+/*
+ *	Parses a string according to the bash's rules, for single quotes ',
+ *	double quotes ", tilde ~, wildcard *, backslash \ and environnement
+ *	variables $. Also parses spaces to put only one space between two
+ *	non-space characters.
+*/
 static void	parsed_line(t_data *data, char *new_line,
 		int *in_singleq, int *in_doubleq)
 {
@@ -109,6 +128,10 @@ static void	parsed_line(t_data *data, char *new_line,
 	}
 }
 
+/*
+ *	Trims spaces and parenthesis in a string, then parses it according to
+ *	the bash's rules. Returns the parsed string.
+*/
 char	*parse_line(char *line, char **env)
 {
 	t_data	data;
