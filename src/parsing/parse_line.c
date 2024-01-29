@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 21:35:12 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/29 23:15:51 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	parsed_line(t_data *data, char *new_line,
 
 	i[0] = -1;
 	i[1] = 0;
-	while (data->line[++(i[0])])
+	while ((size_t) ++(i[0]) < ft_strlen(data->line) && data->line[i[0]])
 	{
 		if (data->line[i[0]] == ' ' && !(*in_singleq) && !(*in_doubleq))
 			parse_spaces(data->line, &i[0]);

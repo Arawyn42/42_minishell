@@ -146,9 +146,9 @@ unset PATH     and    ls   			# ls should not be found	#todo segfault
 unset NOTEXISTING
 
 PARSING :
-touch " file"				#todo no space before filename
+touch " file"
 cat \ file					#todo
-echo $OLDPWD				#todo invalid read of size 1
+echo $OLDPWD
 echo ">" file
 echo '>' file
 ls |" rev					#todo
