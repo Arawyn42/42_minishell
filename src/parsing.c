@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/29 23:03:48 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:48:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	builtin_launcher(t_data *data)
 		ft_exit(data);
 	else
 		return (0);
+	free(data->line);
 	return (1);
 }
 
@@ -106,6 +107,31 @@ void	apply_operator(char *operator, char **cmds, int *index, t_data *data)
 // 	free_double_array(operators); // still reachable leaks with exit command
 // }
 
+// t_command	*create_meta_commands(char *commands, char *operators)
+// {
+// 	t_command	*res;
+// 	int			i;
+
+// 	i = 0;
+// 	while (commands[i])
+// 		i++;
+// 	res = malloc(sizeof(t_command) * (i + 1));
+// 	i = -1;
+// 	while (commands[++i])
+// 	{
+// 		res[i].command = commands[i];
+// 		if (i && !ft_strncmp(operators[i - 1], ">", 1))
+// 			res[i].type = file;
+// 		else if (i && !ft_strncmp(operators, "<<", 2))
+// 			res[i].type = limiter;
+// 		else
+// 			res[i].type = command;
+		
+// 	}
+// 	res[i] = NULL;
+// 	return (res);
+// }
+
 /*
  *	Parses the line by cutting the commands from the operators then
  *	run the commands.
@@ -114,22 +140,20 @@ void	apply_operator(char *operator, char **cmds, int *index, t_data *data)
 */
 void	command_launcher(t_data *data)
 {
-	char	**commands;
-	char	**operators;
-	int		saved_stdout;
-	int		i;
+	char		**commands;
+	// t_command	*meta_commands;
+	char		**operators;
+	int			i;
 
-	saved_stdout = dup(STDOUT_FILENO);
 	operators = get_operators_array(data->line);
 	if (!operators)
 		return ;
 	commands = ft_split(data->line, "|><");
 	free(data->line);
+	// meta_commands = create_meta_commands(commands, operators);
 	i = -1;
 	while (commands[++i])
 		apply_operator(operators[i], commands, &i, data);
 	free_double_array(operators);
 	free_double_array(commands);
-	free(data->line);
-	dup2(saved_stdout, STDOUT_FILENO);
 }

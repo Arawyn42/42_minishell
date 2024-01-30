@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 23:14:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/30 11:12:16 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 			here_doc_error(limiter);
 			break ;
 		}
-		line[ft_strlen(line) - 1] = '\0';
-		if (!ft_strcmp(line, limiter))
+		if (!ft_strncmp(line, limiter, ft_strlen(limiter)) && \
+			ft_strlen(limiter) == ft_strlen(line) - 1)
 			break ;
 		ft_putstr(line, pipe_fd[1]);
 		free(line);
@@ -61,19 +61,15 @@ void	here_doc(char **cmds, int *index, t_data *data)
 {
 	int	pid;
 	int	pipe_fd[2];
+	int	saved_stdin;
 	int	status;
 
+	saved_stdin = dup(STDIN_FILENO);
 	if (!cmds[(*index) + 1])
-	{
-		ft_putstr("minishell: syntax error: ", 2);
-		return (ft_putstr("unexpected pipe or redirection\n", 2));
-	}
-	if (pipe(pipe_fd) == -1)
-		return (ft_putstr("minishell: unexpected fork error", 2));
+		return (redirection_error_message());
+	pipe(pipe_fd);
 	pid = fork();
 	g_pid = pid;
-	if (pid == -1)
-		ft_error_exit(pipe_fd, "minishell: unexpected fork error");
 	if (pid == 0)
 		here_doc_reading(parse_line(cmds[(*index) + 1], data->env), pipe_fd);
 	dup2(pipe_fd[0], STDIN_FILENO);
@@ -84,6 +80,9 @@ void	here_doc(char **cmds, int *index, t_data *data)
 	(*index)++;
 	if (!g_sigint && !builtin_launcher(data))
 		ft_fork_exec(data->line, data->env);
+	if (g_sigint)
+		free(data->line);
+	dup2(saved_stdin, STDIN_FILENO);
 }
 
 /****************************** To do the pipes *****************************/
@@ -95,16 +94,12 @@ void	ft_pipe(char *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
+	int		saved_stdout;
 
-	if (pipe(pipe_fd) == -1)
-	{
-		ft_putstr("minishell: unexpected fork error", 2);
-		exit(EXIT_FAILURE);
-	}
+	saved_stdout = dup(STDOUT_FILENO);
+	pipe(pipe_fd);
 	pid = fork();
 	g_pid = pid;
-	if (pid == -1)
-		ft_error_exit(pipe_fd, "minishell: unexpected fork error");
 	if (pid == 0)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
@@ -118,4 +113,5 @@ void	ft_pipe(char *cmd, t_data *data)
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
 	wait(NULL);
+	dup2(saved_stdout, STDOUT_FILENO);
 }

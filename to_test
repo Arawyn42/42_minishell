@@ -8,45 +8,52 @@ ls | wc
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
-ls |	#todo
-ls |  # space #todo
-ls | exit	#todo
+ls |	#todo does not open here doc nor provide error message
+ls |  # space #todo does not open here doc nor provide error message
+ls | exit	#todo should not exit
+cat file | rev	#todo minishell is exiting unexpectedly
+|	#todo missing error message
 
 REDIRECTION_RIGHT :
 ls > file
 ls > wc
 ls > notexisting
 ls    >   file
-exit > file		#todo
-cd > file		#todo invalid free
-ls >  			#todo invalid free
-ls >  # space	#todo invalid free
-ls > file > file2 > file3 > file4	#todo
-ls > no_permission/file				#todo leak
-> file	#todo invalid free
+exit > file		#todo should not have the exit message in it
+cd > file
+ls >  			#todo wrong error message
+ls >  # space	#todo wrong error message
+ls > file > file2 > file3 > file4	#todo creates only one over two files, the first file is filled instead of the last one
+ls > no_permission/file
+> file		#todo does not create the file
 ls > file | ls	#todo leak & not like bash
+>	#todo missing error message
 
 REDIRECTION_RIGHT_APPEND :
 echo hello >> file
 echo hello >> not_existing
-echo hello >> no_permission/file	#todo leak
-echo hello >>	#todo invalid free
+echo hello >> no_permission/file
+echo hello >>
+>>	#todo missing error message
 
 REDIRECTION_LEFT :
 wc < file
-wc < notexisting	#todo leak
-wc < no_permission/file #todo leak
-wc <	#todo invalid free
-< file wc	#todo invalid free
+wc < notexisting
+wc < no_permission/file
+wc <
+< file wc	#todo raise an error instead of doing like bash
+<	#todo missing error message
 
-HERE DOC : # retour à la ligne ne fonctionne pas ?
-wc << END
-wc << END				# ctrl+d should work wc should be launched
-wc << END				# ctrl+c should work, with newline and no ^C
-<< END
+HERE DOC :
+wc << END.
+wc << END.	# ctrl+d should work wc should be launched
+wc << END.	# ctrl+c should work, with ^C and newline  #todo no newline on ctrl+c (launch without valgrind)
+<< END.		#todo raise an error instead of doing like bash
 wc << ls
 export HEY=hello    and   wc << $HEY
 wc << he'll'o
+wc << END | rev		#todo here doc does not redirect through pipe
+<<	#missing error message
 
 TILDE
 ls ~
@@ -54,13 +61,13 @@ cd ~
 cd ~/..
 export HOME=$HOME/notexisting  and   ls ~
 
-WILDCARD #not tested
+WILDCARD
 echo *
 echo "*"
 echo '*'
-echo $*
+echo $*		#todo leaks
 cat *.c
-cat src/*.c | grep "printf"
+cat src/*.c | grep "printf"	# not tested
 
 OPERATORS	#met systematiquement des erreurs contrairement au bash, flemme de faire mieux
 ls >>> file
@@ -71,8 +78,8 @@ wc <<      < file
 wc <> file
 ls >< file
 ls |> wc
-echo hello >    > file	#todo segfault
-cat Makefile | grep "@" << END	#todo
+echo hello >    > file	#todo invalid read of size 1
+cat Makefile | grep "@" << END.	#todo
 
 LOGIC_OPERATORS
 true || echo aaa && echo bbb

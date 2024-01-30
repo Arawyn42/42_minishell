@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 16:33:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/30 13:32:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ extern int	g_sigint;
 extern int	g_pid;
 
 /********************************* STRUCTURES *********************************/
+
+// enum e_type
+// {
+// 	command,
+// 	file,
+// 	limiter
+// };
+
 typedef struct s_export
 {
 	char			*content;
@@ -47,6 +55,14 @@ typedef struct s_data
 	t_export	*export;
 	char		*line;
 }				t_data;
+
+// typedef struct s_command
+// {
+// 	char	*command;
+// 	enum	e_type type;
+// }			t_command;
+
+char	**split_commands(char *line);
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -83,6 +99,7 @@ void		free_all(t_data *data);
 /* ERRORS */
 void		exit_error(const char *msg);
 void		syntax_error_message(char *token_name, int len);
+void		redirection_error_message(void);
 /* ENV */
 char		**cpy_env(char **base_env);
 char		*get_pwd(t_data *data);

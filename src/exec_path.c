@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/25 23:32:55 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/30 01:20:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_fork_exec(char *cmds, char **env)
 	{
 		waitpid(pid, &status, 0); // cat | cat | ls ??
 		g_exit_status = WEXITSTATUS(status);
+		free(cmds);
 	}
 }
 

@@ -6,11 +6,88 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:10:27 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/29 16:36:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/30 14:56:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static int	count_words(char *line)
+// {
+// 	int	i;
+// 	int	counter;
+
+// 	counter = 0;
+// 	i = -1;
+// 	while (line[++i])
+// 	{
+// 		if (!ft_strncmp(&line[i], ">>", 2) || !ft_strncmp(&line[i], "<<", 2))
+// 		{
+// 			i++;
+// 			counter++;
+// 		}
+// 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
+// 			counter++;
+// 		else if (line[i] != ' ')
+// 		{
+// 			counter++;
+// 			while (line[i] && (is_in_quote(line, i) || !ft_strchr("><|", line[i])))
+// 				i++;
+// 			i--;
+// 		}
+// 	}
+// 	return (counter);
+// }
+
+// static char	*get_word(char *line, int *i)
+// {
+// 	int	len;
+
+// 	if (!ft_strncmp(&line[*i], ">>", 2) || !ft_strncmp(&line[*i], "<<", 2))
+// 	{
+// 		(*i)++;
+// 		return (ft_substr(line, *i, 2));
+// 	}
+// 	else if (line[*i] == '>' || line[*i] == '<' || line[*i] == '|')
+// 		return (ft_substr(line, *i, 1));
+// 	else if (line[*i] != ' ')
+// 	{
+// 		len = 0;
+// 		while (line[*i + len] && (is_in_quote(line, *i) || !ft_strchr("><|", line[*i])))
+// 			len++;
+// 		*i = *i + len - 1;
+// 		return (ft_substr(line, *i - len + 1, len));
+// 	}
+// 	printf("empty\n");
+// 	while (line[*i] == ' ')
+// 		(*i)++;
+// 	return (NULL);
+// }
+
+// char	**split_commands(char *line)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		size;
+// 	char	*word;
+// 	char	**res;
+
+// 	size = count_words(line);
+// 	printf("size = %d\n", size);
+// 	res = malloc(sizeof(char *) * (size + 2));
+// 	res[0] = NULL;
+// 	j = 0;
+// 	i = 0;
+// 	while (line[++j])
+// 	{
+// 		word = get_word(line, &i);
+// 		if (word)
+// 			res[j] = word; 
+// 	}
+// 	res[j] = NULL;
+// 	return (res);
+// }
+
 
 static void	get_next_operator_pos(char *str, int *pos, int *in_quote)
 {
