@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:49:53 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:46:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	**ft_split(char const *s, char *charset)
 	int		in_quote;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	in_quote = 0; // unclosed quote ?
 	tab = (char **) ft_calloc(sizeof(char *), count_words(s, charset) + 1);
 	if (!tab)

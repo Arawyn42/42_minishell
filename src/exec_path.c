@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 13:53:27 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 17:48:13 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_get_path(char *cmd, char **env)
 
 	i = 0;
 	path_array = ft_split(ft_get_path_env(env), ":");
-	while (path_array[i])
+	while (path_array && path_array[i])
 	{
 		path_slash = ft_strjoin(path_array[i], "/");
 		cmd_path = ft_strjoin(path_slash, cmd);
