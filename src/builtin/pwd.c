@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 17:37:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:39:53 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	set_old_pwd(t_data *data, char *path)
  *	this does NOT depends on the 'PWD' env variable.
  *	Exit status code is 0.
 */
-void	ft_pwd(void)
+void	ft_pwd(char *command)
 {
 	char	*pwd;
 
@@ -106,4 +106,5 @@ void	ft_pwd(void)
 	ft_putstr("\n", 1);
 	free(pwd);
 	g_exit_status = 0;
+	free(command);
 }

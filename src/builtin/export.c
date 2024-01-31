@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 21:13:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 23:37:24 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ static void	export_var(char *command, t_data *data)
 */
 void	ft_export(char *command, t_data *data)
 {
+	char	*arg;
+
 	g_exit_status = 0;
 	if (!command[6])
 	{
@@ -128,5 +130,18 @@ void	ft_export(char *command, t_data *data)
 		print_export(data);
 	}
 	else
+	{
+		if (!((command[7] >= 'a' && command[7] <= 'z')
+			|| (command[7] >= 'A' && command[7] <= 'Z')))
+		{
+			arg = ft_substr(command, 7, ft_strlen(command) - 7);
+			ft_putstr("bash: export: `", 2);
+			ft_putstr(arg, 2);
+			ft_putstr("': not a valid identifier\n", 2);
+			free(arg);
+			return ;
+		}
 		export_var(command, data);
+	}
+	free(command);
 }

@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:03:08 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/29 16:30:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 00:15:21 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_quote(int *in_quote, char c)
-{
-	if ((*in_quote) % 2 && c == 39)
-		(*in_quote)--;
-	else if (!((*in_quote) % 2) && c == 39)
-		(*in_quote)++;
-	else if ((*in_quote) >> 1 && c == 34)
-		(*in_quote) -= 2;
-	else if (!((*in_quote) >> 1) && c == 34)
-		(*in_quote) += 2;
-	return (*in_quote);
-}
+// int	ft_quotes(char c, int *in_quote)
+// {
+// 	if ((*in_quote) % 2 && !(*in_quote) >> 1 && (c == 39))
+// 		(*in_quote)--;
+// 	else if (!((*in_quote) % 2) && !(*in_quote) >> 1 && c == 39)
+// 		(*in_quote)++;
+// 	else if ((*in_quote) >> 1 && !(*in_quote) % 2 && c == 34)
+// 		(*in_quote) -= 2;
+// 	else if (!((*in_quote) >> 1) && c == 34)
+// 		(*in_quote) += 2;
+// 	printf("c = [%c] and %d\n", c, *in_quote);
+// 	return (*in_quote);
+// }
 
 int	is_in_quote(char *str, int pos) // unused
 {

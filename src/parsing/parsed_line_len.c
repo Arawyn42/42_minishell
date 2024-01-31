@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:59:34 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 23:14:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:31:45 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 	j = 0;
 	while (data->line[*i + j] && data->line[*i + j] != ' '
 		&& data->line[*i + j] != '\'' && data->line[*i + j] != '\"'
-		&& data->line[*i + j] != '/' && data->line[*i + j] != '\\')
+		&& data->line[*i + j] != '/' && data->line[*i + j] != '\\'
+		&& data->line[*i + j] != '$')
 		j++;
 	var = get_dollar_var(data, i, &j);
 	if (var)
@@ -33,6 +34,8 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 		*len += ft_strlen(var);
 		free(var);
 	}
+	// if (data->line[*i + j] == '$')
+	// 	dollar_var_len(data, i, len);
 }
 
 /*
@@ -40,7 +43,7 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
  *	environnement variable and modifies the total length's pointer
  *	of the parsed string accordingly.
 */
-static void	dollar_var_len(t_data *data, int *i, int *len)
+void	dollar_var_len(t_data *data, int *i, int *len)
 {
 	char	*ex_stat;
 
@@ -57,6 +60,8 @@ static void	dollar_var_len(t_data *data, int *i, int *len)
 		(*i)++;
 	else
 		dollar_value_len(data, i, len);
+	if (data->line[*i] == '$')
+		dollar_var_len(data, i, len);
 }
 
 /*

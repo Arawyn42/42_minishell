@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_launching.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 13:55:45 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 00:17:31 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,33 @@
 
 int	builtin_launcher(char *command, t_data *data)
 {
+	char	*cmd;
 	// if (!data->line)
 		// return (1);
-	if (!ft_strncmp(command, "pwd", 3)
-		&& (command[3] == ' ' || !command[3]))
-		ft_pwd();
-	else if (!ft_strcmp(command, "echo")
-		|| !ft_strncmp(command, "echo ", 5))
-		ft_echo(command);
-	else if (!ft_strncmp(command, "cd", 2))
-		ft_cd(command, data);
-	else if (!ft_strcmp(command, "env")
-		|| !ft_strncmp(command, "env ", 4))
-		ft_print_env(data);
-	else if (!ft_strcmp(command, "export")
-		|| !ft_strncmp(command, "export ", 7))
-		ft_export(command, data);
-	else if (!ft_strcmp(command, "unset")
-		|| !ft_strncmp(command, "unset ", 6))
-		ft_unset(command, data);
-	else if ((!ft_strcmp(command, "exit") || \
-		!ft_strncmp(command, "exit ", 5)))
-		ft_exit(command, data);
+
+	cmd = parse_line(ft_strdup(command), data->env);
+	if (!ft_strncmp(cmd, "pwd", 3) && (command[3] == ' ' || !command[3]))
+		ft_pwd(cmd);
+	else if (!ft_strcmp(cmd, "echo")
+		|| !ft_strncmp(cmd, "echo ", 5))
+		ft_echo(cmd);
+	else if (!ft_strncmp(cmd, "cd", 2))
+		ft_cd(cmd, data);
+	else if (!ft_strcmp(cmd, "env")
+		|| !ft_strncmp(cmd, "env ", 4))
+		ft_print_env(cmd, data);
+	else if (!ft_strcmp(cmd, "export")
+		|| !ft_strncmp(cmd, "export ", 7))
+		ft_export(cmd, data);
+	else if (!ft_strcmp(cmd, "unset")
+		|| !ft_strncmp(cmd, "unset ", 6))
+		ft_unset(cmd, data);
+	else if ((!ft_strcmp(cmd, "exit") || \
+		!ft_strncmp(cmd, "exit ", 5)))
+		ft_exit(cmd, data);
 	else
-		return (0);
-	return (1);
+		return (free(cmd), 0);
+	return (free(cmd), 1);
 }
 
 /*

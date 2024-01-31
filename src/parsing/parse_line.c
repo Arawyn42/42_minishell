@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 23:15:51 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:09:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 	k = 0;
 	while (data->line[*i + k] && data->line[*i + k] != ' '
 		&& data->line[*i + k] != '\'' && data->line[*i + k] != '\"'
-		&& data->line[*i + k] != '/' && data->line[*i + k] != '\\')
+		&& data->line[*i + k] != '/' && data->line[*i + k] != '\\'
+		&& data->line[*i + k] != '$')
 		k++;
 	var = get_dollar_var(data, i, &k);
+	// if (data->line[*i + k] == '$')
+	// 	parse_dollar_var(data, new_line, i + k, j);
 	k = 0;
 	while (var && var[k])
 	{
@@ -44,7 +47,7 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
  *	In other cases, replaces the environnement variable by its value if
  *	the variable exists or by nothing if it doesn't.
 */
-static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
+void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 {
 	char	*ex_stat;
 	int		k;
@@ -68,6 +71,8 @@ static void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 		(*i)++;
 	else
 		parse_dollar_value(data, new_line, i, j);
+	if (data->line[*i] == '$')
+		parse_dollar_var(data, new_line, i, j);
 }
 
 /*

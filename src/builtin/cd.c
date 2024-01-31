@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 17:30:12 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:39:11 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void	ft_cd(char *command, t_data *data)
 
 	path = NULL;
 	if (cd_error(command, data) || !cd_check_args(command))
-		return ;
+		return (free(command));
 	path = get_cd_path(command, data);
 	if (!path)
-		return ;
+		return (free(command));
 	oldpwd = get_oldpwd(data);
 	set_old_pwd(data, NULL);
 	g_exit_status = 0;
@@ -128,4 +128,5 @@ void	ft_cd(char *command, t_data *data)
 	set_pwd(data);
 	free(oldpwd);
 	free(path);
+	free(command);
 }

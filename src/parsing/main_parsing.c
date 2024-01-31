@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 15:54:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 00:15:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	is_command_valid(char **command)
 	return (1);
 }
 
-static char	**parse_command(char **command, char **env)
+char	**parse_command(char **command, char **env)
 {
 	int		i;
 
@@ -140,13 +140,12 @@ void	parse_and_launch(t_data *data)
 	if (line_len == 0 || is_open_parentheses(data->line) ||\
 		is_logic_operators_broken(data->line))
 		return ;
-	data->command = parse_command(split_command(get_command(data->line, line_len, &i)), data->env);
+	data->command = split_command(get_command(data->line, line_len, &i));
 	while (is_command_valid(data->command))
 	{
 		command_launcher(data);
 		free_command(data->command);
-		data->command = parse_command(split_command(\
-			get_command(data->line, line_len, &i)), data->env);
+		data->command = split_command(get_command(data->line, line_len, &i));
 	}
 	if (data->command)
 		free_command(data->command);

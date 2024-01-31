@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:45:07 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:53:09 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:42:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ void	signals_handler(int signum)
 		g_sigint = 1;
 		close(0);
 		g_exit_status = 130;
-		if (!g_pid)
-			exit(g_exit_status);
 	}
 }

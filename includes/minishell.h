@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 13:54:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 00:15:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 /****************************** GLOBAL VARIABLES ******************************/
 extern int	g_exit_status;
 extern int	g_sigint;
-extern int	g_pid;
 
 /********************************* STRUCTURES *********************************/
 
@@ -76,14 +75,14 @@ char		*ft_strdup(char const *src);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
-char		**ft_split(char const *s, char *charset);
+char		**ft_split(char const *s, char c);
 int			ft_atoi(const char *s);
 char		*ft_itoa(int n);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			is_in_quote(char *str, int pos);
-int			ft_quote(int *in_quote, char c);
+// int			ft_quotes(char c, int *in_quote);
 int			count_single_quotes(char *str);
 char		**split_command(char *line);
 /* LISTS */
@@ -109,16 +108,20 @@ char		*get_oldpwd(t_data *data);
 char		*get_home_path(t_data *data);
 
 /********************************** PARSING ***********************************/
-void		in_or_out_quotes(char *line, int *singleq, int *doubleq, int i);
+void		in_or_out_quotes(const char *line,
+				int *singleq, int *doubleq, int i);
 void		new_line_len(t_data *data, int *len,
 				int in_singleq, int in_doubleq);
 char		*get_dollar_var(t_data *data, int *i, int *j);
+void		dollar_var_len(t_data *data, int *i, int *len);
+void		parse_dollar_var(t_data *data, char *new_line, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
 char		**split_commands(char *line);
 void		parse_logic_operators(t_data *data);
 void		parse_and_launch(t_data *data);
+char		**parse_command(char **command, char **env);
 /* UNCLOSED QUOTES */
 char		*unclosed_quotes(t_data *data);
 int			is_unclosed_quotes(t_data *data);
@@ -140,13 +143,13 @@ void		ft_exec(char *cmds, t_data *data);
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);
 void		set_old_pwd(t_data *data, char *path);
-void		ft_pwd(void);
+void		ft_pwd(char *command);
 /* ECHO */
 void		ft_echo(char *command);
 /* CD */
 void		ft_cd(char *command, t_data *data);
 /* ENV */
-void		ft_print_env(t_data *data);
+void		ft_print_env(char *command, t_data *data);
 t_export	*convert_env_list(t_data *data);
 void		refresh_env(t_data *data, t_export *env);
 void		add_env_var(t_data *data, char *var);

@@ -47,8 +47,7 @@ wc <
 HERE DOC :
 wc << END.
 wc << END.	# ctrl+d should work wc should be launched
-wc << END.	# ctrl+c should work, with ^C and newline  #todo no newline on ctrl+c (launch without valgrind) and still reachable leaks
-#           HELLO DAVID ICIIII
+wc << END.	# ctrl+c should work, with ^C and newline
 << END.
 wc << ls
 export HEY=hello    and   wc << $HEY
@@ -129,7 +128,7 @@ cd no_permission
 
 ENV :
 env
-env randomthing		#todo error message ?           HELLO DAVID ICIIII
+env randomthing
 
 EXPORT :
 export			# must be sorted in ascii order
@@ -144,6 +143,7 @@ export HEY="hello"
 export "HEY=hello"
 export PATH=#your_path  # Check if the path is correctly changed in env
 export =hello = hey=hello "zz=hello"
+export 54hey      #todo should not work
 
 PWD :
 pwd
@@ -175,3 +175,5 @@ echo 'salut
 "two words"					#todo (error message)
 cat "	then ctrd+c			#todo one error too many
 cat "	then ctrd+d			#todo one error too many
+
+ctrl+d not working if that the first thing you do

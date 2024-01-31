@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:23:43 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:37:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,26 @@
 /*
  *	Builtin: env.
  *	Prints all environnement lines, each on a new line.
- *	Exit status code is 0;
+ *	Exit status code is 0.
+ *	If there is an argument other than spaces, it returns an error and the
+ *	exit status code is 127.
 */
-void	ft_print_env(t_data *data)
+void	ft_print_env(char *command, t_data *data)
 {
-	int	i;
+	int		i;
+	char	*arg;
 
 	i = 0;
+	if (command[3] && command[4])
+	{
+		arg = ft_substr(command, 4, ft_strlen(command) - 4);
+		ft_putstr("minishell: env: '", 2);
+		ft_putstr(arg, 2);
+		ft_putstr("': No such file or directory\n", 2);
+		g_exit_status = 127;
+		free(arg);
+		return ;
+	}
 	while (data->env[i])
 	{
 		ft_putstr(data->env[i], 1);
@@ -29,6 +42,7 @@ void	ft_print_env(t_data *data)
 		i++;
 	}
 	g_exit_status = 0;
+	free(command);
 }
 
 /*

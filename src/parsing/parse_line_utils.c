@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 16:58:16 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 22:19:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	count_single_quotes(char *str)
 /*
  *	Checks if we are in or out single quotes or double quotes, at the index i.
 */
-void	in_or_out_quotes(char *line, int *singleq, int *doubleq, int i)
+void	in_or_out_quotes(const char *line, int *singleq, int *doubleq, int i)
 {
 	if ((i == 0 || line[i - 1] != '\\') && line[i] == '\''
 		&& *singleq == 0 && *doubleq == 0)

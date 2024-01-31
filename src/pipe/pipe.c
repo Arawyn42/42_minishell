@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 16:31:35 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 18:42:01 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	here_doc(t_data *data, int *i)
 	saved_stdin = dup(STDIN_FILENO);
 	pipe(pipe_fd);
 	pid = fork();
-	g_pid = pid;
 	if (pid == 0)
 	{
 		limiter = ft_strdup(data->command[*i + 1]);
@@ -100,7 +99,6 @@ void	ft_pipe(t_data *data, int *i)
 	saved_stdout = dup(STDOUT_FILENO);
 	pipe(pipe_fd);
 	pid = fork();
-	g_pid = pid;
 	if (pid == 0)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 17:48:13 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:13:47 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_get_path(char *cmd, char **env)
 	char	*path_slash;
 
 	i = 0;
-	path_array = ft_split(ft_get_path_env(env), ":");
+	path_array = ft_split(ft_get_path_env(env), ':');
 	while (path_array && path_array[i])
 	{
 		path_slash = ft_strjoin(path_array[i], "/");
@@ -106,7 +106,6 @@ void	ft_fork_exec(char *cmds, t_data *data)
 	int		status;
 
 	pid = fork();
-	g_pid = pid;
 	if (pid == -1)
 		exit_error("fork");
 	if (pid == 0)
@@ -130,7 +129,7 @@ void	ft_exec(char *command, t_data *data)
 	char	**cmd;
 	char	*cmd_path;
 
-	cmd = ft_split(command, " ");
+	cmd = parse_command(ft_split(command, ' '), data->env);
 	cmd_path = ft_get_path(cmd[0], data->env);
 	if (execve(cmd_path, cmd, data->env) == -1)
 	{
