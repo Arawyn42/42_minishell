@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:48:37 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:37:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	refresh_prompt(t_data *data)
 	char	*prompt;
 
 	home_path = get_home_path(data);
-	pwd = get_pwd(data);
+	pwd = getcwd(NULL, 0);
 	if (!ft_strncmp(pwd, home_path, ft_strlen(home_path)))
 	{
 		second_part = ft_substr(pwd, ft_strlen(home_path),

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 13:59:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 17:30:12 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ static char	*get_cd_path(char *command, t_data *data)
 	else if (!ft_strcmp(command, "cd -"))
 	{
 		path = get_oldpwd(data);
+		if (!path)
+		{
+			ft_putstr("minishell: cd: OLDPWD not set\n", 2);
+			return (NULL);
+		}
 		ft_putstr(path, 1);
 		ft_putstr("\n", 1);
 	}
@@ -104,24 +109,23 @@ void	ft_cd(char *command, t_data *data)
 	char	*oldpwd;
 
 	path = NULL;
-	if (cd_error(command, data))
-		return ;
-	if (!cd_check_args(command))
+	if (cd_error(command, data) || !cd_check_args(command))
 		return ;
 	path = get_cd_path(command, data);
+	if (!path)
+		return ;
 	oldpwd = get_oldpwd(data);
 	set_old_pwd(data, NULL);
 	g_exit_status = 0;
 	if (chdir(path) == -1)
 	{
 		set_old_pwd(data, oldpwd);
-		free(oldpwd);
 		error_msg = ft_strjoin("minishell: cd: ", path);
 		perror(error_msg);
 		g_exit_status = 1;
 		free(error_msg);
 	}
 	set_pwd(data);
-	free(oldpwd); // double free with no existing folder
+	free(oldpwd);
 	free(path);
 }

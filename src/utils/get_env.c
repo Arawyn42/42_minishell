@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:51:38 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:08:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*get_oldpwd(t_data *data)
 	char	*oldpwd;
 	int		i;
 
+	oldpwd = NULL;
 	i = 0;
 	while (data->env[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 21:21:59 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:58:16 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_dollar_var(t_data *data, int *i, int *var_len)
 			return (var);
 		}
 	}
-	return (NULL);
+	return (free(var), NULL);
 }
 
 /*

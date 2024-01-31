@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 20:41:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 17:01:57 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 */
 static void	echo_write(char *line, int i)
 {
-	while (line[i])
+	if ((size_t) i > ft_strlen(line))
+		return ;
+	while (line && line[i])
 	{
 		write(1, &line[i], 1);
 		i++;
