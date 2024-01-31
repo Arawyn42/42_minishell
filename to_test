@@ -48,6 +48,7 @@ HERE DOC :
 wc << END.
 wc << END.	# ctrl+d should work wc should be launched
 wc << END.	# ctrl+c should work, with ^C and newline  #todo no newline on ctrl+c (launch without valgrind) and still reachable leaks
+#           HELLO DAVID ICIIII
 << END.
 wc << ls
 export HEY=hello    and   wc << $HEY
@@ -65,7 +66,7 @@ WILDCARD
 echo *
 echo "*"
 echo '*'
-echo $*		#todo leaks
+echo $*
 cat *.c
 cat src/*.c | grep "printf"
 
@@ -90,7 +91,8 @@ true || (echo a && echo b) && echo c
 true || (echo a) && echo b
 true || ((echo a && echo b) && echo c)
 true || "("echo b && echo c)
-ls > && echo a							#todo
+echo a && ls >							#todo
+echo a && awoiejlk    #todo leaks (lots of leakkkksss)
 ls > file && echo "salut"
 false && (echo aaa)
 (ls && ls)
@@ -119,15 +121,15 @@ echo $NOTEXISTING
 
 CD :
 cd -
-unset OLDPWD   and   cd -	#todo segfault
+unset OLDPWD   and   cd -
 cd ..			# check $PWD and $OLDPWD is set correctly
 cd .			# check $PWD and $OLDPWD is set correctly
 cd notexisting	# check $PWD and $OLDPWD is set correctly
-cd no_permission	#todo invalid free
+cd no_permission
 
 ENV :
 env
-env randomthing		#todo error message ?
+env randomthing		#todo error message ?           HELLO DAVID ICIIII
 
 EXPORT :
 export			# must be sorted in ascii order
@@ -150,9 +152,9 @@ unset PWD      and    pwd  # pwd should work  #not tested
 
 UNSET :
 unset
-unset PWD	#todo multiple valgrind errors and $HOME is broken
+unset PWD
 export ZZZ     and    unset ZZZ
-unset PATH     and    ls   			# ls should not be found	#todo segfault
+unset PATH     and    ls   			# ls should not be found
 unset NOTEXISTING
 
 PARSING :
