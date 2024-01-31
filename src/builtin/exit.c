@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 21:19:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 16:13:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_exit(char *command, t_data *data)
 		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
-	ft_putstr("exit\n", 1);
+	ft_putstr("exit\n", STDERR_FILENO);
 	free_all(data);
 	exit(g_exit_status);
 }
