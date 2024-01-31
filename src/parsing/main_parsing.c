@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logic_operators.c                                  :+:      :+:    :+:   */
+/*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 16:54:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 23:34:03 by nsalles          ###   ########.fr       */
+/*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
+/*   Updated: 2024/01/31 15:54:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,49 +36,6 @@ int	skip_parenthesis(char *str, int pos, int *len)
 	*len = 0;
 	return (pos);
 }
-
-//	Change cette fonction en mode 'get_word' avec un substr et tout.
-//	Comme dans split, skip le start si tu es dans les parentheses qui ne  
-//		doivent pas être interprété.
-//	Le mot commence à 0 (sauf dans le cas de parentheses skip) et fini au
-//		prochain operateur ou à la fin du str.
-// static char	*get_command(char *str, int *start, char *last_operator)
-// {
-// 	char		*res;
-// 	int			len;
-
-// 	len = -1;
-// 	while (len == -1 || str[*start + len])
-// 	{
-// 		len++;
-// 		if (!condition(last_operator) && str[*start + len] == '(')
-// 		{
-// 			*start = skip_parenthesis(str, *start + len + 1);
-// 			len = 0;
-// 		}
-// 		if (!ft_strncmp(&str[*start + len], "&&", 2) ||
-// 			!ft_strncmp(&str[*start + len], "||", 2))
-// 		{
-// 			if (condition(last_operator))
-// 				break ;
-// 			last_operator = &str[*start + len];
-// 			*start = *start + len + 2;
-// 			len = 0;
-// 		}
-// 	}
-// 	if (condition(last_operator))
-// 		res = ft_substr(str, *start, len);
-// 	else
-// 		res = NULL;
-// 	// printf("start = %d\n", *start);
-// 	// printf("len = %d\n", len);
-// 	// printf("line = %s\n", res);
-// 	// printf("last operator = %s\n", last_operator);
-// 	*start = *start + len;
-// 	if (!str[*start] || len == 0)
-// 		*start = -1;
-// 	return (res);
-// }
 
 static int	is_operator_found(char *str, char **last_ope, int *start, int i)
 {
@@ -126,29 +83,71 @@ static char	*get_command(char *str, int str_len, int *start)
 }
 
 /*
- *	Cuts the commands from logic operators && and || then run them.
+ *	If there is two operators next to each other, prints an error and returns 0.
 */
-void	parse_logic_operators(t_data *data)
+int	is_command_valid(char **command)
 {
-	char	*line;
-	int		line_len;
-	int		start;
+	int	i; // work in progress
 
-	start = 0;
-	line = ft_strtrim(data->line, " ");
-	line_len = ft_strlen(line);
-	if (line_len == 0)
-		return (free(line));
-	if (is_open_parentheses(line))
-		return (free(line));
-	if (is_logic_operators_broken(line))
-		return (free(line));
+	if (!command)
+		return (0);
+	if (command[1][0] == '|')
+		return (syntax_error_message("|", 1), 0);
+	i = 0;
+	while (command[++i])
+	{
+		// printf("command[%d] = {%s}\n", i, command[i]);
+		if (!ft_strncmp(command[i], "<<<", 3))
+			return (ft_putstr("minishell: `<<<' is not supported\n", 2), 0);
+		if (command[i + 1] && ft_strchr("><|", command[i][0]) &&\
+			ft_strchr("><|", command[i + 1][0]))
+			return (syntax_error_message(command[i + 1], 2), 0);
+	}
+	if (ft_strchr("><", command[i - 1][0]))
+		return (syntax_error_message("newline", 7), 0);
+	if (command[i - 1][0] == '|')
+		return (ft_putstr("minishell: here doc after pipe", 2),\
+			ft_putstr(" is not supported (yet?)\n", 2), 0);
+	return (1);
+}
+
+static char	**parse_command(char **command, char **env)
+{
+	int		i;
+
+	if (!command)
+		return (NULL);
+	i = 1;
+	while (command[i])
+	{
+		command[i] = parse_line(command[i], env);
+		i++;
+	}
+	return (command);
+}
+
+void	parse_and_launch(t_data *data)
+{
+	char	*tmp;
+	int		line_len;
+	int		i;
+
+	tmp = ft_strtrim(data->line, " ");
 	free(data->line);
-	data->line = get_command(line, line_len, &start);
-	while (data->line)
+	data->line = tmp;
+	i = 0;
+	line_len = ft_strlen(data->line);
+	if (line_len == 0 || is_open_parentheses(data->line) ||\
+		is_logic_operators_broken(data->line))
+		return ;
+	data->command = parse_command(split_command(get_command(data->line, line_len, &i)), data->env);
+	while (is_command_valid(data->command))
 	{
 		command_launcher(data);
-		data->line = get_command(line, line_len, &start);
+		free_command(data->command);
+		data->command = parse_command(split_command(\
+			get_command(data->line, line_len, &i)), data->env);
 	}
-	free(line);
+	if (data->command)
+		free_command(data->command);
 }

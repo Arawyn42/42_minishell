@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:39:33 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 21:13:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:16:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	unset_var(t_data *data, char *var, int error)
  *	to 1, then continues removing variables if other arguments are specified.
  *	If no error is returned, exit status code is 0.
 */
-void	ft_unset(t_data *data)
+void	ft_unset(char *command, t_data *data)
 {
 	char	*var;
 	int		error;
@@ -119,18 +119,18 @@ void	ft_unset(t_data *data)
 
 	i = 5;
 	g_exit_status = 0;
-	while (data->line[i])
+	while (command[i])
 	{
 		j = 0;
 		error = 0;
 		i++;
-		while (data->line[i + j] && data->line[i + j] != ' ')
+		while (command[i + j] && command[i + j] != ' ')
 		{
-			if (data->line[i + j] == '=')
+			if (command[i + j] == '=')
 				error = 1;
 			j++;
 		}
-		var = ft_substr(data->line, i, j);
+		var = ft_substr(command, i, j);
 		unset_var(data, var, error);
 		free(var);
 		i += j;

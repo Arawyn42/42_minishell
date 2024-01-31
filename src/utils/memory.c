@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:39:17 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:59:20 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:49:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	free_all(t_data *data)
 		free_double_array(data->env);
 	if (data->export)
 		free_export(&data->export);
+	if (data->command)
+		free_command(data->command);
 }
 
 /*
@@ -95,4 +97,14 @@ void	free_export(t_export **lst)
 		free(*lst);
 		*lst = NULL;
 	}
+}
+
+void	free_command(char **command)
+{
+	int i;
+
+	i = 1;
+	while (command[i])
+		free(command[i++]);
+	free(command);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:23:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:41:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ static void	echo_write(char *line, int i)
  *	Can take the '-n' flag to print with no new line.
  *	Exit status code is 0 in all cases.
 */
-void	ft_echo(t_data *data)
+void	ft_echo(char *command)
 {
 	int	i;
 
 	i = 0;
-	if (!data->line[0])
+	if (!command[0])
 		return ;
-	if (!data->line[4])
+	if (!command[4])
 		write(1, "\n", 1);
-	else if (data->line[5] == '-' && data->line[6] == 'n'
-		&& (data->line[7] == ' ' || !data->line[7]))
+	else if (command[5] == '-' && command[6] == 'n'
+		&& (command[7] == ' ' || !command[7]))
 	{
 		i = 8;
-		echo_write(data->line, i);
+		echo_write(command, i);
 	}
 	else
 	{
 		i = 5;
-		echo_write(data->line, i);
+		echo_write(command, i);
 		write(1, "\n", 1);
 	}
 	g_exit_status = 0;

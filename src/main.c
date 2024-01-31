@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 15:04:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 13:47:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void	minishell(t_data *data, int	saved_stdin)
 			return (ft_putstr("exit\n", 1), free_all(data), rl_clear_history());
 		if (!data->line && g_sigint && is_old_line_null)
 			ft_putstr("\n", 1);
-		// printf("old = %d\n", is_old_line_null);	
 		is_old_line_null = data->line != NULL;
 		if (ft_strlen(data->line) > 0)
 		{
-			if (!is_unclosed_quotes(data))
+			if (!is_unclosed_quotes(data) && ft_strlen(data->line) > 0)
 				add_history(data->line);
-			parse_logic_operators(data);
+			parse_and_launch(data);
 		}
 		free(data->line);
 	}
@@ -76,14 +75,15 @@ int	main(int ac, char **av, char **base_env)
 // 	while (ft_strncmp(line, "exit", 4))
 // 	{
 // 		free(line);
+// 		write(0, "line = ", 7);
 // 		line = get_next_line(0);
 // 		line[ft_strlen(line) - 1] = '\0';
-// 		array = split_commands(line);
+// 		array = split_command(ft_strdup(line));
 // 		printf("array[0] = %s\n", array[0]);
 // 		int i = 0;
 // 		while (array[++i])
 // 		{
-// 			printf("array[%d] = %s\n", i, array[i]);
+// 			printf("array[%d] = {%s}\n", i, array[i]);
 // 			free(array[i]);
 // 		}
 // 		printf("array[%d] = %s\n", i, array[i]);

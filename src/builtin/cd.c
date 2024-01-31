@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:45:48 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:59:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
  *	Checks if there is a space after 'cd'. If not, executes the specified
  *	command.
 */
-static int	cd_error(t_data *data)
+static int	cd_error(char *command, t_data *data)
 {
-	if (data->line[2] && data->line[2] != ' ')
+	if (command[2] && command[2] != ' ')
 	{
-		ft_exec(data->line, data->env);
+		ft_exec(command, data);
 		return (1);
 	}
 	return (0);
@@ -30,14 +30,14 @@ static int	cd_error(t_data *data)
  *	Returns an error when too much arguments are specified in 'cd' command.
  *	Exit status code is 1;
 */
-static int	cd_check_args(t_data *data)
+static int	cd_check_args(char *command)
 {
 	int	i;
 
 	i = 3;
-	while (data->line[2] && data->line[i])
+	while (command[2] && command[i])
 	{
-		if (data->line[i] == ' ')
+		if (command[i] == ' ')
 		{
 			ft_putstr("minishell: cd: too many arguments\n", 2);
 			g_exit_status = 1;
@@ -70,20 +70,20 @@ static char	*cd_home_path(t_data *data)
 /*
  *	Returns the path specified as argument for the 'cd' command.
 */
-static char	*get_cd_path(t_data *data)
+static char	*get_cd_path(char *command, t_data *data)
 {
 	char	*path;
 
-	if (!data->line[2])
+	if (!command[2])
 		path = cd_home_path(data);
-	else if (!ft_strcmp(data->line, "cd -"))
+	else if (!ft_strcmp(command, "cd -"))
 	{
 		path = get_oldpwd(data);
 		ft_putstr(path, 1);
 		ft_putstr("\n", 1);
 	}
 	else
-		path = ft_substr(data->line, 3, ft_strlen(data->line) - 3);
+		path = ft_substr(command, 3, ft_strlen(command) - 3);
 	return (path);
 }
 
@@ -97,18 +97,18 @@ static char	*get_cd_path(t_data *data)
  *	If 'cd -' command is used, it will return to the previous location.
  *	Exit status code is 0 in case of success or 1 in case of failure.
 */
-void	ft_cd(t_data *data)
+void	ft_cd(char *command, t_data *data)
 {
 	char	*error_msg;
 	char	*path;
 	char	*oldpwd;
 
 	path = NULL;
-	if (cd_error(data))
+	if (cd_error(command, data))
 		return ;
-	if (!cd_check_args(data))
+	if (!cd_check_args(command))
 		return ;
-	path = get_cd_path(data);
+	path = get_cd_path(command, data);
 	oldpwd = get_oldpwd(data);
 	set_old_pwd(data, NULL);
 	g_exit_status = 0;
@@ -122,6 +122,6 @@ void	ft_cd(t_data *data)
 		free(error_msg);
 	}
 	set_pwd(data);
-	free(oldpwd);
+	free(oldpwd); // double free with no existing folder
 	free(path);
 }

@@ -69,15 +69,15 @@ echo $*		#todo leaks
 cat *.c
 cat src/*.c | grep "printf"	# not tested
 
-OPERATORS	#met systematiquement des erreurs contrairement au bash, flemme de faire mieux
+OPERATORS
 ls >>> file
 ls >>      > file
 ls >      >> file
 wc <<< file
 wc <<      < file
-wc <> file
+wc <> file	#todo
 ls >< file
-ls |> wc
+ls |> wc	#todo
 echo hello >    > file	#todo invalid read of size 1
 cat Makefile | grep "@" << END.	#todo
 

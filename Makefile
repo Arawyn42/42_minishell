@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/29 19:10:32 by drenassi         ###   ########.fr        #
+#    Updated: 2024/01/31 13:07:19 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ SRCS			=	builtin/pwd.c \
 					parsing/wildcard.c \
 					parsing/wildcard2.c \
 					parsing/wildcard3.c \
+					parsing/split_operators.c \
+					parsing/main_parsing.c \
 					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
@@ -57,16 +59,14 @@ SRCS			=	builtin/pwd.c \
 					utils/ft_itoa.c \
 					utils/get_next_line.c \
 					utils/export_utils.c \
-					utils/split_operators.c \
 					utils/quote_utils.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
-					logic_operators.c \
 					logic_operators_utils.c \
 					errors.c \
 					exec_path.c \
-					parsing.c \
-					redirections.c 
+					redirections.c \
+					command_launching.c 
 
 MAIN			=	main.c
 

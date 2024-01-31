@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/30 11:12:16 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 13:55:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 	while (1)
 	{
 		write(0, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
+		line = get_next_line(STDIN_FILENO); // change for readline for history
 		if (!line)
 		{
 			here_doc_error(limiter);
@@ -57,7 +57,7 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 	exit(g_exit_status);
 }
 
-void	here_doc(char **cmds, int *index, t_data *data)
+void	here_doc(t_data *data, int *i)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -65,23 +65,21 @@ void	here_doc(char **cmds, int *index, t_data *data)
 	int	status;
 
 	saved_stdin = dup(STDIN_FILENO);
-	if (!cmds[(*index) + 1])
-		return (redirection_error_message());
+	if (!data->command[*i + 1])
+		return (ft_putstr("!!!PARSING ERROR!!!\n", 2), exit(EXIT_FAILURE)); // remove
 	pipe(pipe_fd);
 	pid = fork();
 	g_pid = pid;
 	if (pid == 0)
-		here_doc_reading(parse_line(cmds[(*index) + 1], data->env), pipe_fd);
+		here_doc_reading(data->command[*i + 1], pipe_fd);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
 	waitpid(pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
-	data->line = parse_line(ft_strdup(cmds[*index]), data->env);
-	(*index)++;
-	if (!g_sigint && !builtin_launcher(data))
-		ft_fork_exec(data->line, data->env);
-	if (g_sigint)
-		free(data->line);
+	if (data->command[*i - 1])
+		if (!g_sigint && !builtin_launcher(data->command[*i - 1], data))
+			ft_fork_exec(data->command[*i - 1], data);
+	(*i)++;
 	dup2(saved_stdin, STDIN_FILENO);
 }
 
@@ -90,7 +88,7 @@ void	here_doc(char **cmds, int *index, t_data *data)
 /*	  then execute the current cmd (av[i]).									*/
 /* 2. In parent process, link the pipe input to the standard input (0).		*/
 /****************************************************************************/
-void	ft_pipe(char *cmd, t_data *data)
+void	ft_pipe(t_data *data, int *i)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -104,11 +102,12 @@ void	ft_pipe(char *cmd, t_data *data)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		ft_close(pipe_fd);
-		data->line = parse_line(ft_strdup(cmd), data->env);
-		if (builtin_launcher(data))
-			exit(EXIT_SUCCESS);
+		if (!data->command[*i - 1])
+			return (ft_putstr("!!PARSING ERROR!!\n", 2), exit(EXIT_FAILURE)); // remove
+		if (builtin_launcher(data->command[*i - 1], data))
+			exit(EXIT_SUCCESS); // code d'exit ?
 		else
-			ft_exec(data->line, data->env);
+			ft_exec(data->command[*i - 1], data);
 	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);

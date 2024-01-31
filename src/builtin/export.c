@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 20:41:46 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:13:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,20 @@ static void	add_export_var(t_data *data, char *var)
  *	In case of invalid argument, exit status code is 1 and it returns
  *	an error, but it still exports other variables.
 */
-static void	export_var(t_data *data)
+static void	export_var(char *command, t_data *data)
 {
 	char	*var;
 	int		i;
 	int		j;
 
 	i = 6;
-	while (data->line[i])
+	while (command[i])
 	{
 		j = 0;
 		i++;
-		while (data->line[i + j] && data->line[i + j] != ' ')
+		while (command[i + j] && command[i + j] != ' ')
 			j++;
-		var = ft_substr(data->line, i, j);
+		var = ft_substr(command, i, j);
 		if (var[0] == '=')
 		{
 			ft_putstr("minishell: export: `", 2);
@@ -119,14 +119,14 @@ static void	export_var(t_data *data)
  *	Exit status code is 0 in case of success or 1 if one of the variables
  *	failed to be added.
 */
-void	ft_export(t_data *data)
+void	ft_export(char *command, t_data *data)
 {
 	g_exit_status = 0;
-	if (!data->line[6])
+	if (!command[6])
 	{
 		sort_export(data);
 		print_export(data);
 	}
 	else
-		export_var(data);
+		export_var(command, data);
 }

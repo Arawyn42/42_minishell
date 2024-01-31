@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 01:20:28 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 13:53:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*ft_get_path(char *cmd, char **env)
 	return (cmd_path);
 }
 
-void	ft_fork_exec(char *cmds, char **env)
+void	ft_fork_exec(char *cmds, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -110,12 +110,12 @@ void	ft_fork_exec(char *cmds, char **env)
 	if (pid == -1)
 		exit_error("fork");
 	if (pid == 0)
-		ft_exec(cmds, env);
+		ft_exec(cmds, data);
 	else
 	{
 		waitpid(pid, &status, 0); // cat | cat | ls ??
 		g_exit_status = WEXITSTATUS(status);
-		free(cmds);
+		// free(cmds);
 	}
 }
 
@@ -125,23 +125,21 @@ void	ft_fork_exec(char *cmds, char **env)
 /* 3. Execute the command with execve with its flags if needed.			*/
 /* 4. Returns an error if execve returns an error.						*/
 /************************************************************************/
-void	ft_exec(char *cmds, char **env)
+void	ft_exec(char *command, t_data *data)
 {
 	char	**cmd;
 	char	*cmd_path;
 
-	cmd = ft_split(cmds, " ");
-	cmd_path = ft_get_path(cmd[0], env);
-	if (execve(cmd_path, cmd, env) == -1)
+	cmd = ft_split(command, " ");
+	cmd_path = ft_get_path(cmd[0], data->env);
+	if (execve(cmd_path, cmd, data->env) == -1)
 	{
 		ft_putstr(cmd[0], STDERR_FILENO);
 		ft_putstr(": command not found\n", STDERR_FILENO);
 		free_double_array(cmd);
 		if (cmd_path)
 			free(cmd_path);
-		free(cmds);
-		free_double_array(env);
-		rl_clear_history();
+		free_all(data);
 		g_exit_status = 127;
 		exit(g_exit_status);
 	}

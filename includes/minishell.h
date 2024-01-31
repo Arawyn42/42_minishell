@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/30 13:32:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 13:54:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ extern int	g_pid;
 
 /********************************* STRUCTURES *********************************/
 
-// enum e_type
-// {
-// 	command,
-// 	file,
-// 	limiter
-// };
+// enum e_type {command, file, limiter};
 
 typedef struct s_export
 {
 	char			*content;
 	struct s_export	*next;
-}				t_export;
+}					t_export;
+
+// typedef struct s_command
+// {
+// 	char		*str;
+// 	enum e_type	type;
+// }				t_command;
 
 typedef struct s_data
 {
@@ -54,6 +55,7 @@ typedef struct s_data
 	char		**env;
 	t_export	*export;
 	char		*line;
+	char		**command;
 }				t_data;
 
 // typedef struct s_command
@@ -62,7 +64,6 @@ typedef struct s_data
 // 	enum	e_type type;
 // }			t_command;
 
-char	**split_commands(char *line);
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -84,7 +85,7 @@ int			count_double_quotes(char *str);
 int			is_in_quote(char *str, int pos);
 int			ft_quote(int *in_quote, char c);
 int			count_single_quotes(char *str);
-char		**get_operators_array(char *str);
+char		**split_command(char *line);
 /* LISTS */
 t_export	*lst_new_node(char *content);
 void		lst_add_front(t_export **lst, t_export *new);
@@ -96,10 +97,11 @@ void		*ft_calloc(size_t n, size_t size);
 void		free_double_array(char **array);
 void		free_export(t_export **lst);
 void		free_all(t_data *data);
+void		free_command(char **command);
 /* ERRORS */
 void		exit_error(const char *msg);
 void		syntax_error_message(char *token_name, int len);
-void		redirection_error_message(void);
+void		redirection_error_message(char *token_name, int len);
 /* ENV */
 char		**cpy_env(char **base_env);
 char		*get_pwd(t_data *data);
@@ -114,7 +116,9 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 int			parse_conditions(char *line, int i, int insq, int indq);
 void		parse_spaces(char *line, int *i);
 char		*parse_line(char *line, char **env);
+char		**split_commands(char *line);
 void		parse_logic_operators(t_data *data);
+void		parse_and_launch(t_data *data);
 /* UNCLOSED QUOTES */
 char		*unclosed_quotes(t_data *data);
 int			is_unclosed_quotes(t_data *data);
@@ -127,20 +131,20 @@ void		parse_wildcard(char *line, char *new_line, int *i, int *j);
 
 /****************************** EXECUTE COMMANDS ******************************/
 void		command_launcher(t_data *data);
-int			builtin_launcher(t_data *data);
+int			builtin_launcher(char *command, t_data *data);
 char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);
-void		ft_fork_exec(char *cmds, char **env);
-void		ft_exec(char *cmds, char **env);
+void		ft_fork_exec(char *cmds, t_data *data);
+void		ft_exec(char *cmds, t_data *data);
 /* PWD */
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);
 void		set_old_pwd(t_data *data, char *path);
 void		ft_pwd(void);
 /* ECHO */
-void		ft_echo(t_data *data);
+void		ft_echo(char *command);
 /* CD */
-void		ft_cd(t_data *data);
+void		ft_cd(char *command, t_data *data);
 /* ENV */
 void		ft_print_env(t_data *data);
 t_export	*convert_env_list(t_data *data);
@@ -152,25 +156,23 @@ char		*get_var_name(char *export_line, int i);
 char		*convert_env_export(char *env_line);
 void		sort_export(t_data *data);
 void		print_export(t_data *data);
-void		ft_export(t_data *data);
+void		ft_export(char *command, t_data *data);
 /* UNSET */
-void		ft_unset(t_data *data);
+void		ft_unset(char *command, t_data *data);
 /* EXIT */
-int			is_exit(t_data *data);
-void		ft_exit(t_data *data);
+void		ft_exit(char *command, t_data *data);
 
 /*********************************** PIPES ************************************/
 int			ft_open(char *file, int in_out);
 void		ft_close(int *pipe_fd);
 void		ft_error_exit(int *pipe_fd, const char *msg);
 char		*get_next_line(int fd);
-void		ft_pipe(char *cmd, t_data *data);
+void		ft_pipe(t_data *data, int *i);
 
 /*********************************** REDIRECTION ******************************/
-void		output_redirection(char **cmds, int *index,
-				int oflags, t_data *data);
-void		input_redirection(char **cmds, int *index, t_data *data);
-void		here_doc(char **cmds, int *index, t_data *data);
+void		output_redirection(t_data *data, int *i, int oflags);
+void		input_redirection(t_data *data, int *i);
+void		here_doc(t_data *data, int *index);
 
 /************************************ LOGIC OPERATORS ************************/
 int			is_logic_operators_broken(char *line);
