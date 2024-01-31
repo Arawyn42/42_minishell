@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 13:55:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 16:31:35 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	here_doc_error(char *limiter)
 {
 	if (!g_sigint)
 	{
-		ft_putstr("minishell: warning: here-document at line delimited by", 2);
-		ft_putstr(" end-of-file (wanted `", 2);
+		ft_putstr("\nminishell: warning: here-document at line delimited", 2);
+		ft_putstr(" by end-of-file (wanted `", 2);
 		ft_putstr(limiter, 2);
 		ft_putstr("')\n", 2);
 		g_exit_status = 2;
@@ -48,10 +48,10 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 			break ;
 		ft_putstr(line, pipe_fd[1]);
 		free(line);
-		line = NULL;
 	}
 	if (line)
 		free(line);
+	free(limiter);
 	get_next_line(-1);
 	close(pipe_fd[1]);
 	exit(g_exit_status);
@@ -59,19 +59,22 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 
 void	here_doc(t_data *data, int *i)
 {
-	int	pid;
-	int	pipe_fd[2];
-	int	saved_stdin;
-	int	status;
+	char	*limiter;
+	int		pid;
+	int		pipe_fd[2];
+	int		saved_stdin;
+	int		status;
 
 	saved_stdin = dup(STDIN_FILENO);
-	if (!data->command[*i + 1])
-		return (ft_putstr("!!!PARSING ERROR!!!\n", 2), exit(EXIT_FAILURE)); // remove
 	pipe(pipe_fd);
 	pid = fork();
 	g_pid = pid;
 	if (pid == 0)
-		here_doc_reading(data->command[*i + 1], pipe_fd);
+	{
+		limiter = ft_strdup(data->command[*i + 1]);
+		free_all(data);
+		here_doc_reading(limiter, pipe_fd);
+	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
 	waitpid(pid, &status, 0);

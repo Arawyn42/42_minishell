@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 13:55:31 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/01/31 16:18:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	input_redirection(t_data *data, int *i)
 		ft_putstr("minishell: ", 2);
 		ft_putstr(data->command[*i + 1], 2);
 		perror("\1");
-		// (*i)++;
+		(*i)++;
 		return ;
 	}
 	dup2(fd, STDIN_FILENO);
 	if (data->command[*i - 1])
 		if (!builtin_launcher(data->command[*i - 1], data))
 			ft_fork_exec(data->command[*i - 1], data);
-	// (*i)++;
+	(*i)++;
 	dup2(saved_stdout, STDOUT_FILENO);
 }
 

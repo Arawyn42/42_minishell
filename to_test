@@ -8,52 +8,52 @@ ls | wc
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
-ls |	#todo does not open here doc nor provide error message
-ls |  # space #todo does not open here doc nor provide error message
+ls |	#todo does not open here doc
+ls |  # space #todo does not open here doc
 ls | exit	#todo should not exit
-cat file | rev	#todo minishell is exiting unexpectedly
-|	#todo missing error message
+cat file | rev
+|
 
 REDIRECTION_RIGHT :
 ls > file
 ls > wc
 ls > notexisting
 ls    >   file
-exit > file		#todo should not have the exit message in it
+exit > file
 cd > file
-ls >  			#todo wrong error message
-ls >  # space	#todo wrong error message
+ls >
+ls >  # space
 ls > file > file2 > file3 > file4	#todo creates only one over two files, the first file is filled instead of the last one
 ls > no_permission/file
-> file		#todo does not create the file
-ls > file | ls	#todo leak & not like bash
->	#todo missing error message
+> file
+ls > file | ls	#todo execute file as a function
+>
 
 REDIRECTION_RIGHT_APPEND :
 echo hello >> file
 echo hello >> not_existing
 echo hello >> no_permission/file
 echo hello >>
->>	#todo missing error message
+>>
 
 REDIRECTION_LEFT :
 wc < file
 wc < notexisting
 wc < no_permission/file
 wc <
-< file wc	#todo raise an error instead of doing like bash
-<	#todo missing error message
+< file wc	#todo sees 'file wc' as one file
+<
 
 HERE DOC :
 wc << END.
 wc << END.	# ctrl+d should work wc should be launched
-wc << END.	# ctrl+c should work, with ^C and newline  #todo no newline on ctrl+c (launch without valgrind)
-<< END.		#todo raise an error instead of doing like bash
+wc << END.	# ctrl+c should work, with ^C and newline  #todo no newline on ctrl+c (launch without valgrind) and still reachable leaks
+<< END.
 wc << ls
 export HEY=hello    and   wc << $HEY
 wc << he'll'o
 wc << END | rev		#todo here doc does not redirect through pipe
-<<	#missing error message
+<<
 
 TILDE
 ls ~
@@ -67,7 +67,7 @@ echo "*"
 echo '*'
 echo $*		#todo leaks
 cat *.c
-cat src/*.c | grep "printf"	# not tested
+cat src/*.c | grep "printf"
 
 OPERATORS
 ls >>> file
@@ -75,11 +75,11 @@ ls >>      > file
 ls >      >> file
 wc <<< file
 wc <<      < file
-wc <> file	#todo
+wc <> file	#todo bash does not raise error
 ls >< file
-ls |> wc	#todo
-echo hello >    > file	#todo invalid read of size 1
-cat Makefile | grep "@" << END.	#todo
+ls |> wc	#todo bash does not raise error
+echo hello >    > file
+ls | rev << END.	#todo here_doc should be done first
 
 LOGIC_OPERATORS
 true || echo aaa && echo bbb
@@ -90,7 +90,8 @@ true || (echo a && echo b) && echo c
 true || (echo a) && echo b
 true || ((echo a && echo b) && echo c)
 true || "("echo b && echo c)
-ls > file && echo "salut" 
+ls > && echo a							#todo
+ls > file && echo "salut"
 false && (echo aaa)
 (ls && ls)
 ls & & ls
@@ -111,12 +112,13 @@ echo hello
   echo  -n    hello
 echo-n
 echo -n hello
-echo -n		#todo invalid read of size 1
+echo -n
 echo -nhello
-echo $NOTEXISTING #todo invalid read of size 1 & leak
+echo $PATH
+echo $NOTEXISTING
 
 CD :
-cd - 
+cd -
 unset OLDPWD   and   cd -	#todo segfault
 cd ..			# check $PWD and $OLDPWD is set correctly
 cd .			# check $PWD and $OLDPWD is set correctly
@@ -139,6 +141,7 @@ export "HEY"=hello
 export HEY="hello"
 export "HEY=hello"
 export PATH=#your_path  # Check if the path is correctly changed in env
+export =hello = hey=hello "zz=hello"
 
 PWD :
 pwd
@@ -153,12 +156,12 @@ unset PATH     and    ls   			# ls should not be found	#todo segfault
 unset NOTEXISTING
 
 PARSING :
-touch " file"
+touch " file"				#todo
 cat \ file					#todo
 echo $OLDPWD
 echo ">" file
 echo '>' file
-ls |" rev					#todo
+ls |" rev
 touch 'fi|le'
 touch "fi|le"
 touch "'file'"				#todo
@@ -168,5 +171,5 @@ echo 'salut
 "ls | rev"					#todo
 " ls  						#todo
 "two words"					#todo (error message)
-cat "	then ctrd+c			#todo segfault
-cat "	then ctrd+d			#todo segfault
+cat "	then ctrd+c			#todo one error too many
+cat "	then ctrd+d			#todo one error too many
