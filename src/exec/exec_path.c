@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 00:13:47 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:35:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,9 @@ void	ft_exec(char *command, t_data *data)
 	char	**cmd;
 	char	*cmd_path;
 
-	cmd = parse_command(ft_split(command, ' '), data->env);
+	cmd = ft_split(command, ' ');
 	cmd_path = ft_get_path(cmd[0], data->env);
+	cmd = trim_command(cmd, "\'\"");
 	if (execve(cmd_path, cmd, data->env) == -1)
 	{
 		ft_putstr(cmd[0], STDERR_FILENO);

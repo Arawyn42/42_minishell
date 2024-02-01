@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 15:24:44 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:55:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,42 @@ char	**parse_command(char **command, char **env)
 	i = 1;
 	while (command[i])
 	{
-		command[i] = parse_line(command[i], env);
+		command[i] = parse_line(command[i], env, 0);
 		i++;
 	}
 	return (command);
 }
 
-char	**trim_command(char **command)
+static char	*trim_one(char *src, char *charset)
+{
+	char	*ret;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	len = ft_strlen(src);
+	if (src[0] == src[len - 1] && ft_strchr(charset, src[0]))
+	{
+		ret = ft_calloc(len - 1, sizeof(char));
+		i = 1;
+		len--;
+	}
+	else
+	{
+		ret = ft_calloc(len + 1, sizeof(char));
+		i = 0;
+	}
+	while (i < len)
+	{
+		ret[j] = src[i];
+		i++;
+		j++;
+	}
+	return (ret);
+}
+
+char	**trim_command(char **command, char *charset)
 {
 	char	*tmp;
 	int		i;
@@ -145,7 +174,7 @@ char	**trim_command(char **command)
 	i = 1;
 	while (command[i])
 	{
-		tmp = ft_strtrim(command[i], " ()");
+		tmp = trim_one(command[i], charset);
 		free(command[i]);
 		command[i] = tmp;
 		i++;
@@ -167,12 +196,13 @@ void	parse_and_launch(t_data *data)
 	if (line_len == 0 || is_open_parentheses(data->line) ||\
 		is_logic_operators_broken(data->line))
 		return ;
-	data->command = trim_command(split_command(get_command(data->line, line_len, &i)));
+	data->command = parse_command(split_command(\
+		get_command(data->line, line_len, &i)), data->env);
 	while (is_command_valid(data->command))
 	{
 		command_launcher(data);
 		free_command(data->command);
-		data->command = trim_command(split_command(get_command(data->line, line_len, &i)));
+		data->command = parse_command(split_command(get_command(data->line, line_len, &i)), data->env);
 	}
 	if (data->command)
 		free_command(data->command);

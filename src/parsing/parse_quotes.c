@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 22:19:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:24:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,61 +78,4 @@ void	in_or_out_quotes(const char *line, int *singleq, int *doubleq, int i)
 	else if ((i == 0 || line[i - 1] != '\\')
 		&& line[i] == '\"' && *doubleq == 1)
 		*doubleq = 0;
-}
-
-/*
- *	Returns the corresponding value from an environnement variable.
- *	If the variable is not found, returns NULL.
-*/
-char	*get_dollar_var(t_data *data, int *i, int *var_len)
-{
-	int		k;
-	char	*var;
-
-	k = -1;
-	var = ft_substr(data->line, *i, *var_len);
-	(*i) += *var_len;
-	while (data->env[++k])
-	{
-		if (!ft_strncmp(data->env[k], var, *var_len))
-		{
-			*var_len = 0;
-			while (data->env[k][*var_len] && data->env[k][*var_len] != '=')
-				(*var_len)++;
-			(*var_len)++;
-			if (var)
-				free(var);
-			var = ft_substr(data->env[k], *var_len,
-					ft_strlen(data->env[k]) - *var_len);
-			return (var);
-		}
-	}
-	return (free(var), NULL);
-}
-
-/*
- *	Checks all parsing conditions according to bash rules, for single quotes,
- *	double quotes, '$', '\', '~' and '*'.
- *	Returns 1 to print the character the index is at, or 0 to not print it.
-*/
-int	parse_conditions(char *line, int i, int insq, int indq)
-{
-	if (i >= 1 && line[i] == '?' && line[i - 1] == '$')
-		return (0);
-	if (line[i] == '~' && !insq && !indq && line[i - 1] == ' '
-		&& (line[i + 1] == ' ' || line[i + 1] == '/' || !line[i + 1]))
-		return (0);
-	if (line[i] == '*' && !insq && !indq && (i == 0 || line[i - 1] != '\\'))
-		return (0);
-	if (line[i] != '\"' && line[i] != '\'' && line[i] != '\\')
-		return (1);
-	if (i > 0 && line[i - 1] == '\\' && !insq)
-		return (1);
-	if (insq && line[i] != '\'')
-		return (1);
-	if (indq && line[i] != '\"' && line[i] != '\\')
-		return (1);
-	if (line[i] == '\\' && indq && (line[i + 1] == '\'' || line[i + 1] == ' '))
-		return (1);
-	return (0);
 }

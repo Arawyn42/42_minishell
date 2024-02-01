@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 17:14:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:15:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_data
 // 	enum	e_type type;
 // }			t_command;
 
+char	**trim_command(char **command, char *charset);
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -110,21 +111,26 @@ char		*get_oldpwd(t_data *data);
 char		*get_home_path(t_data *data);
 
 /********************************** PARSING ***********************************/
+/* PARSE OPERATORS */
 int			is_file(char **command, int i);
-void		in_or_out_quotes(const char *line,
-				int *singleq, int *doubleq, int i);
-void		new_line_len(t_data *data, int *len,
-				int in_singleq, int in_doubleq);
-char		*get_dollar_var(t_data *data, int *i, int *j);
-void		dollar_var_len(t_data *data, int *i, int *len);
-void		parse_dollar_var(t_data *data, char *new_line, int *i, int *j);
-int			parse_conditions(char *line, int i, int insq, int indq);
-void		parse_spaces(char *line, int *i);
-char		*parse_line(char *line, char **env);
 char		**split_commands(char *line);
 void		parse_logic_operators(t_data *data);
 void		parse_and_launch(t_data *data);
 char		**parse_command(char **command, char **env);
+/* PARSE LINE */
+void		in_or_out_quotes(const char *line,
+				int *singleq, int *doubleq, int i);
+void		new_line_len(t_data *data, int *len,
+				int **quotes, int parse_quotes);
+void		parse_spaces(char *line, int *i);
+char		*parse_line(char *line, char **env, int parse_quotes);
+/* DOLLAR */
+void		parse_dollar_var(t_data *data, char *new_line, int *i, int *j);
+void		dollar_var_len(t_data *data, int *i, int *len);
+char		*get_dollar_var(t_data *data, int *i, int *j);
+/* TILDE */
+void		tilde_len(t_data *data, int *i, int *len);
+void		parse_tilde(t_data *data, char *newline, int *i, int *j);
 /* UNCLOSED QUOTES */
 char		*unclosed_quotes(t_data *data);
 int			is_unclosed_quotes(t_data *data);

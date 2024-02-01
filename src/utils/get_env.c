@@ -6,11 +6,27 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 17:08:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:22:32 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*change_shlvl(char *shlvl)
+{
+	int		lvl;
+	char	*level;
+	char	*res;
+
+	level = ft_substr(shlvl, 6, ft_strlen(shlvl) - 6);
+	lvl = ft_atoi(level);
+	free(level);
+	lvl++;
+	level = ft_itoa(lvl);
+	res = ft_strjoin("SHLVL=", level);
+	free(level);
+	return (res);
+}
 
 /*
  *	Copies a double array of characters and returns the copy.
@@ -24,10 +40,15 @@ char	**cpy_env(char **base_env)
 	while (base_env[i])
 		i++;
 	env_cpy = ft_calloc(i + 1, sizeof(char *));
+	if (!env_cpy)
+		return (NULL);
 	i = 0;
 	while (base_env[i])
 	{
-		env_cpy[i] = ft_strdup(base_env[i]);
+		if (!ft_strncmp(base_env[i], "SHLVL=", 6))
+			env_cpy[i] = change_shlvl(base_env[i]);
+		else
+			env_cpy[i] = ft_strdup(base_env[i]);
 		i++;
 	}
 	return (env_cpy);

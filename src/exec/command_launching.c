@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_launching.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 17:15:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 19:33:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	builtin_launcher(char *command, t_data *data)
 {
 	char	*cmd;
 
-	cmd = parse_line(ft_strdup(command), data->env);
+	cmd = parse_line(ft_strdup(command), data->env, 1);
 	if (!ft_strncmp(cmd, "pwd", 3) && (command[3] == ' ' || !command[3]))
 		ft_pwd();
 	else if (!ft_strcmp(cmd, "echo")

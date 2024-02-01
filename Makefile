@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/01/31 13:07:19 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/01 21:03:09 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,9 +42,10 @@ SRCS			=	builtin/pwd.c \
 					builtin/exit.c \
 					builtin/signals.c \
 					parsing/parse_line.c \
-					parsing/parsed_line_len.c \
-					parsing/parse_line_utils.c \
+					parsing/parse_quotes.c \
 					parsing/unclosed_quotes.c \
+					parsing/parse_dollar.c \
+					parsing/parse_tilde.c \
 					parsing/wildcard.c \
 					parsing/wildcard2.c \
 					parsing/wildcard3.c \
@@ -60,15 +61,15 @@ SRCS			=	builtin/pwd.c \
 					utils/get_next_line.c \
 					utils/export_utils.c \
 					utils/quote_utils.c \
+					utils/logic_operators_utils.c \
+					utils/errors.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
-					logic_operators_utils.c \
-					errors.c \
-					exec_path.c \
-					redirections.c \
-					command_launching.c 
+					exec/exec_path.c \
+					exec/command_launching.c \
+					exec/redirections.c
 
-MAIN			=	main.c
+MAIN			=	exec/main.c
 
 ################################################################################
 #                                  MAKEFILE  OBJS                              #
