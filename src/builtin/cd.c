@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:39:11 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:26:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ void	ft_cd(char *command, t_data *data)
 
 	path = NULL;
 	if (cd_error(command, data) || !cd_check_args(command))
-		return (free(command));
+	{
+		// free(command);
+		return ;
+	}
 	path = get_cd_path(command, data);
 	if (!path)
 		return (free(command));
@@ -128,5 +131,5 @@ void	ft_cd(char *command, t_data *data)
 	set_pwd(data);
 	free(oldpwd);
 	free(path);
-	free(command);
+	// free(command);
 }
