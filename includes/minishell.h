@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 00:15:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:14:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_data
 	t_export	*export;
 	char		*line;
 	char		**command;
+	int			input;
+	int			output;
 }				t_data;
 
 // typedef struct s_command
@@ -108,6 +110,7 @@ char		*get_oldpwd(t_data *data);
 char		*get_home_path(t_data *data);
 
 /********************************** PARSING ***********************************/
+int			is_file(char **command, int i);
 void		in_or_out_quotes(const char *line,
 				int *singleq, int *doubleq, int i);
 void		new_line_len(t_data *data, int *len,
@@ -143,7 +146,7 @@ void		ft_exec(char *cmds, t_data *data);
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);
 void		set_old_pwd(t_data *data, char *path);
-void		ft_pwd(char *command);
+void		ft_pwd(void);
 /* ECHO */
 void		ft_echo(char *command);
 /* CD */
@@ -170,12 +173,12 @@ int			ft_open(char *file, int in_out);
 void		ft_close(int *pipe_fd);
 void		ft_error_exit(int *pipe_fd, const char *msg);
 char		*get_next_line(int fd);
-void		ft_pipe(t_data *data, int *i);
+void		ft_pipe(int command_int, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-void		output_redirection(t_data *data, int *i, int oflags);
-void		input_redirection(t_data *data, int *i);
-void		here_doc(t_data *data, int *index);
+int			output_redirection(char *file, int oflags);
+int			input_redirection(char *file);
+int			here_doc(char *limiter, t_data *data);
 
 /************************************ LOGIC OPERATORS ************************/
 int			is_logic_operators_broken(char *line);

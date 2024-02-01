@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:39:53 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:14:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	set_old_pwd(t_data *data, char *path)
  *	this does NOT depends on the 'PWD' env variable.
  *	Exit status code is 0.
 */
-void	ft_pwd(char *command)
+void	ft_pwd(void)
 {
 	char	*pwd;
 
@@ -106,5 +106,4 @@ void	ft_pwd(char *command)
 	ft_putstr("\n", 1);
 	free(pwd);
 	g_exit_status = 0;
-	free(command);
 }

@@ -6,58 +6,50 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 16:18:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:18:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	input_redirection(t_data *data, int *i)
+int	input_redirection(char *file)
 {
 	int		fd;
-	int		saved_stdout;
 
-	saved_stdout = dup(STDOUT_FILENO);
-	if (!data->command[*i + 1])
-		return (ft_putstr("!!!PARSING ERROR!!!\n", 2), exit(EXIT_FAILURE)); // remove
-	fd = open(data->command[*i + 1], O_RDONLY, 0666);
+	if (!file)
+	{
+		ft_putstr("!!!PARSING ERROR!!!\n", 2);
+		exit(EXIT_FAILURE); // remove
+	}
+	fd = open(file, O_RDONLY, 0666);
 	if (fd == -1)
 	{
 		ft_putstr("minishell: ", 2);
-		ft_putstr(data->command[*i + 1], 2);
+		ft_putstr(file, 2);
 		perror("\1");
-		(*i)++;
-		return ;
+		return (-1);
 	}
 	dup2(fd, STDIN_FILENO);
-	if (data->command[*i - 1])
-		if (!builtin_launcher(data->command[*i - 1], data))
-			ft_fork_exec(data->command[*i - 1], data);
-	(*i)++;
-	dup2(saved_stdout, STDOUT_FILENO);
+	return (fd);
 }
 
-void	output_redirection(t_data *data, int *i, int oflags)
+int	output_redirection(char *file, int oflags)
 {
 	int		fd;
-	int		saved_stdout;
 
-	saved_stdout = dup(STDOUT_FILENO);
-	if (!data->command[*i + 1])
-		return (ft_putstr("!!!PARSING ERROR!!!\n", 2), exit(EXIT_FAILURE)); // remove
-	fd = open(data->command[*i + 1], oflags, 0666);
+	if (!file)
+	{
+		ft_putstr("!!!PARSING ERROR!!!\n", 2);
+		exit(EXIT_FAILURE); // remove
+	}
+	fd = open(file, oflags, 0666);
 	if (fd == -1)
 	{
 		ft_putstr("minishell: ", 2);
-		ft_putstr(data->command[*i + 1], 2);
-		(*i)++;
+		ft_putstr(file, 2);
 		perror("\1");
-		return ;
+		return (-1);
 	}
 	dup2(fd, STDOUT_FILENO);
-	if (data->command[*i - 1])
-		if (!builtin_launcher(data->command[*i - 1], data))
-			ft_fork_exec(data->command[*i - 1], data);
-	dup2(saved_stdout, STDOUT_FILENO);
-	(*i)++;
+	return (fd);
 }

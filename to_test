@@ -23,10 +23,14 @@ exit > file
 cd > file
 ls >
 ls >  # space
+ls > ""		#todo
 ls > file > file2 > file3 > file4	#todo creates only one over two files, the first file is filled instead of the last one
+ls > file > file2 >> file3 > file4
 ls > no_permission/file
 > file
 ls > file | ls	#todo execute file as a function
+ls > no_permission/file > file2 > file3 | ls	# should raise an error, file2 and file3 should not be created and ls should be run once.
+touch a > no_permission/file	# the touch command should not be launched
 >
 
 REDIRECTION_RIGHT_APPEND :
@@ -40,6 +44,7 @@ REDIRECTION_LEFT :
 wc < file
 wc < notexisting
 wc < no_permission/file
+cat < file | wc		#todo should launch the
 wc <
 < file wc	#todo sees 'file wc' as one file
 <
@@ -157,6 +162,9 @@ export ZZZ     and    unset ZZZ
 unset PATH     and    ls   			# ls should not be found
 unset NOTEXISTING
 
+EXIT :
+exit	# exit message should be written in stderr
+
 PARSING :
 touch " file"				#todo
 cat \ file					#todo
@@ -177,3 +185,4 @@ cat "	then ctrd+c			#todo one error too many
 cat "	then ctrd+d			#todo one error too many
 
 ctrl+d not working if that the first thing you do
+ctrl+d #todo newline en trop

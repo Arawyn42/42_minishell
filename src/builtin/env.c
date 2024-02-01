@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 21:58:03 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:37:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:00:25 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_print_env(char *command, t_data *data)
 		i++;
 	}
 	g_exit_status = 0;
-	free(command);
 }
 
 /*

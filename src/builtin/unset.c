@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:39:33 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:40:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:00:47 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,4 @@ void	ft_unset(char *command, t_data *data)
 		free(var);
 		i += j;
 	}
-	free(command);
 }

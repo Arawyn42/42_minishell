@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 00:15:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:24:44 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	condition(char *operator)
+int	is_file(char **command, int i)
+{
+	if (!command[i - 1])
+		return (0);
+	if (ft_strchr("><", command[i - 1][0]))
+		return (1);
+	return (0);
+}
+
+static int	condition(char *operator) // rename
 {
 	if (!operator)
 		return (1);
@@ -126,6 +135,24 @@ char	**parse_command(char **command, char **env)
 	return (command);
 }
 
+char	**trim_command(char **command)
+{
+	char	*tmp;
+	int		i;
+
+	if (!command)
+		return (NULL);
+	i = 1;
+	while (command[i])
+	{
+		tmp = ft_strtrim(command[i], " ()");
+		free(command[i]);
+		command[i] = tmp;
+		i++;
+	}
+	return (command);
+}
+
 void	parse_and_launch(t_data *data)
 {
 	char	*tmp;
@@ -140,12 +167,12 @@ void	parse_and_launch(t_data *data)
 	if (line_len == 0 || is_open_parentheses(data->line) ||\
 		is_logic_operators_broken(data->line))
 		return ;
-	data->command = split_command(get_command(data->line, line_len, &i));
+	data->command = trim_command(split_command(get_command(data->line, line_len, &i)));
 	while (is_command_valid(data->command))
 	{
 		command_launcher(data);
 		free_command(data->command);
-		data->command = split_command(get_command(data->line, line_len, &i));
+		data->command = trim_command(split_command(get_command(data->line, line_len, &i)));
 	}
 	if (data->command)
 		free_command(data->command);

@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 18:42:01 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:16:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_pipe_command(char **command, int i) // not used
+{
+	i--;
+	while (i && command[i][0] != '>')
+	{
+		if (command[i][0] != '<' && (i - 1 < 1 ||
+			!ft_strchr("><|", command[i - 1][0])))
+			return (command[i]);
+		i--;
+	}
+	return (NULL);
+}
 
 static void	here_doc_error(char *limiter)
 {
@@ -57,20 +70,17 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 	exit(g_exit_status);
 }
 
-void	here_doc(t_data *data, int *i)
+int	here_doc(char *limiter, t_data *data)
 {
-	char	*limiter;
 	int		pid;
 	int		pipe_fd[2];
-	int		saved_stdin;
 	int		status;
 
-	saved_stdin = dup(STDIN_FILENO);
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid == 0)
 	{
-		limiter = ft_strdup(data->command[*i + 1]);
+		limiter = ft_strdup(limiter);
 		free_all(data);
 		here_doc_reading(limiter, pipe_fd);
 	}
@@ -78,11 +88,7 @@ void	here_doc(t_data *data, int *i)
 	ft_close(pipe_fd);
 	waitpid(pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
-	if (data->command[*i - 1])
-		if (!g_sigint && !builtin_launcher(data->command[*i - 1], data))
-			ft_fork_exec(data->command[*i - 1], data);
-	(*i)++;
-	dup2(saved_stdin, STDIN_FILENO);
+	return (pipe_fd[0]);
 }
 
 /****************************** To do the pipes *****************************/
@@ -90,28 +96,29 @@ void	here_doc(t_data *data, int *i)
 /*	  then execute the current cmd (av[i]).									*/
 /* 2. In parent process, link the pipe input to the standard input (0).		*/
 /****************************************************************************/
-void	ft_pipe(t_data *data, int *i)
+
+void	ft_pipe(int command_pos, t_data *data)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
-	int		saved_stdout;
 
-	saved_stdout = dup(STDOUT_FILENO);
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(pipe_fd[1], STDOUT_FILENO);
+		if (data->output == 1)
+			dup2(pipe_fd[1], STDOUT_FILENO);
 		ft_close(pipe_fd);
-		if (!data->command[*i - 1])
-			return (ft_putstr("!!PARSING ERROR!!\n", 2), exit(EXIT_FAILURE)); // remove
-		if (builtin_launcher(data->command[*i - 1], data))
-			exit(EXIT_SUCCESS); // code d'exit ?
-		else
-			ft_exec(data->command[*i - 1], data);
+		if (!is_file(data->command, command_pos - 1))
+		{
+			printf("pas vrai ?\n");
+			if (builtin_launcher(data->command[command_pos], data))
+				exit(EXIT_SUCCESS); // code d'exit ?
+			else
+				ft_exec(data->command[command_pos], data);
+		}
 	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
 	wait(NULL);
-	dup2(saved_stdout, STDOUT_FILENO);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:36:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 13:14:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	ft_echo(char *command)
 		echo_write(command, i);
 		write(1, "\n", 1);
 	}
-	free(command);
+	// free(command);
 	g_exit_status = 0;
 }

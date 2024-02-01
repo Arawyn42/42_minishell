@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:37:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:00:41 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,4 @@ void	ft_export(char *command, t_data *data)
 		}
 		export_var(command, data);
 	}
-	free(command);
 }
