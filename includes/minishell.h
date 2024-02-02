@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 03:40:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:27:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 # define BUFFER_SIZE 42
 # define PROMPT_HOME "\001\e[34m\002minishell\001\e[0m\002:\001\e[36m\002~"
@@ -149,6 +150,8 @@ char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);
 void		ft_fork_exec(char *cmds, t_data *data);
 void		ft_exec(char *cmds, t_data *data);
+void		exec_error(t_data *data, char **cmd, char *cmd_path);
+int			exec_error_is_file(char *cmd, char *dir_name);
 /* PWD */
 void		refresh_prompt(t_data *data);
 void		set_pwd(t_data *data);

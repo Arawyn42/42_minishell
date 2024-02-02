@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 04:32:31 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:49:52 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	check_exit_args_number(char *command, t_data *data)
 	{
 		if (command[i] == ' ' && command[i + 1] && command[i + 1] != ' ')
 		{
-			ft_putstr("exit\nminishell: exit: too many arguments\n", 2);
+			ft_putstr("exit\n", 1);
+			ft_putstr("minishell: exit: too many arguments\n", 2);
 			free_all(data);
 			g_exit_status = 1;
 			exit(g_exit_status);
@@ -45,7 +46,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 		*i = 5;
 		while (command[*i] == ' ')
 			(*i)++;
-		ft_putstr("exit\n", 2);		//To check
+		ft_putstr("exit\n", 1);		//To check
 		ft_putstr("minishell: exit: ", 2);
 		while (command[*i])
 			write(2, &command[(*i)++], 1);

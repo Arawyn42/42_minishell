@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 18:48:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:15:32 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_exit_status;
 int	g_sigint;
 
-void	minishell(t_data *data, int	saved_stdin)
+static void	minishell(t_data *data, int	saved_stdin)
 {
 	int	is_old_line_null;
 
@@ -43,14 +43,24 @@ void	minishell(t_data *data, int	saved_stdin)
 	}
 }
 
+static void	minishell_with_c_flag(t_data *data, char *line)
+{
+	data->line = ft_strdup(line);
+	if (ft_strlen(data->line) > 0)
+		parse_and_launch(data);
+	free_all(data);
+}
+
 int	main(int ac, char **av, char **base_env)
 {
 	t_data	data;
 
 	(void) av;
-	if (ac != 1)
+	if ((ac != 1 && ac != 3) || (ac == 3 && ft_strcmp(av[1], "-c")))
 	{
-		ft_putstr("Error: Too much arguments. No argument needed.\n", 2);
+		ft_putstr("Error: Wrong arguments.\nUsage:\nTo launch minishell:", 2);
+		ft_putstr("\t\t./minishell\nTo execute one command line:", 2);
+		ft_putstr("\t./minishell -c \"COMMAND_LINE\"\n", 2);
 		return (1);
 	}
 	data.env = cpy_env(base_env);
@@ -58,6 +68,8 @@ int	main(int ac, char **av, char **base_env)
 	init_export(&data);
 	g_exit_status = 0;
 	g_sigint = 0;
+	if (ac == 3)
+		return (minishell_with_c_flag(&data, av[2]), 0);
 	signal(SIGINT, signals_handler);
 	sigquit_handler();
 	minishell(&data, dup(STDIN_FILENO));
