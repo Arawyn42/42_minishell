@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 04:32:31 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:24:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 			write(2, &command[(*i)++], 1);
 		ft_putstr(": numeric argument required\n", 2);
 		free_all(data);
+		free(command);
 		g_exit_status = 2;
 		exit(g_exit_status);
 	}
