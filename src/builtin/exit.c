@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 14:24:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:27:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	check_exit_args_number(char *command, t_data *data)
 		{
 			ft_putstr("exit\nminishell: exit: too many arguments\n", 2);
 			free_all(data);
+			free(command);
 			g_exit_status = 1;
 			exit(g_exit_status);
 		}
