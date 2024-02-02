@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 17:00:41 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/02 04:05:08 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,7 @@ static void	export_var(char *command, t_data *data)
 			j++;
 		var = ft_substr(command, i, j);
 		if (var[0] == '=')
-		{
-			ft_putstr("minishell: export: `", 2);
-			ft_putstr(var, 2);
-			ft_putstr("': not a valid identifier\n", 2);
-			g_exit_status = 1;
-		}
+			export_error(var);
 		else
 			add_export_var(data, var);
 		free(var);
@@ -122,6 +117,7 @@ static void	export_var(char *command, t_data *data)
 void	ft_export(char *command, t_data *data)
 {
 	char	*arg;
+	size_t	i;
 
 	g_exit_status = 0;
 	if (!command[6])
@@ -131,15 +127,16 @@ void	ft_export(char *command, t_data *data)
 	}
 	else
 	{
-		if (!((command[7] >= 'a' && command[7] <= 'z')
-			|| (command[7] >= 'A' && command[7] <= 'Z')))
+		i = 7;
+		while (i < ft_strlen(command) || (command[i] && command[i] != '='))
 		{
-			arg = ft_substr(command, 7, ft_strlen(command) - 7);
-			ft_putstr("bash: export: `", 2);
-			ft_putstr(arg, 2);
-			ft_putstr("': not a valid identifier\n", 2);
-			free(arg);
-			return ;
+			if (!((command[i] >= 'a' && command[i] <= 'z') || command[i] == '_'
+			|| (command[i] >= 'A' && command[i] <= 'Z')))
+			{
+				arg = ft_substr(command, 7, ft_strlen(command) - 7);
+				return (export_error(arg), free(arg));
+			}
+			i++;
 		}
 		export_var(command, data);
 	}

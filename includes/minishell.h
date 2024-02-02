@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 20:15:56 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 03:40:42 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		free_all(t_data *data);
 void		free_command(char **command);
 /* ERRORS */
 void		exit_error(const char *msg);
+void		export_error(char *var);
 void		syntax_error_message(char *token_name, int len);
 void		redirection_error_message(char *token_name, int len);
 /* ENV */

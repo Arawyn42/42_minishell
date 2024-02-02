@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:42:06 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 19:06:30 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 03:24:57 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 	int		k;
 
 	k = 0;
-	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0')
+	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\"'
+		|| data->line[*i + 1] == '\0')
 		return ;
 	(*i)++;
 	if (data->line[*i] == '?')

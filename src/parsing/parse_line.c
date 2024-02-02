@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 20:44:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 03:19:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 static int	parse_conditions(char *line, int i, int *inq, int parse_quotes)
 {
-	if (i >= 1 && line[i] == '?' && line[i - 1] == '$')
+	if (i >= 1 && line[i] == '?' && line[i - 1] == '$' && !inq[0])
 		return (0);
 	if (line[i] == '~' && !inq[0] && !inq[1] && line[i - 1] == ' '
 		&& (line[i + 1] == ' ' || line[i + 1] == '/' || !line[i + 1]))

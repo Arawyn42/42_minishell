@@ -6,11 +6,19 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 22:12:19 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:45:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 03:40:15 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	export_error(char *var)
+{
+	ft_putstr("minishell: export: `", 2);
+	ft_putstr(var, 2);
+	ft_putstr("': not a valid identifier\n", 2);
+	g_exit_status = 1;
+}
 
 /*
  *	Initializes the export list by copying all env lines in export nodes.
