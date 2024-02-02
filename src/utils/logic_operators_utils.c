@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:33:20 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/25 23:34:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:14:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ int	is_logic_operators_broken(char *line)
 	{
 		if (!ft_strncmp(&line[i], "&&", 2) || !ft_strncmp(&line[i], "||", 2))
 		{
-			if (!is_ok)
+			if (!is_ok && !is_in_quote(line, i))
+			{
+				printf("here\n");
 				return (syntax_error_message(&line[i], 2), 1);
+			}
 			is_ok = 0;
 			last_operator_pos = i;
 			i += 2;
