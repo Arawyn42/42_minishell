@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 20:35:15 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:27:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,7 @@ void	ft_exec(char *command, t_data *data)
 	cmd = trim_command(cmd, "\'\"");
 	if (execve(cmd_path, cmd, data->env) == -1)
 	{
-		ft_putstr(cmd[0], STDERR_FILENO);
-		ft_putstr(": command not found\n", STDERR_FILENO);
-		free_double_array(cmd);
-		if (cmd_path)
-			free(cmd_path);
-		free_all(data);
-		g_exit_status = 127;
+		exec_error(data, cmd, cmd_path);
 		exit(g_exit_status);
 	}
 }

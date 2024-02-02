@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/01 21:03:09 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/02 17:11:49 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,10 +66,12 @@ SRCS			=	builtin/pwd.c \
 					pipe/pipe_utils.c \
 					pipe/pipe.c \
 					exec/exec_path.c \
+					exec/exec_error.c \
+					exec/exec_error_is_file.c \
 					exec/command_launching.c \
 					exec/redirections.c
 
-MAIN			=	exec/main.c
+MAIN			=	main.c
 
 ################################################################################
 #                                  MAKEFILE  OBJS                              #

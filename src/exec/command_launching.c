@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_launching.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 19:33:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:10:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,6 @@ void	command_launcher(t_data *data)
 	while (data->command[i])
 	{
 		command_pos = manage_redirections(data, i);
-		if (command_pos == -1) // dégage
-		{
-			dprintf(2, "wtf error no command found\n");
-			exit(EXIT_FAILURE);
-		}
 		while (data->command[i] && data->command[i][0] != '|')
 			i++;
 		if (data->command[i] && data->command[i][0] == '|')
@@ -124,9 +119,13 @@ void	command_launcher(t_data *data)
 		if (data->command[i])
 			i++;
 	}
-	if (!is_file(data->command, command_pos))
+	if (!is_file(data->command, command_pos) && data->output != -1)
+	{
 		if (!builtin_launcher(data->command[command_pos], data))
 			ft_fork_exec(data->command[command_pos], data);
+	}
+	else
+		g_exit_status = 1;
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
 }
