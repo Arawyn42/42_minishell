@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:26:54 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 17:10:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:18:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	exec_error(t_data *data, char **cmd, char *cmd_path)
 	else if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
 			&& !access(cmd[0], R_OK))
 	{
-		// printf("errno = %d\n", errno);
 		exec_error_msg(cmd[0], "Permission denied", dir);
 		exec_error_exit(data, cmd, cmd_path, 127);
 	}
