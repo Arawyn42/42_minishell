@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:51:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 17:14:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/02 05:02:08 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	refresh_prompt(t_data *data)
 
 	home_path = get_home_path(data);
 	pwd = getcwd(NULL, 0);
-	if (!ft_strncmp(pwd, home_path, ft_strlen(home_path)))
+	if (home_path && !ft_strncmp(pwd, home_path, ft_strlen(home_path)))
 	{
 		second_part = ft_substr(pwd, ft_strlen(home_path),
 				ft_strlen(pwd) - ft_strlen(home_path));

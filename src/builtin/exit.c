@@ -6,11 +6,31 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/31 23:37:13 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 04:32:31 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	check_exit_args_number(char *command, t_data *data)
+{
+	int	i;
+
+	i = 5;
+	while (command[i] == ' ')
+		i++;
+	while (command[i])
+	{
+		if (command[i] == ' ' && command[i + 1] && command[i + 1] != ' ')
+		{
+			ft_putstr("exit\nminishell: exit: too many arguments\n", 2);
+			free_all(data);
+			g_exit_status = 1;
+			exit(g_exit_status);
+		}
+		i++;
+	}
+}
 
 /*
  *	Returns an error and exits the program with a 2 status exit code
@@ -25,7 +45,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 		*i = 5;
 		while (command[*i] == ' ')
 			(*i)++;
-		ft_putstr("exit\n", 1);
+		ft_putstr("exit\n", 2);		//To check
 		ft_putstr("minishell: exit: ", 2);
 		while (command[*i])
 			write(2, &command[(*i)++], 1);
@@ -50,7 +70,8 @@ void	ft_exit(char *command, t_data *data)
 	i = 5;
 	if (!ft_strncmp(command, "exit ", 5))
 	{
-		if (command[i] == '-')
+		check_exit_args_number(command, data);
+		if (command[i] == '-' || command[i] == '+')
 			i++;
 		while (command[i])
 		{
@@ -65,7 +86,7 @@ void	ft_exit(char *command, t_data *data)
 		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
-	ft_putstr("exit\n", STDERR_FILENO);
+	ft_putstr("exit\n", 1);			//To check, but bash should print it on STDOUT and not STDERR
 	free_all(data);
 	free(command);
 	exit(g_exit_status);

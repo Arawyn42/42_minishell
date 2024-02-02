@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 04:05:08 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 04:59:46 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ void	ft_export(char *command, t_data *data)
 	else
 	{
 		i = 7;
-		while (i < ft_strlen(command) || (command[i] && command[i] != '='))
+		while ((command[i] && command[i] != '='))
 		{
 			if (!((command[i] >= 'a' && command[i] <= 'z') || command[i] == '_'
-			|| (command[i] >= 'A' && command[i] <= 'Z')))
+			|| (command[i] >= 'A' && command[i] <= 'Z') || command[i] == ' '))
 			{
 				arg = ft_substr(command, 7, ft_strlen(command) - 7);
 				return (export_error(arg), free(arg));

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 18:22:32 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/02 05:02:27 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	*get_home_path(t_data *data)
 	int		i;
 
 	i = 0;
+	home_path = NULL;
 	while (data->env[i])
 	{
 		if (!ft_strncmp(data->env[i], "HOME", 4))
