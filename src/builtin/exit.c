@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 19:17:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 15:23:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_exit(char *command, t_data *data)
 		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
-	ft_putstr("exit\n", 1);			//To check, but bash should print it on STDOUT and not STDERR
+	ft_putstr("exit\n", 2);			//To check, but bash should print it on STDOUT and not STDERR  // ahaha no it should print to STDERR trust me
 	free_all(data);
 	free(command);
 	exit(g_exit_status);

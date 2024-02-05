@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 14:27:19 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:19:38 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,8 @@ void	ft_fork_exec(char *cmds, t_data *data)
 		ft_exec(cmds, data);
 	else
 	{
-		waitpid(pid, &status, 0); // cat | cat | ls ??
+		waitpid(pid, &status, 0);
 		g_exit_status = WEXITSTATUS(status);
-		// free(cmds);
 	}
 }
 

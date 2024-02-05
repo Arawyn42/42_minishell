@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 13:49:59 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 14:48:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	command_launcher(t_data *data)
 	i = 1;
 	while (data->command[i])
 	{
-		manage_redirections(data, i);
+		manage_redirections(data, i); 
 		get_command_pos(data->command, &command_pos);
 		while (data->command[i] && data->command[i][0] != '|')
 			i++;
