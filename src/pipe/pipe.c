@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/02 17:02:45 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 13:45:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,27 @@ void	ft_pipe(int command_pos, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (data->input == -1 || data->output == -1)
+		{
+			free_all(data);
+			exit(EXIT_FAILURE);
+		}
 		if (data->output == 1)
 			dup2(pipe_fd[1], STDOUT_FILENO);
 		ft_close(pipe_fd);
-		
 		if (builtin_launcher(data->command[command_pos], data))
+		{
+			free_all(data);
 			exit(EXIT_SUCCESS); // code d'exit ?
+		}
 		else
 			ft_exec(data->command[command_pos], data);
 	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	ft_close(pipe_fd);
+	if (data->input == -1)
+		data->input = 1;
+	if (data->output == -1)
+		data->output = 1;
 	wait(NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 20:55:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 09:18:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	**parse_command(char **command, char **env)
 	return (command);
 }
 
-static char	*trim_one(char *src, char *charset)
+char	*trim_one(char *src, char *charset)
 {
 	char	*ret;
 	size_t	len;

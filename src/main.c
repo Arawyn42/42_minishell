@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 13:15:32 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:15:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	main(int ac, char **av, char **base_env)
 // 		line = get_next_line(0);
 // 		line[ft_strlen(line) - 1] = '\0';
 // 		array = split_command(ft_strdup(line));
-// 		printf("array[0] = %s\n", array[0]);
 // 		int i = 0;
+// 		printf("array[%d] = %s\n", i, array[i]);
 // 		while (array[++i])
 // 		{
 // 			printf("array[%d] = {%s}\n", i, array[i]);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/01 14:18:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 14:23:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@ int	input_redirection(char *file)
 {
 	int		fd;
 
-	if (!file)
-	{
-		ft_putstr("!!!PARSING ERROR!!!\n", 2);
-		exit(EXIT_FAILURE); // remove
-	}
+	file = trim_one(file, "\'\"");
 	fd = open(file, O_RDONLY, 0666);
 	if (fd == -1)
 	{
 		ft_putstr("minishell: ", 2);
 		ft_putstr(file, 2);
 		perror("\1");
+		g_exit_status = 1;
+		free(file);
 		return (-1);
 	}
 	dup2(fd, STDIN_FILENO);
+	free(file);
 	return (fd);
 }
 
@@ -37,19 +36,19 @@ int	output_redirection(char *file, int oflags)
 {
 	int		fd;
 
-	if (!file)
-	{
-		ft_putstr("!!!PARSING ERROR!!!\n", 2);
-		exit(EXIT_FAILURE); // remove
-	}
+	// file = parse_line(file, NULL, 1);
+	file = trim_one(file, "\'\"");
 	fd = open(file, oflags, 0666);
 	if (fd == -1)
 	{
 		ft_putstr("minishell: ", 2);
 		ft_putstr(file, 2);
 		perror("\1");
+		g_exit_status = 1;
+		free(file);
 		return (-1);
 	}
 	dup2(fd, STDOUT_FILENO);
+	free(file);
 	return (fd);
 }

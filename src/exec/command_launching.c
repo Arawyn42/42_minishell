@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/02 17:10:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 13:49:59 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,14 @@ int	builtin_launcher(char *command, t_data *data)
 // 		input_redirection(data, i);
 // }
 
-static int	manage_redirections(t_data *data, int start)
+static void	manage_redirections(t_data *data, int start)
 {
 	int	i;
-	int	command_pos;
 
-	command_pos = -1;
 	i = 0;
 	while (data->command[start + i] && data->command[start + i][0] != '|')
 	{
-		if (command_pos == -1 && !ft_strchr("><|", data->command[start + i][0]))
-			command_pos = start + i;
-		else if (!ft_strncmp(data->command[start + i], ">>", 2))
+		if (!ft_strncmp(data->command[start + i], ">>", 2))
 			data->output = output_redirection(data->command[start + i + 1],
 				O_WRONLY | O_APPEND | O_CREAT);
 		else if (!ft_strncmp(data->command[start + i], "<<", 2))
@@ -94,7 +90,20 @@ static int	manage_redirections(t_data *data, int start)
 			break ;
 		i++;
 	}
-	return (command_pos);
+}
+
+static void	get_command_pos(char **command, int *pos)
+{
+	(*pos)++;
+	while (command[*pos])
+	{
+		if (!ft_strchr("><|", command[*pos][0]) && \
+			(*pos <= 0 || !is_file(command, *pos)))
+			return ;
+		(*pos)++;
+	}
+	*pos = -1;
+	return ;
 }
 
 void	command_launcher(t_data *data)
@@ -108,24 +117,29 @@ void	command_launcher(t_data *data)
 	saved_stdout = dup(STDOUT_FILENO);
 	data->input = 0;
 	data->output = 1;
+	command_pos = 0;
 	i = 1;
 	while (data->command[i])
 	{
-		command_pos = manage_redirections(data, i);
+		manage_redirections(data, i);
+		get_command_pos(data->command, &command_pos);
 		while (data->command[i] && data->command[i][0] != '|')
 			i++;
 		if (data->command[i] && data->command[i][0] == '|')
+		{
 			ft_pipe(command_pos, data);
+			dup2(saved_stdout, STDOUT_FILENO);
+		}
 		if (data->command[i])
 			i++;
 	}
-	if (!is_file(data->command, command_pos) && data->output != -1)
+	if (command_pos != -1 && !is_file(data->command, command_pos) && data->output != -1 && data->input != -1)
 	{
 		if (!builtin_launcher(data->command[command_pos], data))
 			ft_fork_exec(data->command[command_pos], data);
 	}
 	else
 		g_exit_status = 1;
-	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
+	dup2(saved_stdin, STDIN_FILENO);
 }

@@ -72,6 +72,7 @@ echo "*"
 echo '*'
 echo $*
 cat *.c
+touch "file with spaces"       and       rm *
 cat src/*.c | grep "printf"
 
 OPERATORS

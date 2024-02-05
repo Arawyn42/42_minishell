@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 16:27:07 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 09:13:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char		**ft_split(char const *s, char c);
 int			ft_atoi(const char *s);
 char		*ft_itoa(int n);
 char		*ft_strtrim(char const *s1, char const *set);
+char		*trim_one(char *src, char *charset);
 char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			is_in_quote(char *str, int pos);

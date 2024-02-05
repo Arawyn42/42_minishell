@@ -6,48 +6,63 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:10:27 by nsalles           #+#    #+#             */
-/*   Updated: 2024/01/31 13:15:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 13:16:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	get_next_word_size(char *line, int i, int is_file)
+{
+	int size;
+
+	size = 0;
+	while (line[i + size] && is_file && line[i + size] == ' ')
+		size++;
+	while (line[i + size] && \
+		(is_in_quote(line, i + size) || (!ft_strchr("><|", line[i + size]) && \
+		(!is_file || line[i + size] != ' '))))
+		size++;
+	return (size);
+}
+
 static int	count_words(char *line)
 {
-	int	i;
 	int	counter;
+	int	is_file;
 
 	counter = 0;
-	i = -1;
-	while (line[++i])
+	is_file = 0;
+	while (*line)
 	{
-		if (!ft_strncmp(&line[i], ">>", 2) || !ft_strncmp(&line[i], "<<", 2))
+		if (!ft_strncmp(line, ">>", 2) || !ft_strncmp(line, "<<", 2))
 		{
-			i++;
+			line++;
 			counter++;
 		}
-		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
+		else if (*line == '>' || *line == '<' || *line == '|')
 			counter++;
-		else if (line[i] != ' ')
+		if (*line == '>' || *line == '<')
+			is_file = 1;
+		if (*line != ' ' && *line != '>' && *line != '<' && *line != '|')
 		{
 			counter++;
-			while (line[i] && (is_in_quote(line, i) || \
-				!ft_strchr("><|", line[i])))
-				i++;
-			i--;
+			line += get_next_word_size(line, 0, is_file) - 1;
+			is_file = 0;
 		}
+		line++;
 	}
 	return (counter);
 }
 
-static char	*get_word(char *line, int *i)
+static char	*get_word(char *line, int *i, int is_file)
 {
-	int	len;
+	int	word_size;
 
 	if (!ft_strncmp(&line[*i], "<<<", 3))
 	{
 		(*i) += 2;
-		return (ft_substr(line, *i - 2, 3));
+		return (ft_strdup("<<<"));
 	}
 	else if (!ft_strncmp(&line[*i], ">>", 2) || !ft_strncmp(&line[*i], "<<", 2))
 	{
@@ -58,12 +73,9 @@ static char	*get_word(char *line, int *i)
 		return (ft_substr(line, *i, 1));
 	else if (line[*i] != ' ')
 	{
-		len = 0;
-		while (line[*i + len] && (is_in_quote(line, *i + len) || \
-			!ft_strchr("><|", line[*i + len])))
-			len++;
-		*i = *i + len - 1;
-		return (ft_substr(line, *i - len + 1, len));
+		word_size = get_next_word_size(line, *i, is_file);
+		*i = *i + word_size - 1;
+		return (ft_substr(line, *i - word_size + 1, word_size));
 	}
 	return (NULL);
 }
@@ -85,7 +97,7 @@ char	**split_command(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		word = get_word(line, &i);
+		word = get_word(line, &i, (j > 1 && (res[j - 1][0] == '<' || res[j - 1][0] == '>')));
 		if (word)
 			res[j++] = word;
 	}
