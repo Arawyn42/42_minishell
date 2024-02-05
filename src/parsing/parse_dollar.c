@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:42:06 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 20:14:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 00:11:18 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 	while (data->line[*i + j] && data->line[*i + j] != ' '
 		&& data->line[*i + j] != '\'' && data->line[*i + j] != '\"'
 		&& data->line[*i + j] != '/' && data->line[*i + j] != '\\'
-		&& data->line[*i + j] != '$')
+		&& data->line[*i + j] != '$' && data->line[*i + j] != '\n')
 		j++;
 	var = get_dollar_var(data, i, &j);
 	if (var)
@@ -106,7 +106,7 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 	while (data->line[*i + k] && data->line[*i + k] != ' '
 		&& data->line[*i + k] != '\'' && data->line[*i + k] != '\"'
 		&& data->line[*i + k] != '/' && data->line[*i + k] != '\\'
-		&& data->line[*i + k] != '$')
+		&& data->line[*i + k] != '$' && data->line[*i + k] != '\n')
 		k++;
 	var = get_dollar_var(data, i, &k);
 	k = 0;

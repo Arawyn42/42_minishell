@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 19:50:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 23:35:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_data
 	int			output; // remove ?
 }				t_data;
 
+int	is_command_valid(char **command);
+
 /*********************************** UTILS ************************************/
 /* STRINGS */
 void		ft_putstr(char *s, int fd);
@@ -89,7 +91,6 @@ void		free_command(char **command);
 void		exit_error(const char *msg);
 void		export_error(char *var);
 void		syntax_error_message(char *token_name, int len);
-void		redirection_error_message(char *token_name, int len);
 void		exit_no_errors(t_data *data);
 /* ENV */
 char		**cpy_env(char **base_env);
@@ -123,8 +124,8 @@ char		*get_dollar_var(t_data *data, int *i, int *j);
 void		tilde_len(t_data *data, int *i, int *len);
 void		parse_tilde(t_data *data, char *newline, int *i, int *j);
 /* UNCLOSED QUOTES */
-char		*unclosed_quotes(t_data *data);
-int			is_unclosed_quotes(t_data *data);
+char		*unclosed_quotes(char *line);
+int			is_unclosed_quotes(char *line);
 /* WILDCARD */
 char		*get_start_path(char *line, int *i);
 char		*get_full_start_path(char *start_path, char *end_path, int slash);

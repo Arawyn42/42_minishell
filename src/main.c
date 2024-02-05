@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 20:36:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 23:33:44 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	minishell(t_data *data, int	saved_stdin)
 		is_old_line_null = data->line != NULL;
 		if (ft_strlen(data->line) > 0)
 		{
-			if (!is_unclosed_quotes(data) && ft_strlen(data->line) > 0)
+			if (!is_unclosed_quotes(data->line) && ft_strlen(data->line) > 0)
 				add_history(data->line);
 			parse_and_launch(data);
 		}
@@ -76,3 +76,19 @@ int	main(int ac, char **av, char **base_env)
 	minishell(&data, dup(STDIN_FILENO));
 	return (0);
 }
+
+// int main(void)
+// {
+// 	char **cmd;
+// 	char *line;
+// 	int i = 0;
+	
+// 	line = readline("> ");
+// 	is_open_parentheses(line);
+// 	is_logic_operators_broken(line);
+// 	cmd = split_command(line);
+// 	while (cmd[++i])
+// 		printf("cmd[%d] = {%s}\n", i, cmd[i]);
+// 	is_command_valid(cmd);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 20:51:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 23:34:48 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	*parse_line(char *line, char **env, int parse_quotes)
 	data.line = ft_strtrim(line, " ()");
 	data.env = env;
 	quotes = ft_calloc(2, sizeof(int));
-	data.line = unclosed_quotes(&data);
+	data.line = unclosed_quotes(data.line);
 	free(line);
 	len = 0;
 	new_line_len(&data, &len, &quotes, parse_quotes);

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:44:46 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 20:58:06 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 23:32:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  *	In this case. exit status code is 2.
  *	If CTRL + C (SIGINT) is received, prints no error.
 */
-static char	*unclosed_quotes_error(t_data *data, char *quote, char signal)
+static char	*unclosed_quotes_error(char *line, char *quote, char signal)
 {
 	if (signal == 'd')
 	{
@@ -28,15 +28,15 @@ static char	*unclosed_quotes_error(t_data *data, char *quote, char signal)
 		ft_putstr(" end of file\n", 2);
 		g_exit_status = 2;
 	}
-	add_history(data->line);
-	free(data->line);
+	add_history(line);
+	free(line);
 	return (ft_strdup(""));
 }
 
 /*
  *	Opens a here_document in case of unclosed double quotes, with " as LIMITER.
 */
-static char	*unclosed_double(t_data *data)
+static char	*unclosed_double(char *str)
 {
 	char	*line;
 	char	*new_line;
@@ -45,25 +45,25 @@ static char	*unclosed_double(t_data *data)
 	{
 		new_line = readline("> ");
 		if (!new_line && g_sigint)
-			return (unclosed_quotes_error(data, "\"", 'c'));
-		line = ft_strjoin(data->line, "\n");
-		free(data->line);
-		data->line = ft_strjoin(line, new_line);
+			return (unclosed_quotes_error(str, "\"", 'c'));
+		line = ft_strjoin(str, "\n");
+		free(str);
+		str = ft_strjoin(line, new_line);
 		free(new_line);
 		free(line);
 		if (!new_line && !g_sigint)
-			return (unclosed_quotes_error(data, "\"", 'd'));
-		if (count_double_quotes(data->line) % 2 == 0)
+			return (unclosed_quotes_error(str, "\"", 'd'));
+		if (count_double_quotes(str) % 2 == 0)
 			break ;
 	}
-	add_history(data->line);
-	return (data->line);
+	add_history(str);
+	return (str);
 }
 
 /*
  *	Opens a here_document in case of unclosed single quotes, with ' as LIMITER.
 */
-static char	*unclosed_single(t_data *data)
+static char	*unclosed_single(char *str)
 {
 	char	*line;
 	char	*new_line;
@@ -72,29 +72,29 @@ static char	*unclosed_single(t_data *data)
 	{
 		new_line = readline("> ");
 		if (!new_line && g_sigint)
-			return (unclosed_quotes_error(data, "\'", 'c'));
-		line = ft_strjoin(data->line, "\n");
-		free(data->line);
-		data->line = ft_strjoin(line, new_line);
+			return (unclosed_quotes_error(str, "\'", 'c'));
+		line = ft_strjoin(str, "\n");
+		free(str);
+		str = ft_strjoin(line, new_line);
 		free(new_line);
 		free(line);
 		if (!new_line && !g_sigint)
-			return (unclosed_quotes_error(data, "\'", 'd'));
-		if (count_single_quotes(data->line) % 2 == 0)
+			return (unclosed_quotes_error(str, "\'", 'd'));
+		if (count_single_quotes(str) % 2 == 0)
 			break ;
 	}
-	add_history(data->line);
-	return (data->line);
+	add_history(str);
+	return (str);
 }
 
 /*
  *	Returns 1 if the line contains an unclosed quote (double or single).
  *	Returns 0 if not.
 */
-int	is_unclosed_quotes(t_data *data)
+int	is_unclosed_quotes(char *line)
 {
-	if (count_double_quotes(data->line) % 2 == 0
-		&& count_single_quotes(data->line) % 2 == 0)
+	if (count_double_quotes(line) % 2 == 0
+		&& count_single_quotes(line) % 2 == 0)
 		return (0);
 	return (1);
 }
@@ -103,26 +103,26 @@ int	is_unclosed_quotes(t_data *data)
  *	Opens a here_document in case of unclosed quotes,
  *	until the quotes are closed.
 */
-char	*unclosed_quotes(t_data *data)
+char	*unclosed_quotes(char *line)
 {
 	int		i;
 
 	i = 0;
-	if (!is_unclosed_quotes(data))
-		return (data->line);
-	while (data->line[i])
+	if (!is_unclosed_quotes(line))
+		return (line);
+	while (line[i])
 	{
-		if (data->line[i] == '\'')
+		if (line[i] == '\'')
 		{
-			data->line = unclosed_single(data);
+			line = unclosed_single(line);
 			break ;
 		}
-		else if (data->line[i] == '\"')
+		else if (line[i] == '\"')
 		{
-			data->line = unclosed_double(data);
+			line = unclosed_double(line);
 			break ;
 		}
 		i++;
 	}
-	return (data->line);
+	return (line);
 }

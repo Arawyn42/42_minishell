@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_launching.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 18:43:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 00:02:52 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	launch_last_command(t_data *data, int command_pos)
 		if (!builtin_launcher(data->command[command_pos], data))
 			ft_fork_exec(data->command[command_pos], data);
 	}
-	else
+	else if (ft_strlen(data->command[1]))
 		g_exit_status = 1;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:34:30 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 19:05:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 23:53:24 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,21 @@ int	is_file(char **command, int i)
 char	**parse_command(char **command, char **env)
 {
 	int		i;
+	char	*tmp;
 
 	if (!command)
 		return (NULL);
 	i = 1;
 	while (command[i])
 	{
-		command[i] = parse_line(command[i], env, 0);
+		if (i == 1 || ft_strncmp(command[i - 1], "<<", 2))
+			command[i] = parse_line(command[i], env, 0);
+		else
+		{
+			tmp = trim_one(unclosed_quotes(command[i]), "\'\"");
+			free(command[i]);
+			command[i] = tmp;
+		}
 		i++;
 	}
 	return (command);
@@ -90,7 +98,7 @@ char	**trim_command(char **command, char *charset)
 
 	if (!command)
 		return (NULL);
-	i = 1;
+	i = 0;
 	while (command[i])
 	{
 		tmp = trim_one(command[i], charset);

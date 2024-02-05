@@ -187,3 +187,19 @@ cat "	then ctrd+d			#todo one error too many
 
 ctrl+d not working if that the first thing you do
 ctrl+d #todo newline en trop
+
+
+
+
+
+
+==>> src/*.c > invalid free
+==>> export 145ase should not work but export ase453 should work.
+
+
+
+
+
+
+
+cat | wc << FIN
