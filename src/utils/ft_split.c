@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 00:43:54 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:12:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_count_words(const char *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		in_or_out_quotes(s, &quotes[0], &quotes[1], i);	
+		in_or_out_quotes(s, &quotes[0], &quotes[1], i);
 		if (s[i] == c && !quotes[0] && !quotes[1])
 			in_word = 0;
 		else if (!in_word)
@@ -52,9 +52,9 @@ static int	ft_count_words(const char *s, char c)
 
 static char	*ft_word_dup2(const char *src, char c, int len)
 {
-	int	in_singleq;
-	int	in_doubleq;
-	int	quotes;
+	int		in_singleq;
+	int		in_doubleq;
+	int		quotes;
 	int		i;
 	char	*word;
 

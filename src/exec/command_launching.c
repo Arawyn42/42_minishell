@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 14:48:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:00:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,6 @@ int	builtin_launcher(char *command, t_data *data)
 	return (free(cmd), 1);
 }
 
-/*
- *	Execute the command cmd in the environement env with the given operator.
- *	Operators list : 
- *		|	: pipe
- *		>	: output redirection
- *		<	: input redirection
- *		>>	: appending redirected output
- *		<<	: here document
-*/
-// void	apply_operator(t_data *data, int *i)
-// {
-// 	if (!data->command[*i + 1])
-// 	{
-// 		if (!builtin_launcher(data->command[*i], data))
-// 			ft_fork_exec(data->command[*i], data);
-// 	}
-// 	else if (!ft_strncmp(data->command[*i], "|", 1))
-// 		ft_pipe(data, i);
-// 	else if (!ft_strncmp(data->command[*i], ">>", 2))
-// 		output_redirection(data, i);
-// 	else if (!ft_strncmp(data->command[*i], "<<", 2))
-// 		here_doc(data, i);
-// 	else if (!ft_strncmp(data->command[*i], ">", 1))
-// 		output_redirection(data, i);
-// 	else if (ft_strncmp(data->command[*i], "<", 1) == 0)
-// 		input_redirection(data, i);
-// }
-
 static void	manage_redirections(t_data *data, int start)
 {
 	int	i;
@@ -78,12 +50,12 @@ static void	manage_redirections(t_data *data, int start)
 	{
 		if (!ft_strncmp(data->command[start + i], ">>", 2))
 			data->output = output_redirection(data->command[start + i + 1],
-				O_WRONLY | O_APPEND | O_CREAT);
+					O_WRONLY | O_APPEND | O_CREAT);
 		else if (!ft_strncmp(data->command[start + i], "<<", 2))
 			data->input = here_doc(data->command[start + i + 1], data);
 		else if (!ft_strncmp(data->command[start + i], ">", 1))
 			data->output = output_redirection(data->command[start + i + 1],
-				O_WRONLY | O_TRUNC | O_CREAT);
+					O_WRONLY | O_TRUNC | O_CREAT);
 		else if (ft_strncmp(data->command[start + i], "<", 1) == 0)
 			data->input = input_redirection(data->command[start + i + 1]);
 		if (data->input == -1 || data->output == -1)
@@ -106,22 +78,28 @@ static void	get_command_pos(char **command, int *pos)
 	return ;
 }
 
-void	command_launcher(t_data *data)
+static void	launch_last_command(t_data *data, int command_pos)
+{
+	if (command_pos != -1 && !is_file(data->command, command_pos) \
+		&& data->output != -1 && data->input != -1)
+	{
+		if (!builtin_launcher(data->command[command_pos], data))
+			ft_fork_exec(data->command[command_pos], data);
+	}
+	else
+		g_exit_status = 1;
+}
+
+void	command_launcher(t_data *data, int saved_stdin, int saved_stdout)
 {
 	int	i;
 	int	command_pos;
-	int	saved_stdout;
-	int	saved_stdin;
 
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	data->input = 0;
-	data->output = 1;
 	command_pos = 0;
 	i = 1;
 	while (data->command[i])
 	{
-		manage_redirections(data, i); 
+		manage_redirections(data, i);
 		get_command_pos(data->command, &command_pos);
 		while (data->command[i] && data->command[i][0] != '|')
 			i++;
@@ -130,16 +108,9 @@ void	command_launcher(t_data *data)
 			ft_pipe(command_pos, data);
 			dup2(saved_stdout, STDOUT_FILENO);
 		}
-		if (data->command[i])
-			i++;
+		i += data->command[i] != 0; // I hope you like this one
 	}
-	if (command_pos != -1 && !is_file(data->command, command_pos) && data->output != -1 && data->input != -1)
-	{
-		if (!builtin_launcher(data->command[command_pos], data))
-			ft_fork_exec(data->command[command_pos], data);
-	}
-	else
-		g_exit_status = 1;
+	launch_last_command(data, command_pos);
 	dup2(saved_stdout, STDOUT_FILENO);
 	dup2(saved_stdin, STDIN_FILENO);
 }

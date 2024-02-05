@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:26:54 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 17:18:19 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:11:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_error_exit(t_data *data, char **cmd, char *cmd_path, int status)
+static void	exec_error_exit(t_data *d, char **cmd, char *cmd_path, int status)
 {
 	free_double_array(cmd);
 	if (cmd_path)
 		free(cmd_path);
-	free_all(data);
+	free_all(d);
 	g_exit_status = status;
 	exit(g_exit_status);
 }
@@ -59,13 +59,13 @@ void	exec_error(t_data *data, char **cmd, char *cmd_path)
 		exec_error_exit(data, cmd, cmd_path, 127);
 	}
 	else if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
-			&& access(cmd[0], R_OK))
+		&& access(cmd[0], R_OK))
 	{
 		exec_error_msg(cmd[0], "Not a directory", dir);
 		exec_error_exit(data, cmd, cmd_path, 126);
 	}
 	else if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
-			&& !access(cmd[0], R_OK))
+		&& !access(cmd[0], R_OK))
 	{
 		exec_error_msg(cmd[0], "Permission denied", dir);
 		exec_error_exit(data, cmd, cmd_path, 127);

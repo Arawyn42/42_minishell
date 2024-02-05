@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 15:23:58 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:07:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 		*i = 5;
 		while (command[*i] == ' ')
 			(*i)++;
-		ft_putstr("exit\n", 1);		//To check
+		ft_putstr("exit\n", 1); //To check
 		ft_putstr("minishell: exit: ", 2);
 		while (command[*i])
 			write(2, &command[(*i)++], 1);
@@ -57,6 +57,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 		g_exit_status = 2;
 		exit(g_exit_status);
 	}
+	(*i)++;
 }
 
 /*
@@ -77,10 +78,7 @@ void	ft_exit(char *command, t_data *data)
 		if (command[i] == '-' || command[i] == '+')
 			i++;
 		while (command[i])
-		{
 			check_exit_args(command, data, &i);
-			i++;
-		}
 	}
 	g_exit_status = 0;
 	if (command[4] && command[5])
@@ -89,7 +87,7 @@ void	ft_exit(char *command, t_data *data)
 		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
-	ft_putstr("exit\n", 2);			//To check, but bash should print it on STDOUT and not STDERR  // ahaha no it should print to STDERR trust me
+	ft_putstr("exit\n", 1);
 	free_all(data);
 	free(command);
 	exit(g_exit_status);

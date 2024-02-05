@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/02 17:11:49 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/05 18:15:35 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,12 +50,14 @@ SRCS			=	builtin/pwd.c \
 					parsing/wildcard2.c \
 					parsing/wildcard3.c \
 					parsing/split_operators.c \
+					parsing/main_parsing_utils.c \
 					parsing/main_parsing.c \
 					utils/get_env.c \
 					utils/strings.c \
 					utils/strings2.c \
 					utils/lst.c \
 					utils/memory.c \
+					utils/free.c \
 					utils/ft_split.c \
 					utils/ft_itoa.c \
 					utils/get_next_line.c \
@@ -63,13 +65,13 @@ SRCS			=	builtin/pwd.c \
 					utils/quote_utils.c \
 					utils/logic_operators_utils.c \
 					utils/errors.c \
-					pipe/pipe_utils.c \
-					pipe/pipe.c \
+					redirections/pipe_utils.c \
+					redirections/pipe.c \
+					redirections/redirections.c \
 					exec/exec_path.c \
 					exec/exec_error.c \
 					exec/exec_error_is_file.c \
-					exec/command_launching.c \
-					exec/redirections.c
+					exec/command_launching.c
 
 MAIN			=	main.c
 

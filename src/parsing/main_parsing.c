@@ -6,62 +6,11 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 09:18:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:52:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_file(char **command, int i)
-{
-	if (!command[i - 1])
-		return (0);
-	if (ft_strchr("><", command[i - 1][0]))
-		return (1);
-	return (0);
-}
-
-static int	condition(char *operator) // rename
-{
-	if (!operator)
-		return (1);
-	return ((!ft_strncmp(operator, "&&", 2) && !g_exit_status) || \
-		(!ft_strncmp(operator, "||", 2) && g_exit_status));
-}
-
-int	skip_parenthesis(char *str, int pos, int *len)
-{
-	int	parenthesis_depth;
-
-	parenthesis_depth = 1;
-	while (parenthesis_depth != 0 && str[pos])
-	{
-		if (str[pos] == '(')
-			parenthesis_depth++;
-		else if (str[pos] == ')')
-			parenthesis_depth--;
-		pos++;
-	}
-	*len = 0;
-	return (pos);
-}
-
-static int	is_operator_found(char *str, char **last_ope, int *start, int i)
-{
-	if ((!ft_strncmp(&str[*start + i], "&&", 2) || \
-		!ft_strncmp(&str[*start + i], "||", 2)) && \
-		!is_in_quote(str, *start + i))
-	{
-		*start = *start + i + 2;
-		if (condition(*last_ope))
-		{
-			*last_ope = &str[*start - 2];
-			return (1);
-		}
-		*last_ope = &str[*start - 2];
-	}
-	return (0);
-}
 
 static char	*get_command(char *str, int str_len, int *start)
 {
@@ -81,10 +30,11 @@ static char	*get_command(char *str, int str_len, int *start)
 			return (ft_substr(str, *start - len - 2, len));
 		else if (is_found == -1)
 			return (NULL);
-		if (!condition(last_operator) && str[*start + len] == '(')
+		if (!logic_operator_condition(last_operator) && \
+			str[*start + len] == '(')
 			*start = skip_parenthesis(str, *start + len + 1, &len);
 	}
-	if (condition(last_operator))
+	if (logic_operator_condition(last_operator))
 		res = ft_substr(str, *start, str_len - *start);
 	last_operator = NULL;
 	*start = -1;
@@ -96,7 +46,7 @@ static char	*get_command(char *str, int str_len, int *start)
 */
 int	is_command_valid(char **command)
 {
-	int	i; // work in progress
+	int	i;
 
 	if (!command)
 		return (0);
@@ -105,81 +55,18 @@ int	is_command_valid(char **command)
 	i = 0;
 	while (command[++i])
 	{
-		// printf("command[%d] = {%s}\n", i, command[i]);
 		if (!ft_strncmp(command[i], "<<<", 3))
 			return (ft_putstr("minishell: `<<<' is not supported\n", 2), 0);
-		if (command[i + 1] && ft_strchr("><|", command[i][0]) &&\
+		if (command[i + 1] && ft_strchr("><|", command[i][0]) && \
 			ft_strchr("><|", command[i + 1][0]))
 			return (syntax_error_message(command[i + 1], 2), 0);
 	}
 	if (ft_strchr("><", command[i - 1][0]))
 		return (syntax_error_message("newline", 7), 0);
 	if (command[i - 1][0] == '|')
-		return (ft_putstr("minishell: here doc after pipe", 2),\
+		return (ft_putstr("minishell: here doc after pipe", 2), \
 			ft_putstr(" is not supported (yet?)\n", 2), 0);
 	return (1);
-}
-
-char	**parse_command(char **command, char **env)
-{
-	int		i;
-
-	if (!command)
-		return (NULL);
-	i = 1;
-	while (command[i])
-	{
-		command[i] = parse_line(command[i], env, 0);
-		i++;
-	}
-	return (command);
-}
-
-char	*trim_one(char *src, char *charset)
-{
-	char	*ret;
-	size_t	len;
-	size_t	i;
-	size_t	j;
-
-	j = 0;
-	len = ft_strlen(src);
-	if (src[0] == src[len - 1] && ft_strchr(charset, src[0]))
-	{
-		ret = ft_calloc(len - 1, sizeof(char));
-		i = 1;
-		len--;
-	}
-	else
-	{
-		ret = ft_calloc(len + 1, sizeof(char));
-		i = 0;
-	}
-	while (i < len)
-	{
-		ret[j] = src[i];
-		i++;
-		j++;
-	}
-	return (ret);
-}
-
-char	**trim_command(char **command, char *charset)
-{
-	char	*tmp;
-	int		i;
-
-	if (!command)
-		return (NULL);
-	i = 1;
-	while (command[i])
-	{
-		tmp = trim_one(command[i], charset);
-		free(command[i]);
-		command[i] = tmp;
-		i++;
-	}
-	return (command);
 }
 
 void	parse_and_launch(t_data *data)
@@ -193,16 +80,19 @@ void	parse_and_launch(t_data *data)
 	data->line = tmp;
 	i = 0;
 	line_len = ft_strlen(data->line);
-	if (line_len == 0 || is_open_parentheses(data->line) ||\
+	if (line_len == 0 || is_open_parentheses(data->line) || \
 		is_logic_operators_broken(data->line))
 		return ;
 	data->command = parse_command(split_command(\
 		get_command(data->line, line_len, &i)), data->env);
 	while (is_command_valid(data->command))
 	{
-		command_launcher(data);
+		data->input = 0;
+		data->output = 1;
+		command_launcher(data, dup(STDIN_FILENO), dup(STDOUT_FILENO));
 		free_command(data->command);
-		data->command = parse_command(split_command(get_command(data->line, line_len, &i)), data->env);
+		data->command = parse_command(split_command(\
+			get_command(data->line, line_len, &i)), data->env);
 	}
 	if (data->command)
 		free_command(data->command);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:10:27 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 13:16:07 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:20:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	get_next_word_size(char *line, int i, int is_file)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (line[i + size] && is_file && line[i + size] == ' ')
@@ -97,7 +97,8 @@ char	**split_command(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		word = get_word(line, &i, (j > 1 && (res[j - 1][0] == '<' || res[j - 1][0] == '>')));
+		word = get_word(line, &i, \
+			(j > 1 && (res[j - 1][0] == '<' || res[j - 1][0] == '>')));
 		if (word)
 			res[j++] = word;
 	}

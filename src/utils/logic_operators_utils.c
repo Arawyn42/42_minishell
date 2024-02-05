@@ -6,11 +6,53 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:33:20 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/02 14:14:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:36:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	logic_operator_condition(char *operator)
+{
+	if (!operator)
+		return (1);
+	return ((!ft_strncmp(operator, "&&", 2) && !g_exit_status) || \
+		(!ft_strncmp(operator, "||", 2) && g_exit_status));
+}
+
+int	is_operator_found(char *str, char **last_ope, int *start, int i)
+{
+	if ((!ft_strncmp(&str[*start + i], "&&", 2) || \
+		!ft_strncmp(&str[*start + i], "||", 2)) && \
+		!is_in_quote(str, *start + i))
+	{
+		*start = *start + i + 2;
+		if (logic_operator_condition(*last_ope))
+		{
+			*last_ope = &str[*start - 2];
+			return (1);
+		}
+		*last_ope = &str[*start - 2];
+	}
+	return (0);
+}
+
+int	skip_parenthesis(char *str, int pos, int *len)
+{
+	int	parenthesis_depth;
+
+	parenthesis_depth = 1;
+	while (parenthesis_depth != 0 && str[pos])
+	{
+		if (str[pos] == '(')
+			parenthesis_depth++;
+		else if (str[pos] == ')')
+			parenthesis_depth--;
+		pos++;
+	}
+	*len = 0;
+	return (pos);
+}
 
 int	is_logic_operators_broken(char *line)
 {
@@ -28,10 +70,7 @@ int	is_logic_operators_broken(char *line)
 		if (!ft_strncmp(&line[i], "&&", 2) || !ft_strncmp(&line[i], "||", 2))
 		{
 			if (!is_ok && !is_in_quote(line, i))
-			{
-				printf("here\n");
 				return (syntax_error_message(&line[i], 2), 1);
-			}
 			is_ok = 0;
 			last_operator_pos = i;
 			i += 2;
@@ -46,7 +85,7 @@ int	is_logic_operators_broken(char *line)
 
 int	is_open_parentheses(char *line)
 {
-	int		parentheses_depth; // toujours la flemme ? (commenté en bas)
+	int		parentheses_depth;
 	int		i;
 
 	parentheses_depth = 0;
@@ -68,56 +107,3 @@ int	is_open_parentheses(char *line)
 	}
 	return (0);
 }
-
-// char	*logic_operator_here_doc(char *line, int *line_len)
-// {
-// 	char	*new_line;
-// 	char	*user_input;
-
-// 	if (*line_len > 2 && (!ft_strncmp(&line[*line_len - 2], "&&", 2) ||
-// 			!ft_strncmp(&line[*line_len - 2], "||", 2)))
-// 	{
-// 		write(0, "> ", 2);
-// 		user_input = get_next_line(0);
-// 		new_line = ft_strjoin(line, user_input);
-// 		*line_len = ft_strlen(new_line);
-// 		new_line[--(*line_len)] = '\0';
-// 		free(line);
-// 		free(user_input);
-// 		return (new_line);
-// 	}
-// 	return (line);
-// }
-
-// char	*logic_operator_parentheses(char *line, int *line_len)
-// {
-// 	char	*user_input;
-// 	char	*new_line;
-// 	int		parentheses_depth;
-// 	int		i;
-
-// 	parentheses_depth = 0;
-// 	i = -1;
-// 	while (line[++i])
-// 		parentheses_depth += (line[i] == '(') - (line[i] == ')');
-// 	new_line = ft_strdup(line);
-// 	while (parentheses_depth > 0)
-// 	{
-// 		write(0, "> ", 2);
-// 		printf("%d\n", parentheses_depth);
-// 		user_input = get_next_line(0);
-// 		if (!user_input)
-// 			return (free(line), free(new_line), NULL);
-// 		user_input[ft_strlen(user_input) - 1] = '\0';
-// 		new_line = ft_strjoin(new_line, user_input);
-// 		free(user_input);
-// 		i = -1;
-// 		parentheses_depth = 0;
-// 		while (new_line[++i])
-// 			parentheses_depth += (new_line[i] == '(') - (new_line[i] == ')');
-// 	}
-// 	if (parentheses_depth < 0)
-// 		return (syntax_error_message(")"), free(line), free(new_line), NULL);
-// 	*line_len = ft_strlen(new_line);
-// 	return (free(line), new_line);
-// }

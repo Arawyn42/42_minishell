@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 09:13:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:03:44 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,22 @@ extern int	g_sigint;
 
 /********************************* STRUCTURES *********************************/
 
-// enum e_type {command, file, limiter};
-
 typedef struct s_export
 {
 	char			*content;
 	struct s_export	*next;
 }					t_export;
 
-// typedef struct s_command
-// {
-// 	char		*str;
-// 	enum e_type	type;
-// }				t_command;
-
 typedef struct s_data
 {
-	char		*prompt;
+	char		*prompt; // remove ?
 	char		**env;
 	t_export	*export;
 	char		*line;
 	char		**command;
-	int			input;
-	int			output;
+	int			input; // remove ?
+	int			output; // remove ?
 }				t_data;
-
-// typedef struct s_command
-// {
-// 	char	*command;
-// 	enum	e_type type;
-// }			t_command;
-
-char	**trim_command(char **command, char *charset);
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -87,7 +71,6 @@ char		*trim_one(char *src, char *charset);
 char		*ft_strclean(char *str, char *charset);
 int			count_double_quotes(char *str);
 int			is_in_quote(char *str, int pos);
-// int			ft_quotes(char c, int *in_quote);
 int			count_single_quotes(char *str);
 char		**split_command(char *line);
 /* LISTS */
@@ -107,6 +90,7 @@ void		exit_error(const char *msg);
 void		export_error(char *var);
 void		syntax_error_message(char *token_name, int len);
 void		redirection_error_message(char *token_name, int len);
+void		exit_no_errors(t_data *data);
 /* ENV */
 char		**cpy_env(char **base_env);
 char		*get_pwd(t_data *data);
@@ -117,6 +101,10 @@ char		*get_home_path(t_data *data);
 /* PARSE OPERATORS */
 int			is_file(char **command, int i);
 char		**split_commands(char *line);
+char		**trim_command(char **command, char *charset);
+int			logic_operator_condition(char *operator);
+int			skip_parenthesis(char *str, int pos, int *len);
+int			is_operator_found(char *str, char **last_ope, int *start, int i);
 void		parse_logic_operators(t_data *data);
 void		parse_and_launch(t_data *data);
 char		**parse_command(char **command, char **env);
@@ -145,7 +133,7 @@ void		wildcard_len(t_data *data, int *i, int *len);
 void		parse_wildcard(char *line, char *new_line, int *i, int *j);
 
 /****************************** EXECUTE COMMANDS ******************************/
-void		command_launcher(t_data *data);
+void		command_launcher(t_data *data, int saved_stdin, int saved_stdout);
 int			builtin_launcher(char *command, t_data *data);
 char		*ft_get_path_env(char **env);
 char		*ft_get_path(char *cmd, char **env);

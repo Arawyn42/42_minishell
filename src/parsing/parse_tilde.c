@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tilde.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:40:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 19:08:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:21:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void	parse_tilde(t_data *data, char *newline, int *i, int *j)
 	if (home_path)
 		free(home_path);
 }
-

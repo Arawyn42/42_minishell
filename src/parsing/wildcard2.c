@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 21:26:39 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:30:26 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:28:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static char	*wildcard_after_char(char *line, char *end_path, int *i, int slash)
 	add_path = get_full_start_path(start_path, end_path, slash);
 	path = ft_substr(add_path, ft_strlen(start_path),
 			ft_strlen(add_path) - ft_strlen(start_path));
-	// printf("start_path: %s\nend_path: %s\npath: %s\n", start_path, end_path, path);
 	return (free(start_path), free(add_path), path);
 }
 
@@ -64,7 +63,7 @@ static char	*get_parsed_wildcard(char *line, int *i)
 	add_path = NULL;
 	j = 0;
 	while (line[*i + j + 1] && line[*i + j + 1] != ' '
-			&& line[*i + j + 1] != '/')
+		&& line[*i + j + 1] != '/')
 		j++;
 	slash = 0;
 	if (*i > 0 && line[*i - 1] == '/')

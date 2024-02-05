@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error_is_file.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:52 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 17:19:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:21:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	exec_error_is_file2(struct dirent *dr, char *name, char *dir_name)
 		dir_name = ft_strjoin(dir_n, dr->d_name);
 		free(dir_n);
 		return (exec_error_is_file(name + ft_strlen(dr->d_name) + 1,
-			dir_name));
+				dir_name));
 	}
 	if (!ft_strncmp(name, dr->d_name, ft_strlen(name)))
 		return (free(dir_name), 1);

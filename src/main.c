@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 13:15:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:07:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_exit_status;
 int	g_sigint;
 
-static void	minishell(t_data *data, int	saved_stdin)
+static void	minishell(t_data *data, int saved_stdin)
 {
 	int	is_old_line_null;
 
@@ -75,30 +75,3 @@ int	main(int ac, char **av, char **base_env)
 	minishell(&data, dup(STDIN_FILENO));
 	return (0);
 }
-
-// int main(void)
-// {
-// 	char *line = ft_strdup("");
-// 	char **array;
-	
-// 	printf("minishell\n");
-// 	while (ft_strncmp(line, "exit", 4))
-// 	{
-// 		free(line);
-// 		write(0, "line = ", 7);
-// 		line = get_next_line(0);
-// 		line[ft_strlen(line) - 1] = '\0';
-// 		array = split_command(ft_strdup(line));
-// 		int i = 0;
-// 		printf("array[%d] = %s\n", i, array[i]);
-// 		while (array[++i])
-// 		{
-// 			printf("array[%d] = {%s}\n", i, array[i]);
-// 			free(array[i]);
-// 		}
-// 		printf("array[%d] = %s\n", i, array[i]);
-// 		free(array);
-// 	}
-// 	free(line);
-// 	return (0);
-// }

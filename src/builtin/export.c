@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 04:59:46 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:28:08 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ static void	export_var(char *command, t_data *data)
  *	Exit status code is 0 in case of success or 1 if one of the variables
  *	failed to be added.
 */
-void	ft_export(char *command, t_data *data)
+void	ft_export(char *cmd, t_data *data)
 {
 	char	*arg;
 	size_t	i;
 
 	g_exit_status = 0;
-	if (!command[6])
+	if (!cmd[6])
 	{
 		sort_export(data);
 		print_export(data);
@@ -128,16 +128,16 @@ void	ft_export(char *command, t_data *data)
 	else
 	{
 		i = 7;
-		while ((command[i] && command[i] != '='))
+		while ((cmd[i] && cmd[i] != '='))
 		{
-			if (!((command[i] >= 'a' && command[i] <= 'z') || command[i] == '_'
-			|| (command[i] >= 'A' && command[i] <= 'Z') || command[i] == ' '))
+			if (!((cmd[i] >= 'a' && cmd[i] <= 'z') || cmd[i] == '_' \
+				|| (cmd[i] >= 'A' && cmd[i] <= 'Z') || cmd[i] == ' '))
 			{
-				arg = ft_substr(command, 7, ft_strlen(command) - 7);
+				arg = ft_substr(cmd, 7, ft_strlen(cmd) - 7);
 				return (export_error(arg), free(arg));
 			}
 			i++;
 		}
-		export_var(command, data);
+		export_var(cmd, data);
 	}
 }

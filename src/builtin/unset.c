@@ -6,12 +6,11 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:39:33 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 17:00:47 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:24:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 /*
  *	Deletes a node from a t_export chained list, corresponding to the

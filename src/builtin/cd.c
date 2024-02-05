@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/01 11:26:23 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 17:23:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static char	*get_cd_path(char *command, t_data *data)
 	return (path);
 }
 
-
 /*
  *	Builtin: cd.
  *	When the 'cd' command is used, this function will change 
@@ -110,10 +109,7 @@ void	ft_cd(char *command, t_data *data)
 
 	path = NULL;
 	if (cd_error(command, data) || !cd_check_args(command))
-	{
-		// free(command);
 		return ;
-	}
 	path = get_cd_path(command, data);
 	if (!path)
 		return (free(command));
@@ -131,5 +127,4 @@ void	ft_cd(char *command, t_data *data)
 	set_pwd(data);
 	free(oldpwd);
 	free(path);
-	// free(command);
 }

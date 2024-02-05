@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/02 03:19:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:27:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	parse_conditions(char *line, int i, int *inq, int parse_quotes)
 		return (1);
 	if (inq[1] && line[i] != '\"' && line[i] != '\\')
 		return (1);
-	if (line[i] == '\\' && inq[1] && (line[i + 1] == '\'' || line[i + 1] == ' '))
+	if (line[i] == '\\' && inq[1] && \
+		(line[i + 1] == '\'' || line[i + 1] == ' '))
 		return (1);
 	return (0);
 }
@@ -91,11 +92,11 @@ void	new_line_len(t_data *data, int *len, int **quotes, int parse_quotes)
 static void	parsed_line(t_data *data, char *new_line,
 		int **quotes, int parse_quotes)
 {
-	int		i[2];
+	int	i[2];
 
 	i[0] = -1;
 	i[1] = 0;
-	while ((size_t) ++(i[0]) < ft_strlen(data->line) && data->line[i[0]])
+	while ((size_t)++(i[0]) < ft_strlen(data->line) && data->line[i[0]])
 	{
 		if (data->line[i[0]] == ' ' && !(*quotes)[0] && !(*quotes)[1])
 			parse_spaces(data->line, &i[0]);
