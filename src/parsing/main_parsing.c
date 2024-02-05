@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 19:54:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:05:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_command_valid(char **command)
 			ft_strchr("><|", command[i + 1][0]))
 			return (syntax_error_message(command[i + 1], 2), 0);
 	}
-	if (ft_strchr("><", command[i - 1][0]))
+	if (command[i - 1][0] && ft_strchr("><", command[i - 1][0]))
 		return (syntax_error_message("newline", 7), 0);
 	if (command[i - 1][0] == '|')
 		return (ft_putstr("minishell: here doc after pipe", 2), \

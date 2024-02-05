@@ -6,12 +6,15 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:33:20 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 20:02:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:53:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	If the operator must not be logically launch, return 0, else return 1.
+*/
 int	logic_operator_condition(char *operator)
 {
 	if (!operator)
@@ -21,8 +24,8 @@ int	logic_operator_condition(char *operator)
 }
 
 /*
- *	
- *
+ *	Search for the next operator in str from start. If the next operator
+ *	must logically not be launch, return 0, else return 1.
 */
 int	is_operator_found(char *str, char **last_ope, int *start, int i)
 {
