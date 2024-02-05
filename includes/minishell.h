@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 18:03:44 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:50:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ void		ft_exit(char *command, t_data *data);
 
 /*********************************** PIPES ************************************/
 int			ft_open(char *file, int in_out);
-void		ft_close(int *pipe_fd);
 void		ft_error_exit(int *pipe_fd, const char *msg);
 char		*get_next_line(int fd);
 void		ft_pipe(int command_int, t_data *data);

@@ -6,12 +6,15 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:51:45 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 17:52:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:54:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Returns the command found between && and || operators.
+*/
 static char	*get_command(char *str, int str_len, int *start)
 {
 	static char	*last_operator = NULL;
@@ -43,6 +46,7 @@ static char	*get_command(char *str, int str_len, int *start)
 
 /*
  *	If there is two operators next to each other, prints an error and returns 0.
+ *	Else returns 1.
 */
 int	is_command_valid(char **command)
 {
@@ -69,6 +73,11 @@ int	is_command_valid(char **command)
 	return (1);
 }
 
+/*
+ *	Cuts and parse the string data->line, and execute or no all the commands
+ *	found based on the logic operators && and ||.
+ *	Frees data->line.
+*/
 void	parse_and_launch(t_data *data)
 {
 	char	*tmp;

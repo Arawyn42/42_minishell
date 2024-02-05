@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:07:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:25:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_exit_status;
 int	g_sigint;
 
-static void	minishell(t_data *data, int saved_stdin)
+static void	minishell(t_data *data, int	saved_stdin)
 {
 	int	is_old_line_null;
 

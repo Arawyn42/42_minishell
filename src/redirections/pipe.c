@@ -6,25 +6,25 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 18:05:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:50:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_pipe_command(char **command, int i) // not used
+/*
+ *	Closes the current pipe fds.
+*/
+static void	ft_close(int *pipe_fd)
 {
-	i--;
-	while (i && command[i][0] != '>')
-	{
-		if (command[i][0] != '<' && (i - 1 < 1 ||
-			!ft_strchr("><|", command[i - 1][0])))
-			return (command[i]);
-		i--;
-	}
-	return (NULL);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }
 
+/*
+ *	Print the error message in case of a ctrl-c of a ctrl-d during a here_doc.
+ *	Setup the exit_status accordingly.
+*/
 static void	here_doc_error(char *limiter)
 {
 	if (!g_sigint)
@@ -41,6 +41,11 @@ static void	here_doc_error(char *limiter)
 	}
 }
 
+/*
+ *	Read in the standars input for the user to write until the user write
+ *	the limiter and only the limiter on one line.
+ *	Send the written text into a pipe for the command to read.
+*/
 static void	here_doc_reading(char *limiter, int *pipe_fd)
 {
 	char	*line;
@@ -70,6 +75,9 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 	exit(g_exit_status);
 }
 
+/*
+ *	Opens a here_doc with the End Of File being the string limiter.
+*/
 int	here_doc(char *limiter, t_data *data)
 {
 	int		pid;
@@ -91,12 +99,10 @@ int	here_doc(char *limiter, t_data *data)
 	return (pipe_fd[0]);
 }
 
-/****************************** To do the pipes *****************************/
-/* 1. In child process, link the pipe output to the standard output (1), 	*/
-/*	  then execute the current cmd (av[i]).									*/
-/* 2. In parent process, link the pipe input to the standard input (0).		*/
-/****************************************************************************/
-
+/*
+ *	Opens a pipe and execute the command in command_pos.
+ *	If data->input or data->output is -1, the command is not executed.
+*/
 void	ft_pipe(int command_pos, t_data *data)
 {
 	pid_t	pid;

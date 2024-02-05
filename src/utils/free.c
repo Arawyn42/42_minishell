@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:31 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 18:14:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:54:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	free_export(t_export **lst)
 	}
 }
 
+/*
+ *	Frees the command array.
+*/
 void	free_command(char **command)
 {
 	int	i;

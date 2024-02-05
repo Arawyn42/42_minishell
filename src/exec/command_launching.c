@@ -6,12 +6,16 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 18:00:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:43:56 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Search if the command given in parameter is a builtin. If yes, execute it
+ *	and returns 0, if no return 1.
+*/
 int	builtin_launcher(char *command, t_data *data)
 {
 	char	*cmd;
@@ -41,6 +45,11 @@ int	builtin_launcher(char *command, t_data *data)
 	return (free(cmd), 1);
 }
 
+/*
+ *	Search in data->command between the start index and the next pipe (or
+ *	NULL) for all the redirections, then create all the files and setup the
+ *	standard input / standard output on this files.
+*/
 static void	manage_redirections(t_data *data, int start)
 {
 	int	i;
@@ -64,6 +73,10 @@ static void	manage_redirections(t_data *data, int start)
 	}
 }
 
+/*
+ *	Search from the position pos in the array for the next command.
+ *	Set the value pointed by pos to the index of the command found in the array.
+*/
 static void	get_command_pos(char **command, int *pos)
 {
 	(*pos)++;
@@ -78,6 +91,10 @@ static void	get_command_pos(char **command, int *pos)
 	return ;
 }
 
+/*
+ *	Launch the last command found in data->command, the position of this command
+ *	should be given.
+*/
 static void	launch_last_command(t_data *data, int command_pos)
 {
 	if (command_pos != -1 && !is_file(data->command, command_pos) \
@@ -90,6 +107,10 @@ static void	launch_last_command(t_data *data, int command_pos)
 		g_exit_status = 1;
 }
 
+/*
+ *	Manage all the redirections and execute the commands found in data->command.
+ *	Requieres backup of STDOUT and STDIN streams
+*/
 void	command_launcher(t_data *data, int saved_stdin, int saved_stdout)
 {
 	int	i;
@@ -108,7 +129,7 @@ void	command_launcher(t_data *data, int saved_stdin, int saved_stdout)
 			ft_pipe(command_pos, data);
 			dup2(saved_stdout, STDOUT_FILENO);
 		}
-		i += data->command[i] != 0; // I hope you like this one
+		i += data->command[i] != 0;
 	}
 	launch_last_command(data, command_pos);
 	dup2(saved_stdout, STDOUT_FILENO);

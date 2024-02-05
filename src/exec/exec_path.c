@@ -6,46 +6,16 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 15:19:38 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:55:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**************************** Open a file *******************************/
-/* If it's on the standard input, opens it with READ ONLY.				*/
-/* The 0777 argument is a chmod with full rights.						*/
-/* If it's on the standard output (1), opens it with WRITE ONLY.		*/
-/* If pathname doesn't exist, create it as a regular file (O_CREAT).	*/
-/* If the file exists and the access mode allows writing, it will be	*/
-/* truncated to length 0, which means empty the file before writting	*/
-/* in it (O_TRUNC). For bonus, if we have a here_doc, the O_TRUNC		*/
-/* parameter is replaced with O_APPEND so we append each line to the	*/
-/* end file instead of empty it.										*/
-/************************************************************************/
-int	ft_open(char *file, int in_out)
-{
-	int	res;
-
-	if (in_out == 0)
-		res = open(file, O_RDONLY, 0666);
-	if (in_out == 1)
-		res = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (in_out == -1)
-		res = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	if (res == -1)
-	{
-		g_exit_status = 127;
-		exit(g_exit_status);
-	}
-	return (res);
-}
-
-/******************** Get the environnement 'PATH' **********************/
-/* For this, it checks each array in the char **env until we get the	*/
-/* PATH line. Then, it returns a pointer on the first character after	*/
-/* the "=" in "PATH=...".												*/
-/************************************************************************/
+/*
+ *	Search in the environnement for the variable named $PATH and returns
+ *	it's content.
+*/
 char	*ft_get_path_env(char **env)
 {
 	int		i;
@@ -70,12 +40,10 @@ char	*ft_get_path_env(char **env)
 	return (NULL);
 }
 
-/************ Get the 'PATH' value in the environnement env *************/
-/* First get the different paths separated by ':'. Then, for each path, */
-/* adds '/cmd' at the end. Then, checks if the calling process can		*/
-/* access to the path command with the access function. F_OK will check */
-/* if the file exists at this path. The X_OK grants execute permission. */
-/************************************************************************/
+/*
+ *	Search in the environnement for the variable named $PATH and returns
+ *	the full path of the command given in parameter.
+*/
 char	*ft_get_path(char *cmd, char **env)
 {
 	int		i;
@@ -100,6 +68,9 @@ char	*ft_get_path(char *cmd, char **env)
 	return (cmd_path);
 }
 
+/*
+ *	Does the same thing as ft_exec but does not exit the process.
+*/
 void	ft_fork_exec(char *cmds, t_data *data)
 {
 	pid_t	pid;
@@ -117,12 +88,13 @@ void	ft_fork_exec(char *cmds, t_data *data)
 	}
 }
 
-/********** Executes the command cmds in the environnement env **********/
-/* 1. Split cmds if there is spaces in it.								*/
-/* 2. Take the path, which is the command execution.					*/
-/* 3. Execute the command with execve with its flags if needed.			*/
-/* 4. Returns an error if execve returns an error.						*/
-/************************************************************************/
+/*
+ *	Search in $PATH of the environnement for the command given in parameter
+ *	and execute it.
+ *	If the command is not found, prints an error and setup the exit_status
+ *	accordingly.
+ *	Exit the process.
+*/
 void	ft_exec(char *command, t_data *data)
 {
 	char	**cmd;

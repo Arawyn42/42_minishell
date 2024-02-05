@@ -6,12 +6,17 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:34:30 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 17:38:08 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:05:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/*
+ *	Returns 1 if the string in the position i in the array command is
+ *	supposed to be a file. Returns 0 otherwise.
+ *	Note : i has to be superior or egual to 1.
+*/
 int	is_file(char **command, int i)
 {
 	if (!command[i - 1])
@@ -21,6 +26,9 @@ int	is_file(char **command, int i)
 	return (0);
 }
 
+/*
+ *	Applies the famous function parse_line on each strings of the array command.
+*/
 char	**parse_command(char **command, char **env)
 {
 	int		i;
@@ -36,6 +44,11 @@ char	**parse_command(char **command, char **env)
 	return (command);
 }
 
+/*
+ *	Delete the first and the last character from the string if theses
+ *	characters are found in the charset.
+ *	Returns the new trimmed string.
+*/
 char	*trim_one(char *src, char *charset)
 {
 	char	*ret;
@@ -65,6 +78,11 @@ char	*trim_one(char *src, char *charset)
 	return (ret);
 }
 
+/*
+ *	Delete the first and the last character from all the string of the array
+ *	command if theses characters are found in the charset.
+ *	Returns the new trimmed command array.
+*/
 char	**trim_command(char **command, char *charset)
 {
 	char	*tmp;
