@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:44:46 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 21:49:17 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:58:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
  *	In this case. exit status code is 2.
  *	If CTRL + C (SIGINT) is received, prints no error.
 */
-static char	*unclosed_quotes_error(t_data *data, char signal)
+static char	*unclosed_quotes_error(t_data *data, char *quote, char signal)
 {
 	if (signal == 'd')
 	{
 		ft_putstr("minishell: unexpected EOF while looking for ", 2);
-		ft_putstr("matching `\"'\nminishell: syntax error: unexpected", 2);
+		ft_putstr("matching `", 2);
+		ft_putstr(quote, 2);
+		ft_putstr("'\nminishell: syntax error: unexpected", 2);
 		ft_putstr(" end of file\n", 2);
 		g_exit_status = 2;
 	}
@@ -43,14 +45,14 @@ static char	*unclosed_double(t_data *data)
 	{
 		new_line = readline("> ");
 		if (!new_line && g_sigint)
-			return (unclosed_quotes_error(data, 'c'));
+			return (unclosed_quotes_error(data, "\"", 'c'));
 		line = ft_strjoin(data->line, "\n");
 		free(data->line);
 		data->line = ft_strjoin(line, new_line);
 		free(new_line);
 		free(line);
 		if (!new_line && !g_sigint)
-			return (unclosed_quotes_error(data, 'd'));
+			return (unclosed_quotes_error(data, "\"", 'd'));
 		if (count_double_quotes(data->line) % 2 == 0)
 			break ;
 	}
@@ -70,14 +72,14 @@ static char	*unclosed_single(t_data *data)
 	{
 		new_line = readline("> ");
 		if (!new_line && g_sigint)
-			return (unclosed_quotes_error(data, 'c'));
+			return (unclosed_quotes_error(data, "\'", 'c'));
 		line = ft_strjoin(data->line, "\n");
 		free(data->line);
 		data->line = ft_strjoin(line, new_line);
 		free(new_line);
 		free(line);
 		if (!new_line && !g_sigint)
-			return (unclosed_quotes_error(data, 'd'));
+			return (unclosed_quotes_error(data, "\'", 'd'));
 		if (count_single_quotes(data->line) % 2 == 0)
 			break ;
 	}

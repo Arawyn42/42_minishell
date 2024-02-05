@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:42:06 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:22:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:14:24 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_dollar_var(t_data *data, int *i, int *var_len)
 	k = -1;
 	var = ft_substr(data->line, *i, *var_len);
 	(*i) += *var_len;
-	while (data->env[++k])
+	while (data->env && data->env[++k])
 	{
 		if (!ft_strncmp(data->env[k], var, *var_len))
 		{
@@ -64,8 +64,6 @@ static void	dollar_value_len(t_data *data, int *i, int *len)
 		*len += ft_strlen(var);
 		free(var);
 	}
-	// if (data->line[*i + j] == '$')
-	// 	dollar_var_len(data, i, len);
 }
 
 /*
@@ -77,7 +75,8 @@ void	dollar_var_len(t_data *data, int *i, int *len)
 {
 	char	*ex_stat;
 
-	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0')
+	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\0'
+		|| !data->env)
 		return ;
 	(*i)++;
 	if (data->line[*i] == '?')
@@ -110,8 +109,6 @@ static void	parse_dollar_value(t_data *data, char *new_line, int *i, int *j)
 		&& data->line[*i + k] != '$')
 		k++;
 	var = get_dollar_var(data, i, &k);
-	// if (data->line[*i + k] == '$')
-	// 	parse_dollar_var(data, new_line, i + k, j);
 	k = 0;
 	while (var && var[k])
 	{
@@ -136,7 +133,7 @@ void	parse_dollar_var(t_data *data, char *new_line, int *i, int *j)
 
 	k = 0;
 	if (data->line[*i + 1] == ' ' || data->line[*i + 1] == '\"'
-		|| data->line[*i + 1] == '\0')
+		|| data->line[*i + 1] == '\0' || !data->env)
 		return ;
 	(*i)++;
 	if (data->line[*i] == '?')

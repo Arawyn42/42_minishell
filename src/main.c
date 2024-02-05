@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 19:25:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:36:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	minishell(t_data *data, int	saved_stdin)
 		data->line = readline(data->prompt);
 		if (!data->line && !g_sigint)
 			return (ft_putstr("exit\n", 1), free_all(data));
-		if (!data->line && g_sigint && is_old_line_null)
+		if (!data->line && g_sigint)
 			ft_putstr("\n", 1);
 		is_old_line_null = data->line != NULL;
 		if (ft_strlen(data->line) > 0)
@@ -65,6 +65,7 @@ int	main(int ac, char **av, char **base_env)
 	}
 	data.env = cpy_env(base_env);
 	data.prompt = NULL;
+	data.command = NULL;
 	init_export(&data);
 	g_exit_status = 0;
 	g_sigint = 0;

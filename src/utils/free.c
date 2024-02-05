@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:31 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 19:54:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:35:48 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	free_command(char **command)
 	int	i;
 
 	i = 1;
-	while (command[i])
+	while (command && command[i])
 		free(command[i++]);
 	free(command);
 }
