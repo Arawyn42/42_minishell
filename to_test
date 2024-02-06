@@ -1,0 +1,188 @@
+BASIC :
+cat file
+ls
+not_existing
+
+PIPE :
+ls | wc
+ls|wc
+ls        |       wc
+ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
+ls |
+ls |  # space
+ls | exit
+cat file | rev
+|
+
+REDIRECTION_RIGHT :
+ls > file
+ls > wc
+ls > notexisting
+ls    >   file
+exit > file
+cd > file
+ls >
+ls >  # space
+ls > ""
+ls > file > file2 > file3 > file4
+ls > file > file2 >> file3 > file4
+ls > no_permission/file
+> file
+ls > file | ls
+ls > no_permission/file > file2 > file3 | ls
+touch a > no_permission/file
+>
+
+REDIRECTION_RIGHT_APPEND :
+echo hello >> file
+echo hello >> not_existing
+echo hello >> no_permission/file
+echo hello >>
+>>
+
+REDIRECTION_LEFT :
+wc < file
+wc < notexisting
+wc < no_permission/file
+cat < file | wc
+wc <
+< file wc
+<
+
+HERE DOC :
+wc << END
+wc << END
+wc << END
+<< END
+wc << ls
+export HEY=hello    and   wc << $HEY
+wc << he'll'o
+wc << END | rev
+cat | wc << FIN		#todo
+<<
+
+TILDE
+ls ~
+cd ~
+cd ~/..
+export HOME=$HOME/notexisting  and   ls ~
+
+WILDCARD
+echo *
+echo "*"
+echo '*'
+echo $*
+cat *.c
+touch "file with spaces"       and       rm *
+cat src/*.c | grep "printf"
+
+OPERATORS
+ls >>> file
+ls >>      > file
+ls >      >> file
+wc <<< file
+wc <<      < file
+wc <> file
+ls >< file
+ls |> wc
+echo hello >    > file
+ls | rev << END
+
+LOGIC_OPERATORS
+true || echo aaa && echo bbb
+true || (echo aaa && echo bbb)
+true || (echo aaa && echo bbb
+true || echo aaa && echo bbb)
+true || (echo a && echo b) && echo c
+true || (echo a) && echo b
+true || ((echo a && echo b) && echo c)
+true || "("echo b && echo c)
+echo a && ls >
+echo a && awoiejlk
+ls > file && echo "salut"
+false && (echo aaa)
+(ls && ls)
+ls & & ls
+ls && && ls
+ls | | ls
+ls (&&) ls
+echo "&&" ls
+exit && ls
+ls && exit
+ls &&
+&& ls
+&&
+||
+(&&)
+echo a || wc << fin
+
+ECHO :
+echo hello
+  echo  -n    hello
+echo-n
+echo -n hello
+echo -n
+echo -nhello
+echo $PATH
+echo $NOTEXISTING
+
+CD :
+cd -
+unset OLDPWD   and   cd -
+cd ..			# check $PWD and $OLDPWD is set correctly
+cd .			# check $PWD and $OLDPWD is set correctly
+cd notexisting	# check $PWD and $OLDPWD is set correctly
+cd no_permission
+
+ENV :
+env
+env randomthing
+
+EXPORT :
+export			# must be sorted in ascii order
+export  =hello
+export =
+export HEY=hello
+exportHEY=hello
+export HEY=
+export HEY
+export "HEY"=hello
+export HEY="hello"
+export "HEY=hello"
+export PATH=#your_path  # Check if the path is correctly changed in env
+export =hello = hey=hello "zz=hello"
+export 54hey
+
+PWD :
+pwd
+pwd randomthing
+unset PWD      and    pwd
+
+UNSET :
+unset
+unset PWD
+export ZZZ     and    unset ZZZ
+unset PATH     and    ls   			# ls should not be found
+unset NOTEXISTING
+
+EXIT :
+exit	# exit message should be written in stderr
+
+PARSING :
+touch " file"
+cat \ file
+echo $OLDPWD
+echo ">" file
+echo '>' file
+ls |" rev
+touch 'fi|le'
+touch "fi|le"
+touch "'file'"
+touch '"'"file"'"'
+echo "salut
+echo 'salut
+"ls | rev"
+" ls
+"two words"
+cat "	then ctrd+c
+cat "	then ctrd+d
