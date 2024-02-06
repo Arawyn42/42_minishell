@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:31:49 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:15:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:00:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_start_path(char *line, int *i)
 	char	*start_path;
 
 	j = *i;
-	while (j > 0 && (line[j] != ' '))
+	while (j >= 0 && (line[j] != ' '))
 		j--;
 	j++;
 	start_path = ft_substr(line, j, *i - j);

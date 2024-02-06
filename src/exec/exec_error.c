@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:26:54 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:11:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 02:50:42 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ static void	exec_error_msg(char *cmd, char *msg, DIR *dir)
 
 static void	exec_error2(t_data *data, char **cmd, char *cmd_path, DIR *dir)
 {
-	if (!dir && !exec_error_is_file(cmd[0], ft_strdup(".")))
-	{
-		exec_error_msg(cmd[0], "No such file or directory", dir);
-		exec_error_exit(data, cmd, cmd_path, 127);
-	}
-	else if (dir)
+	// if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
+	// 	&& !access(cmd[0], R_OK))
+	// {
+	// 	exec_error_msg(cmd[0], "Permission denied", dir);
+	// 	exec_error_exit(data, cmd, cmd_path, 127);
+	// }
+	// else if (!dir && !exec_error_is_file(cmd[0], ft_strdup(".")))
+	// {
+	// 	exec_error_msg(cmd[0], "No such file or directory", dir);
+	// 	exec_error_exit(data, cmd, cmd_path, 127);
+	// }
+	if (dir)
 	{
 		exec_error_msg(cmd[0], "Is a directory", dir);
 		exec_error_exit(data, cmd, cmd_path, 126);
@@ -64,12 +70,8 @@ void	exec_error(t_data *data, char **cmd, char *cmd_path)
 		exec_error_msg(cmd[0], "Not a directory", dir);
 		exec_error_exit(data, cmd, cmd_path, 126);
 	}
-	else if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
-		&& !access(cmd[0], R_OK))
-	{
-		exec_error_msg(cmd[0], "Permission denied", dir);
-		exec_error_exit(data, cmd, cmd_path, 127);
-	}
 	else
+	{
 		exec_error2(data, cmd, cmd_path, dir);
+	}
 }
