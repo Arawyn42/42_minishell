@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:26:54 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:54:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 16:21:41 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ static void	exec_error_msg(char *cmd, char *msg, DIR *dir)
 
 static void	exec_error2(t_data *data, char **cmd, char *cmd_path, DIR *dir)
 {
+	if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
+		&& !access(cmd[0], R_OK))
+	{
+		exec_error_msg(cmd[0], "Permission denied", dir);
+		exec_error_exit(data, cmd, cmd_path, 127);
+	}
+	else if (!dir && !exec_error_is_file(cmd[0], ft_strdup(".")))
+	{
+		exec_error_msg(cmd[0], "No such file or directory", dir);
+		exec_error_exit(data, cmd, cmd_path, 127);
+	}
 	if (dir)
 	{
 		exec_error_msg(cmd[0], "Is a directory", dir);

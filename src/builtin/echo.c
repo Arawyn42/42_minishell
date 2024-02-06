@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:13:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:23:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 16:13:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	ft_echo(char *command)
 	else if (command[5] == '-' && command[6] == 'n'
 		&& (command[7] == ' ' || !command[7]))
 	{
-		i = 8;
+		i = 7;
+		while (!ft_strncmp(&command[i], " -n", 3))
+			i += 3;
+		i++;
 		echo_write(command, i);
 	}
 	else
