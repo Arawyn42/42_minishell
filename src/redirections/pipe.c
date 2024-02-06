@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:17:16 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 19:50:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:59:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	here_doc_error(char *limiter)
 		ft_putstr(" by end-of-file (wanted `", 2);
 		ft_putstr(limiter, 2);
 		ft_putstr("')\n", 2);
-		g_exit_status = 2;
 	}
 	else
 	{
@@ -55,7 +54,7 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 	while (1)
 	{
 		write(0, "> ", 2);
-		line = get_next_line(STDIN_FILENO); // change for readline for history
+		line = get_next_line(STDIN_FILENO);
 		if (!line)
 		{
 			here_doc_error(limiter);
@@ -78,7 +77,7 @@ static void	here_doc_reading(char *limiter, int *pipe_fd)
 /*
  *	Opens a here_doc with the End Of File being the string limiter.
 */
-int	here_doc(char *limiter, t_data *data)
+int	here_doc(char *limiter, t_data *data, int saved_stdin)
 {
 	int		pid;
 	int		pipe_fd[2];
@@ -88,6 +87,7 @@ int	here_doc(char *limiter, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		dup2(saved_stdin, STDIN_FILENO);
 		limiter = ft_strdup(limiter);
 		free_all(data);
 		here_doc_reading(limiter, pipe_fd);

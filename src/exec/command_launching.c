@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_launching.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/06 00:02:52 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:58:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	builtin_launcher(char *command, t_data *data)
  *	NULL) for all the redirections, then create all the files and setup the
  *	standard input / standard output on this files.
 */
-static void	manage_redirections(t_data *data, int start)
+static void	manage_redirections(t_data *data, int start, int saved_stdin)
 {
 	int	i;
 
@@ -61,7 +61,8 @@ static void	manage_redirections(t_data *data, int start)
 			data->output = output_redirection(data->command[start + i + 1],
 					O_WRONLY | O_APPEND | O_CREAT);
 		else if (!ft_strncmp(data->command[start + i], "<<", 2))
-			data->input = here_doc(data->command[start + i + 1], data);
+			data->input = here_doc(data->command[start + i + 1], data, \
+				saved_stdin);
 		else if (!ft_strncmp(data->command[start + i], ">", 1))
 			data->output = output_redirection(data->command[start + i + 1],
 					O_WRONLY | O_TRUNC | O_CREAT);
@@ -103,7 +104,8 @@ static void	launch_last_command(t_data *data, int command_pos)
 		if (!builtin_launcher(data->command[command_pos], data))
 			ft_fork_exec(data->command[command_pos], data);
 	}
-	else if (ft_strlen(data->command[1]))
+	else if (ft_strlen(data->command[1]) && \
+		(data->output == -1 || data->input == -1))
 		g_exit_status = 1;
 }
 
@@ -120,7 +122,7 @@ void	command_launcher(t_data *data, int saved_stdin, int saved_stdout)
 	i = 1;
 	while (data->command[i])
 	{
-		manage_redirections(data, i);
+		manage_redirections(data, i, saved_stdin);
 		get_command_pos(data->command, &command_pos);
 		while (data->command[i] && data->command[i][0] != '|')
 			i++;
