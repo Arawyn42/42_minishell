@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:35:30 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 18:07:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 14:32:56 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	check_exit_args(char *command, t_data *data, int *i)
 		*i = 5;
 		while (command[*i] == ' ')
 			(*i)++;
-		ft_putstr("exit\n", 1); //To check
+		ft_putstr("exit\n", 2);
 		ft_putstr("minishell: exit: ", 2);
 		while (command[*i])
 			write(2, &command[(*i)++], 1);
@@ -87,7 +87,7 @@ void	ft_exit(char *command, t_data *data)
 		g_exit_status = ft_atoi(arg) % 256;
 		free(arg);
 	}
-	ft_putstr("exit\n", 1);
+	ft_putstr("exit\n", 2);
 	free_all(data);
 	free(command);
 	exit(g_exit_status);

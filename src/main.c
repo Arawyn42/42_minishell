@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 23:33:44 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:33:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_exit_status;
 int	g_sigint;
 
-static void	minishell(t_data *data, int	saved_stdin)
+static void	minishell(t_data *data, int saved_stdin)
 {
 	int	is_old_line_null;
 
@@ -76,19 +76,3 @@ int	main(int ac, char **av, char **base_env)
 	minishell(&data, dup(STDIN_FILENO));
 	return (0);
 }
-
-// int main(void)
-// {
-// 	char **cmd;
-// 	char *line;
-// 	int i = 0;
-	
-// 	line = readline("> ");
-// 	is_open_parentheses(line);
-// 	is_logic_operators_broken(line);
-// 	cmd = split_command(line);
-// 	while (cmd[++i])
-// 		printf("cmd[%d] = {%s}\n", i, cmd[i]);
-// 	is_command_valid(cmd);
-// 	return (0);
-// }

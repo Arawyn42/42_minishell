@@ -8,9 +8,9 @@ ls | wc
 ls|wc
 ls        |       wc
 ls | rev | tr 'e' 'E' | grep -v "file" | cat -e
-ls |	#todo does not open here doc
-ls |  # space #todo does not open here doc
-ls | exit	#todo should not exit
+ls |
+ls |  # space
+ls | exit
 cat file | rev
 |
 
@@ -50,14 +50,15 @@ wc <
 <
 
 HERE DOC :
-wc << END.
-wc << END.	# ctrl+d should work wc should be launched
-wc << END.	# ctrl+c should work, with ^C and newline 	#todo
-<< END.
+wc << END
+wc << END
+wc << END
+<< END
 wc << ls
 export HEY=hello    and   wc << $HEY
-wc << he'll'o	#todo limiter should not have quotes
+wc << he'll'o
 wc << END | rev
+cat | wc << FIN		#todo
 <<
 
 TILDE
@@ -72,7 +73,7 @@ echo "*"
 echo '*'
 echo $*
 cat *.c
-touch "file with spaces"       and       rm *	#todo
+touch "file with spaces"       and       rm *
 cat src/*.c | grep "printf"
 
 OPERATORS
@@ -85,7 +86,7 @@ wc <> file
 ls >< file
 ls |> wc
 echo hello >    > file
-ls | rev << END.	#todo here_doc should be done first
+ls | rev << END
 
 LOGIC_OPERATORS
 true || echo aaa && echo bbb
@@ -96,7 +97,7 @@ true || (echo a && echo b) && echo c
 true || (echo a) && echo b
 true || ((echo a && echo b) && echo c)
 true || "("echo b && echo c)
-echo a && ls >							#todo but i'm not doing this shit
+echo a && ls >
 echo a && awoiejlk
 ls > file && echo "salut"
 false && (echo aaa)
@@ -113,6 +114,7 @@ ls &&
 &&
 ||
 (&&)
+echo a || wc << fin
 
 ECHO :
 echo hello
@@ -154,7 +156,7 @@ export 54hey
 PWD :
 pwd
 pwd randomthing
-unset PWD      and    pwd  # pwd should work
+unset PWD      and    pwd
 
 UNSET :
 unset
@@ -168,7 +170,7 @@ exit	# exit message should be written in stderr
 
 PARSING :
 touch " file"
-cat \ file					#todo segfault
+cat \ file
 echo $OLDPWD
 echo ">" file
 echo '>' file
@@ -176,30 +178,11 @@ ls |" rev
 touch 'fi|le'
 touch "fi|le"
 touch "'file'"
-touch '"'"file"'"'			#todo
+touch '"'"file"'"'
 echo "salut
 echo 'salut
-"ls | rev"					#todo trim one quotes
-" ls  						#todo
-"two words"					#todo (error message)
-cat "	then ctrd+c			#todo one error too many
-cat "	then ctrd+d			#todo one error too many
-
-ctrl+d not working if that the first thing you do
-ctrl+d #todo newline en trop
-
-
-
-
-
-
-==>> src/*.c > invalid free
-==>> export 145ase should not work but export ase453 should work.
-
-
-
-
-
-
-
-cat | wc << FIN
+"ls | rev"
+" ls
+"two words"
+cat "	then ctrd+c
+cat "	then ctrd+d

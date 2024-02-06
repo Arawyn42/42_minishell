@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:27:52 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 23:11:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:38:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	export_error(char *var)
+{
+	ft_putstr("minishell: export: `", 2);
+	ft_putstr(var, 2);
+	ft_putstr("': not a valid identifier\n", 2);
+	g_exit_status = 1;
+}
 
 void	syntax_error_message(char *token_name, int len)
 {
@@ -18,13 +26,6 @@ void	syntax_error_message(char *token_name, int len)
 	write(2, token_name, len);
 	write(2, "'\n", 2);
 	g_exit_status = 2;
-}
-
-void	exit_error(const char *msg)
-{
-	perror(msg);
-	g_exit_status = 1;
-	exit(g_exit_status);
 }
 
 void	exit_no_errors(t_data *data)

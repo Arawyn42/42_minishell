@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:34:30 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 23:53:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:40:48 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,11 @@ int	is_file(char **command, int i)
 }
 
 /*
- *	Applies the famous function parse_line on each strings of the array command.
-*/
-char	**parse_command(char **command, char **env)
-{
-	int		i;
-	char	*tmp;
-
-	if (!command)
-		return (NULL);
-	i = 1;
-	while (command[i])
-	{
-		if (i == 1 || ft_strncmp(command[i - 1], "<<", 2))
-			command[i] = parse_line(command[i], env, 0);
-		else
-		{
-			tmp = trim_one(unclosed_quotes(command[i]), "\'\"");
-			free(command[i]);
-			command[i] = tmp;
-		}
-		i++;
-	}
-	return (command);
-}
-
-/*
  *	Delete the first and the last character from the string if theses
  *	characters are found in the charset.
  *	Returns the new trimmed string.
 */
-char	*trim_one(char *src, char *charset)
+static char	*trim_one(char *src, char *charset)
 {
 	char	*ret;
 	size_t	len;
@@ -84,6 +58,32 @@ char	*trim_one(char *src, char *charset)
 		j++;
 	}
 	return (ret);
+}
+
+/*
+ *	Applies the famous function parse_line on each strings of the array command.
+*/
+char	**parse_command(char **command, char **env)
+{
+	int		i;
+	char	*tmp;
+
+	if (!command)
+		return (NULL);
+	i = 1;
+	while (command[i])
+	{
+		if (i == 1 || ft_strncmp(command[i - 1], "<<", 2))
+			command[i] = parse_line(command[i], env, 0);
+		else
+		{
+			tmp = trim_one(unclosed_quotes(command[i]), "\'\"");
+			free(command[i]);
+			command[i] = tmp;
+		}
+		i++;
+	}
+	return (command);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:46:43 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 23:34:48 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:43:25 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	parse_conditions(char *line, int i, int *inq, int parse_quotes)
 /*
  *	Replaces following multiple spaces by one space in the parsed string.
 */
-void	parse_spaces(char *line, int *i)
+static void	parse_spaces(char *line, int *i)
 {
 	while (line[*i] == ' ' && line[*i + 1] == ' ')
 		(*i)++;
@@ -54,7 +54,7 @@ void	parse_spaces(char *line, int *i)
  *	Calculates the total length of the parsed string in order to allocate
  *	the good amount of memory space for it.
 */
-void	new_line_len(t_data *data, int *len, int **quotes, int parse_quotes)
+static void	new_line_len(t_data *data, int *len, int **quotes, int parse_quotes)
 {
 	int	i;
 

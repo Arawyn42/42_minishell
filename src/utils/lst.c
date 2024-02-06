@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 22:19:47 by drenassi          #+#    #+#             */
-/*   Updated: 2024/01/29 22:56:27 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:36:57 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ t_export	*lst_new_node(char *content)
 	res->content = content;
 	res->next = NULL;
 	return (res);
-}
-
-/*
- *	Inserts a node at the beginning of a list.
-*/
-void	lst_add_front(t_export **lst, t_export *new)
-{
-	if (lst)
-	{
-		if (*lst)
-			new->next = *lst;
-		*lst = new;
-	}
 }
 
 /*

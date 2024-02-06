@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:42:06 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 00:11:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:44:13 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  *	Returns the corresponding value from an environnement variable.
  *	If the variable is not found, returns NULL.
 */
-char	*get_dollar_var(t_data *data, int *i, int *var_len)
+static char	*get_dollar_var(t_data *data, int *i, int *var_len)
 {
 	int		k;
 	char	*var;

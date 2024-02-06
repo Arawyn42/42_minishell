@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/05 19:51:18 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/06 14:50:44 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@
 
 NAME	= minishell
 CC 		= cc
-CFLAGS	= -Wall -Werror -Wextra -g3
+CFLAGS	= -Wall -Werror -Wextra
 AUTHOR	= drenassi & nsalles
 DATE	= 05/12/2023
 NOVISU 	= 0 # 1 = no progress bar usefull when tty is not available

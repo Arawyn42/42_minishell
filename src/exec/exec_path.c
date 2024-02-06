@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:26:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 23:46:35 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:45:06 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  *	Search in the environnement for the variable named $PATH and returns
  *	it's content.
 */
-char	*ft_get_path_env(char **env)
+static char	*ft_get_path_env(char **env)
 {
 	int		i;
 	int		j;
@@ -77,8 +77,6 @@ void	ft_fork_exec(char *cmds, t_data *data)
 	int		status;
 
 	pid = fork();
-	if (pid == -1)
-		exit_error("fork");
 	if (pid == 0)
 		ft_exec(cmds, data);
 	else
