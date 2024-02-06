@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:43:18 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/06 13:58:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 14:27:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,16 @@ static void	manage_redirections(t_data *data, int start, int saved_stdin)
 	{
 		if (!ft_strncmp(data->command[start + i], ">>", 2))
 			data->output = output_redirection(data->command[start + i + 1],
-					O_WRONLY | O_APPEND | O_CREAT);
+					O_WRONLY | O_APPEND | O_CREAT, data->env);
 		else if (!ft_strncmp(data->command[start + i], "<<", 2))
 			data->input = here_doc(data->command[start + i + 1], data, \
 				saved_stdin);
 		else if (!ft_strncmp(data->command[start + i], ">", 1))
 			data->output = output_redirection(data->command[start + i + 1],
-					O_WRONLY | O_TRUNC | O_CREAT);
+					O_WRONLY | O_TRUNC | O_CREAT, data->env);
 		else if (ft_strncmp(data->command[start + i], "<", 1) == 0)
-			data->input = input_redirection(data->command[start + i + 1]);
+			data->input = input_redirection(data->command[start + i + 1], \
+				data->env);
 		if (data->input == -1 || data->output == -1)
 			break ;
 		i++;

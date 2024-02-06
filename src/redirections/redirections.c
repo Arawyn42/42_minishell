@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:21:43 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/05 20:56:55 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 14:30:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
  *	If the open function returns -1, prints an error and the standars input
  *	is not changed.
 */
-int	input_redirection(char *file)
+int	input_redirection(char *file, char **env)
 {
 	int		fd;
 
-	file = trim_one(file, "\'\"");
+	file = parse_line(ft_strdup(file), env, 1);
 	fd = open(file, O_RDONLY, 0666);
 	if (fd == -1)
 	{
@@ -46,12 +46,11 @@ int	input_redirection(char *file)
  *	If the open function returns -1, prints an error and the standars output
  *	is not changed.
 */
-int	output_redirection(char *file, int oflags)
+int	output_redirection(char *file, int oflags, char **env)
 {
 	int		fd;
 
-	// file = parse_line(file, NULL, 1);
-	file = trim_one(file, "\'\"");
+	file = parse_line(ft_strdup(file), env, 1);
 	fd = open(file, oflags, 0666);
 	if (fd == -1)
 	{

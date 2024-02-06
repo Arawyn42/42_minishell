@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:15:02 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 23:35:19 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:28:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,14 @@ typedef struct s_export
 
 typedef struct s_data
 {
-	char		*prompt; // remove ?
+	char		*prompt;
 	char		**env;
 	t_export	*export;
 	char		*line;
 	char		**command;
-	int			input; // remove ?
-	int			output; // remove ?
+	int			input;
+	int			output;
 }				t_data;
-
-int	is_command_valid(char **command);
 
 /*********************************** UTILS ************************************/
 /* STRINGS */
@@ -175,9 +173,9 @@ char		*get_next_line(int fd);
 void		ft_pipe(int command_int, t_data *data);
 
 /*********************************** REDIRECTION ******************************/
-int			output_redirection(char *file, int oflags);
-int			input_redirection(char *file);
-int			here_doc(char *limiter, t_data *data);
+int			output_redirection(char *file, int oflags, char **env);
+int			input_redirection(char *file, char **env);
+int			here_doc(char *limiter, t_data *data, int saved_stdin);
 
 /************************************ LOGIC OPERATORS ************************/
 int			is_logic_operators_broken(char *line);
