@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:03:53 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 00:25:26 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/06 01:13:59 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ void	ft_export(char *cmd, t_data *data)
 		while ((cmd[i] && cmd[i] != '='))
 		{
 			if (!((cmd[i] >= 'a' && cmd[i] <= 'z') || cmd[i] == '_' \
-				|| (cmd[i] >= 'A' && cmd[i] <= 'Z') || cmd[i] == ' ')
-				|| (cmd[i] >= '0' && cmd[i] <= '9'))
+				|| (cmd[i] >= 'A' && cmd[i] <= 'Z') || cmd[i] == ' ' \
+				|| (i > 7 && cmd[i] >= '0' && cmd[i] <= '9')))
 			{
 				arg = ft_substr(cmd, 7, ft_strlen(cmd) - 7);
 				return (export_error(arg), free(arg));
