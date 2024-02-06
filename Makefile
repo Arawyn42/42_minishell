@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/05 20:15:28 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/06 14:50:44 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/06 15:01:15 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,6 @@ SRCS			=	builtin/pwd.c \
 					utils/ft_itoa.c \
 					utils/get_next_line.c \
 					utils/export_utils.c \
-					utils/quote_utils.c \
 					utils/logic_operators_utils.c \
 					utils/errors.c \
 					redirections/pipe.c \

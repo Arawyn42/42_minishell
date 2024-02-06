@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 20:15:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:35:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/06 15:00:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,29 @@ char	*ft_strtrim(char const *s1, char const *set)
 		j--;
 	res = ft_substr(s1, i, j - i + 1);
 	return (res);
+}
+
+/*
+ *	Search for the character at the position pos in the string str.
+ *	Returns 1 if this character is in quotes, else returns 0.
+*/
+int	is_in_quote(char *str, int pos)
+{
+	int	i;
+	int	single_quote;
+	int	double_quote;
+
+	single_quote = 0;
+	double_quote = 0;
+	i = 0;
+	while (str[i] && i <= pos)
+	{
+		if (str[i] == 39 && (i == 0 || str[i - 1] != 92))
+			single_quote++;
+		else if (str[i] == 34 && (i == 0 || str[i - 1] != 92) && \
+				single_quote % 2 == 0)
+			double_quote++;
+		i++;
+	}
+	return (double_quote % 2 == 1 || single_quote % 2 == 1);
 }
