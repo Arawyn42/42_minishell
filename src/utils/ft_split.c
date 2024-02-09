@@ -3,26 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:57 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:12:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 15:51:16 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
- *	Ft_split modifications for Pipex:
- *	Ft_split no longer cut the string s when the separator c is found
- *	within simple quotes
- *	This is needed for some special case of Pipex like:
- *		./pipex infile cat "tr ' ' '.'" outfile
- *	In this example we want ft_split to keep the space inside 
- *	the simple quotes.
-*/
-
 #include "minishell.h"
 
-/* Counts the number of words in a string according to a char-set */
+/*
+ *	Counts the number of words in a string according to a char-set.
+*/
 static int	ft_count_words(const char *s, char c)
 {
 	int	count;
@@ -78,7 +70,9 @@ static char	*ft_word_dup2(const char *src, char c, int len)
 	return (word);
 }
 
-/* Gets and dupplicate the first word of a string */
+/*
+ *	Gets and dupplicates the first word of a string.
+*/
 static char	*ft_word_dup(const char *src, char c)
 {
 	int	in_singleq;
@@ -117,7 +111,10 @@ static char	*ft_create_words(const char **s, char c, int *quotes)
 	return (res);
 }
 
-/* Split a string into a strings array */
+/*
+ *	Splits a string into a strings array according to a char-set.
+ *	Does not split between quotes.
+*/
 char	**ft_split(const char *s, char c)
 {
 	char	**res;

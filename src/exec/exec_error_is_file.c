@@ -6,12 +6,15 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:52 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 03:45:05 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:56:54 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Frees a string's pointer, then put his value to NULL.
+*/
 static void	freenull(char *str)
 {
 	if (str)
@@ -19,6 +22,10 @@ static void	freenull(char *str)
 	str = NULL;
 }
 
+/*
+ *	Second part of exec_error_is_file function.
+ *	Returns 1 if it finds the file or 0 it not.
+*/
 static int	exec_error_is_file2(struct dirent *dr, char *name, char *dir_name)
 {
 	char	*dir_n;
@@ -38,6 +45,9 @@ static int	exec_error_is_file2(struct dirent *dr, char *name, char *dir_name)
 	return (free(dir_name), 0);
 }
 
+/*
+ *	Checks recursively if the type of a given path corresponds to a file.
+*/
 int	exec_error_is_file(char *cmd, char *dir_name)
 {
 	char			*name;

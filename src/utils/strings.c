@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 19:10:29 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 02:53:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:52:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_putstr(char *s, int fd)
 }
 
 /*
- *	Counts the number of chars in a string
+ *	Counts the number of chars in a string.
 */
 size_t	ft_strlen(const char *s)
 {

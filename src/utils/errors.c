@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:27:52 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:38:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 15:49:06 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Prints an error on STDERR in case of invalid export arguments.
+*/
 void	export_error(char *var)
 {
 	ft_putstr("minishell: export: `", 2);
@@ -20,6 +23,9 @@ void	export_error(char *var)
 	g_exit_status = 1;
 }
 
+/*
+ *	Prints an error in case of wrong syntax in the input.
+*/
 void	syntax_error_message(char *token_name, int len)
 {
 	ft_putstr("minishell: syntax error near unexpected token `", 2);
@@ -28,6 +34,9 @@ void	syntax_error_message(char *token_name, int len)
 	g_exit_status = 2;
 }
 
+/*
+ *	Free all pointers in the main structure, then exits with 0 exit status.
+*/
 void	exit_no_errors(t_data *data)
 {
 	free_all(data);

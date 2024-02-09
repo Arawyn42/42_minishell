@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 20:09:20 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:39:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 15:52:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Increments the value of the SHLVL environnement variable.
+*/
 static char	*change_shlvl(char *shlvl)
 {
 	int		lvl;

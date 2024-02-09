@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 19:09:55 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:33:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 15:53:45 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int	g_exit_status;
 int	g_sigint;
 
+/*
+ *	Minishell's main loop.
+*/
 static void	minishell(t_data *data, int saved_stdin)
 {
 	int	is_old_line_null;
@@ -43,6 +46,9 @@ static void	minishell(t_data *data, int saved_stdin)
 	}
 }
 
+/*
+ *	Executes only one input in minishell when -c flag is called.
+*/
 static void	minishell_with_c_flag(t_data *data, char *line)
 {
 	data->line = ft_strdup(line);
@@ -51,6 +57,9 @@ static void	minishell_with_c_flag(t_data *data, char *line)
 	free_all(data);
 }
 
+/*
+ *	Main function. Launches minishell.
+*/
 int	main(int ac, char **av, char **base_env)
 {
 	t_data	data;

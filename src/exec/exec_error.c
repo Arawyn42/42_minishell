@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:26:54 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/06 16:21:41 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 16:00:33 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ *	Frees all then exits with current exit status code.
+*/
 static void	exec_error_exit(t_data *d, char **cmd, char *cmd_path, int status)
 {
 	free_double_array(cmd);
@@ -22,6 +25,9 @@ static void	exec_error_exit(t_data *d, char **cmd, char *cmd_path, int status)
 	exit(g_exit_status);
 }
 
+/*
+ *	Prints an error on STDERR.
+*/
 static void	exec_error_msg(char *cmd, char *msg, DIR *dir)
 {
 	ft_putstr("minishell: ", 2);
@@ -32,6 +38,9 @@ static void	exec_error_msg(char *cmd, char *msg, DIR *dir)
 	closedir(dir);
 }
 
+/*
+ *	Second part of the exec_error function.
+*/
 static void	exec_error2(t_data *data, char **cmd, char *cmd_path, DIR *dir)
 {
 	if (!dir && exec_error_is_file(cmd[0], ft_strdup("."))
@@ -54,6 +63,10 @@ static void	exec_error2(t_data *data, char **cmd, char *cmd_path, DIR *dir)
 	exec_error_exit(data, cmd, cmd_path, 126);
 }
 
+/*
+ *	Returns the good error message in case of execve error, with the
+ *	corresponding exit status code, then exits the current child process.
+*/
 void	exec_error(t_data *data, char **cmd, char *cmd_path)
 {
 	DIR	*dir;

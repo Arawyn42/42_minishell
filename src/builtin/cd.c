@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 23:24:16 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:23:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/09 15:45:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	cd_error(char *command, t_data *data)
 {
 	if (command[2] && command[2] != ' ')
 	{
-		ft_exec(command, data);
+		ft_fork_exec(command, data);
 		return (1);
 	}
 	return (0);
