@@ -8,7 +8,7 @@
 ## Introduction
 This project consists in **reproducing the behaviour of bash**. We had to make a *mini bash*.
 It had to be coded in **C language**, with a makefile compiling all the files together.
-For this project, we had to work in team with another student. It taught us how to work together on the same github repository and on the same project. Each of us made his part to complete the other's part.
+For this project, we had to work in team with another student. Special thanks to [Nico](https://github.com/Floperatok) who has been the perfect teammate for it! It taught us how to work together on the same github repository and on the same project. Each of us made his part to complete the other's part.
 
 This project was done during 42 cursus at 42 Perpignan in January of 2024 with bonus.
 
