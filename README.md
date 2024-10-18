@@ -1,19 +1,23 @@
-# 42_minishell
+<div align="center">
+  <h1>⚙️ minishell (a <a href="https://42perpignan.fr/">42</a> project) ⚙️</h1>
+  <p>Subject: <a href="en.subject.pdf">en.subject.pdf</a></p>
+</div>
 
-# <div align="center">⚙️ minishell (a [42](https://42perpignan.fr/) project) ⚙️</div>
+<div align="center">
+  <h2>✅ Grade</h2>
+  <img src="grade.png" alt="Grade">
+</div><br>
 
-## Grade
-![drenassi's 42 minishell Score](https://badge42.coday.fr/api/v2/clph33bao098101t6vnzqbe17/project/3440940)
-
-## Introduction
+## <div align="center">📄 Introduction</div>
 This project consists in **reproducing the behaviour of bash**. We had to make a *mini bash*.
 It had to be coded in **C language**, with a makefile compiling all the files together.
 For this project, we had to work in team with another student. Special thanks to [Nico](https://github.com/Floperatok) who has been the perfect teammate for it! It taught us how to work together on the same github repository and on the same project. Each of us made his part to complete the other's part.
 
 This project was done during 42 cursus at 42 Perpignan in January of 2024 with bonus.
+<br><br>
 
-## Rules
-### General rules
+## <div align="center">📒 Rules</div>
+### <div align="center">📋 General rules</div>
 The minishell should:
 - Display a **prompt** when waiting for a new command.
 - Have a **working history**.
@@ -34,7 +38,7 @@ foreground pipeline.
 - Handle **ctrl-D**: it exits the shell.
 - Handle **ctrl-\\**: it should do nothing.
 
-### Builtins
+### <div align="center">🔩 Builtins</div>
 Your shell must implement the following builtins:
 - **echo** with option -n.
 - **cd** with only a relative or absolute path.
@@ -44,20 +48,22 @@ Your shell must implement the following builtins:
 - **env** with no options or arguments.
 - **exit** with no options.
 
-### Bonus
+### <div align="center">⭐ Bonus</div>
 The minishell program has to implement:
 - **&&** and **||** with parenthesis for priorities.
 - **Wildcards* \* should work for the current working directory.
+<br><br>
 
-## How to make the executable ?
+## <div align="center">💻 Usage</div>
+Clone the repository and make the binary:
 ```bash
 git clone https://github.com/Arawyn42/42_minishell
-cd 42_minishell
-make
+```
+```bash
+cd 42_minishell && make
 ```
 
-## How to use ?
-You just need to launch the minishell in a terminal, with the following command:
+Launch the program:
 ```bash
 ./minishell
 ```
